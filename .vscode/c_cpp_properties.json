@@ -1,0 +1,40 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang"
+        },
+        {
+            "name": "LinuxGTK",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/include/gtk-3.0/**",
+                "/usr/include/at-spi2-atk/2.0",
+                "/usr/include/at-spi-2.0",
+                "/usr/include/dbus-1.0",
+                "/usr/include/glib-2.0/**",
+                "/usr/lib/x86_64-linux-gnu/dbus-1.0/include",
+                "/usr/include/gtk-3.0/gtk/a11y",
+                "/usr/lib/x86_64-linux-gnu/glib-2.0/include",
+                "/usr/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/x86_64-linux-gnu-gcc-8",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "/usr/include"
+                ],
+                "limitSymbolsToIncludedHeaders": "true",
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+            }
+        }
+    ],
+    "version": 4
+}

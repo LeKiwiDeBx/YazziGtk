@@ -1,0 +1,33 @@
+{
+    "files.associations": {
+        "gdkkeysyms-compat.h": "c",
+        "gtk.h": "c",
+        "gi18n.h": "c",
+        "*.h": "c",
+        "*.ipp": "c",
+        "optional": "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled",
+    "c-cpp-flylint.cppcheck.language": "c",
+    "c-cpp-flylint.clang.language": "c",
+    "c-cpp-flylint.clang.includePaths": [
+        "/usr/include/gtk-3.0/gtk",
+        "/usr/include/gtk-3.0/gdk",
+        "/usr/include/glib-2.0",
+        "/usr/lib/x86_64-linux-gnu/glib-2.0/include",
+        "${workspaceFolder}"
+    ],
+    "C_Cpp.intelliSenseEngine": "Default",
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": false
+    },
+    "editor.suggestSelection": "recentlyUsed",
+    "editor.suggestOnTriggerCharacters": true,
+    "files.encoding": "utf8",
+    "cSpell.words": [
+        "color",
+        "define"
+    ]
+}

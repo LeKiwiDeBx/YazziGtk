@@ -1,0 +1,231 @@
+/* CSS Style YazziGtk 
+-------------------------------------------------------------------------------
+Version: 1.0    Date: 7 Dec 2019    Author: LeKiwiDeBx
+File name: yazzi.css
+
+Directory usage: appDir/theme/
+Constraint: GTK 3.0 Widget'css
+Miscellaneous: 
+official: https://developer.gnome.org/gtk3/stable/chap-css-overview.html
+french palette: https://flatuicolors.com/palette/fr 
+blog: https://touha.me/post/gtk3-style-css/
+twitter: #BalanceTonCodeHexa 
+
+<No copyright>   <void Happy_Coding(){}>      </ LeKiwiDeBx >    <No trademark>
+-------------------------------------------------------------------------------
+*/
+
+/**********************************************************************************************
+* symbollic color pour YazziGtk @define-color implementation GTK+
+**********************************************************************************************/
+
+@define-color yaz_text_dark #2e3436;
+/**********************************************************************************************
+* Grille pour organiser les elements de la fenetre (Layout)
+**********************************************************************************************/
+
+grid {
+    background-color: ivory;
+    margin: 0;
+}
+
+grid>label {
+    padding: 1em 0 1em 0;
+    margin: 0;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*   Etiquette du haut rassemblant: nom du joueur / nbre de jets / nbre de tours
+**********************************************************************************************/
+
+label.labeltop {
+    color: #fff;
+    background-color: #6a89cc;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*   Etiquette des scores intermediaires: score avant bonus / bonus / score haut / score bas
+**********************************************************************************************/
+
+label.labelcrunching {
+    margin: 0;
+    padding: 2px;
+    background-color: #78e08f;
+    font-size: 1.1em;
+    /*font-family: 'Courier New', Courier, monospace;*/
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*   Etiquette du score total
+**********************************************************************************************/
+
+label.important {
+    padding: 0;
+    margin: 5px 0 5px 0;
+    font-weight: bolder;
+    background-color: #fa983a;
+    color: #fff8dc;
+    font-size: 2em;
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*   Image des dés desactivés: desactive le grisé (effect:none ->non-greyed out) et les inclines 
+*   pour signifier leurs desactivations
+**********************************************************************************************/
+
+image:disabled {
+    background-color: transparent;
+    opacity: 1;
+    -gtk-icon-effect: none;
+    -gtk-icon-transform: rotate(10deg);
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*   Zone d'affichage des scores de chaque ligne dés et figures
+**********************************************************************************************/
+
+grid>entry#rowScore {
+    margin: 0;
+    padding: 0 1em 0 1em;
+    border-radius: 0;
+    border: 1px solid transparent;
+    border-color: transparent;
+    box-shadow: inset 0 0, inset 0 0;
+    background-color: lightgray;
+    color: @yaz_text_dark;
+    caret-color: transparent;
+    outline: transparent;
+    font-weight: bolder;
+    font-size: 1.2em;
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*   Boutons en bas pour le cycle de jeu
+**********************************************************************************************/
+
+button {
+    margin-bottom: 5px;
+    font-weight: bold;
+    border: 1px solid transparent;
+    background: none;
+    border-color: transparent;
+    box-shadow: inset 0 0, inset 0 0;
+    color: @yaz_text_dark;
+    font-size: 1.1em;
+}
+
+button:hover {
+    background-color: #e55039;
+    /*mandarin red*/
+    font-weight: bold;
+    color: whitesmoke;
+    border-radius: 0px;
+    text-shadow: none;
+}
+
+button:focus {
+    border-bottom: 3px solid #6a89cc;
+}
+
+button:disabled {
+    color: lightgray;
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*   Quand une cellule est modifiable et accessible en ecriture 
+*   [enabled && write]
+**********************************************************************************************/
+
+radiobutton.dark:checked label {
+    text-decoration: line-through #e55039;
+    color: @yaz_text_dark;
+}
+
+radiobutton.dark label {
+    text-decoration: none;
+    color: @yaz_text_dark;
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*   Quand une cellule est modifiable mais interdite en ecriture 
+*   [enabled && read-only]
+**********************************************************************************************/
+
+radiobutton.red:disabled label {
+    text-decoration: none;
+    color: @yaz_text_dark;
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*    Quand une cellule est non modifiable  et interdite en ecriture 
+*    [disabled && read-only]
+**********************************************************************************************/
+
+radiobutton.violet:disabled label {
+    text-decoration: line-through;
+    color: @yaz_text_dark;
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*   Quand une cellule est non modifiable et interdite en ecriture et selectionée 
+*   [disabled read-only || selected && disabled && read-only]
+**********************************************************************************************/
+
+radiobutton.yellow:disabled label {
+    text-decoration: line-through @yaz_text_dark;
+    color: @yaz_text_dark;
+}
+
+radiobutton.yellow:checked label {
+    text-decoration: line-through @yaz_text_dark;
+    color: @yaz_text_dark;
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*   Quand survol le radio bouton signal la zone
+**********************************************************************************************/
+
+radiobutton:hover label {
+    border-right: 3px solid #6a89cc;
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*   Pour les images de dés
+**********************************************************************************************/
+
+.dice {
+    padding: 10px 0 10px 0;
+}
+
+/*---------------------------------- ZONE TEST ----------------------------------------------*/
+question {
+    background-color: #e55039;
+}

@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: YazziGtk 1.1\n"
+"POT-Creation-Date: 2019-12-06 14:34+0100\n"
+"PO-Revision-Date: 2019-12-06 14:34+0100\n"
+"Last-Translator: LeKiwiDeBx <LeKiwiDeBx@chezmoi.fr>\n"
+"Language-Team: LeKiwiTrad\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-KeywordsList: _;__;TRANSLATORS:\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: main.c:321
+msgid "SubSum > 63 points: +35 points"
+msgstr "Sous total > 63 points:=35 points"
+
+#: main.c:347
+msgid "Quit"
+msgstr "Quitter"
+
+#: main.c:348
+msgid "Valid"
+msgstr "Valider"
+
+#: main.c:349
+msgid "Roll All"
+msgstr "lance Tout"
+
+#: main.c:350
+msgid "Roll"
+msgstr "Lance"
+
+#: main.c:351
+msgid "Next Player"
+msgstr "Prochain Joueur"
+
+#: main.c:1112
+msgid "Play again ?"
+msgstr "Jouer à nouveau ?"
+
+#: main.c:1133
+msgid "Confirm to quit ?"
+msgstr "Voulez-vous quitter ?"
+
+#: main.c:1160
+msgid "_OK"
+msgstr ""
+
+#: main.c:1161
+msgid "_Cancel"
+msgstr ""
+
+#~ msgid "TRANSLATORS:Quit"
+#~ msgstr "Quitter"

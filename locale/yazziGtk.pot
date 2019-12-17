@@ -1,0 +1,228 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: YazziGtk 1.1\n"
+"POT-Creation-Date: 2019-12-07 11:17+0100\n"
+"PO-Revision-Date: 2019-12-07 11:17+0100\n"
+"Last-Translator: LeKiwiDeBx <LeKiwiDeBx@chezmoi.fr>\n"
+"Language-Team: LeKiwiTrad\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-Basepath: ../../..\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-KeywordsList: _;__;TRANSLATORS:;N_\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: main.c:107
+msgid "SubSum"
+msgstr "Sous Total"
+
+#: main.c:107
+msgid "Bonus"
+msgstr "Bonus"
+
+#: main.c:107
+msgid "Upper"
+msgstr "Total Haut"
+
+#: main.c:107
+msgid "Lower"
+msgstr "Total Bas"
+
+#: main.c:107
+msgid "Grand Total"
+msgstr "Grand Total"
+
+#: main.c:229
+msgid "Player : Unknown"
+msgstr "Joueur : Inconnu"
+
+#: main.c:230
+msgid "Count : Unknown"
+msgstr "Lancé: Inconnu"
+
+#: main.c:231
+msgid "Turn : 1"
+msgstr "Tour : 1"
+
+#: main.c:246
+msgid "DICE #1"
+msgstr "DÉ #1"
+
+#: main.c:246
+msgid "DICE #2"
+msgstr "DÉ #2"
+
+#: main.c:246
+msgid "DICE #3"
+msgstr "DÉ #3"
+
+#: main.c:246
+msgid "DICE #4"
+msgstr "DÉ #4"
+
+#: main.c:246
+msgid "DICE #5"
+msgstr "DÉ #5"
+
+#: main.c:246
+msgid "DICE #6"
+msgstr "DÉ #6"
+
+#: main.c:247
+msgid "Small Straight"
+msgstr "Petite Suite"
+
+#: main.c:247
+msgid "Large Straight"
+msgstr "Grande Suite"
+
+#: main.c:247
+msgid "Full House"
+msgstr "Full House"
+
+#: main.c:247
+msgid "Three Of Kind"
+msgstr "Trois Pareils"
+
+#: main.c:247
+msgid "Four Of Kind"
+msgstr "Quatre Pareils"
+
+#: main.c:247
+msgid "Yazzi"
+msgstr "Yazzi"
+
+#: main.c:247
+msgid "Chance"
+msgstr "Chance"
+
+#: main.c:247
+msgid "Yazzi Bonus"
+msgstr "Bonus Yazzi"
+
+#: main.c:248
+msgid "30 points"
+msgstr "30 points"
+
+#: main.c:248
+msgid "40 points"
+msgstr "40 points"
+
+#: main.c:248
+msgid "25 points"
+msgstr "25 points"
+
+#: main.c:248
+msgid "Sum"
+msgstr "Somme"
+
+#: main.c:248
+msgid "50 points"
+msgstr "50 points"
+
+#: main.c:255
+#, c-format
+msgid "Sum of same dices #%d"
+msgstr "Somme de mêmes dés #%d"
+
+#: main.c:323
+msgid "SubSum > 63 points: +35 points"
+msgstr "Sous-total > 63 points: +35 points"
+
+#: main.c:349
+msgid "Quit"
+msgstr "Quitter"
+
+#: main.c:350
+msgid "Valid"
+msgstr "Valider"
+
+#: main.c:351
+msgid "Roll All"
+msgstr "Tout Lancer"
+
+#: main.c:352
+msgid "Roll"
+msgstr "Lancer"
+
+#: main.c:353
+msgid "Next Player"
+msgstr "Prochain Joueur"
+
+#: main.c:632 main.c:661
+#, c-format
+msgid "Turn : %d"
+msgstr "Tour : %d"
+
+#: main.c:861
+#, c-format
+msgid "Count : %d"
+msgstr "Lancé: %d"
+
+#: main.c:875
+#, c-format
+msgid "Player : %s"
+msgstr "Joueur: %s"
+
+#: main.c:1080
+#, c-format
+msgid "The two players are level! ::: score  %d  :::"
+msgstr "Les deux joueurs son ex aequo! ::: score %d :::"
+
+#: main.c:1085
+#, c-format
+msgid ""
+"And the winner is %s !\n"
+"\n"
+" > %s \tscore: %d\n"
+" > %s \tscore: %d\n"
+msgstr ""
+"Et le gagnant est %s !\n"
+"\n"
+" > %s \tscore: %d\n"
+" > %s \tscore: %d\n"
+
+#: main.c:1114
+msgid "Play again ?"
+msgstr "Rejouer à nouveau ?"
+
+#: main.c:1135
+msgid "Confirm to quit ?"
+msgstr "Voulez-vous quitter ?"
+
+#: main.c:1162
+msgid "_OK"
+msgstr "Valider"
+
+#: main.c:1163
+msgid "_Cancel"
+msgstr "Annuler"
+
+#: main.c:1169
+msgid "Enter your player name"
+msgstr "Entrer votre nom de joueur"
+
+#: main.c:1173
+#, c-format
+msgid ""
+"\n"
+"Player_1: %s  \n"
+msgstr ""
+"\n"
+"Joueur_1: %s \n"
+
+#: main.c:1174
+#, c-format
+msgid "Player_2: %s  \n"
+msgstr "Joueur_2: %s \n"
+
+#: player.c:137
+msgid "Anonymous"
+msgstr "Inconnu"
+
+#~ msgid "TRANSLATORS:Quit"
+#~ msgstr "Quitter"
