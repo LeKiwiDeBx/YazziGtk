@@ -29,5 +29,6 @@
     "cSpell.words": [
         "color",
         "define"
-    ]
+    ],
+    "search.useGlobalIgnoreFiles": true
 }

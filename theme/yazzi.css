@@ -164,6 +164,11 @@ radiobutton.dark label {
     color: @yaz_text_dark;
 }
 
+radiobutton.grey:checked label {
+    text-decoration: line-through blue;
+    color: blue;
+}
+
 /*-------------------------------------------------------------------------------------------*/
 
 /**********************************************************************************************
@@ -226,6 +231,7 @@ radiobutton:hover label {
 }
 
 /*---------------------------------- ZONE TEST ----------------------------------------------*/
+
 question {
     background-color: #e55039;
 }

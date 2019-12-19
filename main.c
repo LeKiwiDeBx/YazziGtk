@@ -615,7 +615,24 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
  */
 void OnRoll(GtkWidget *pWidget, gpointer pData)
 {
+	//BUG: la marque selectionné precedement reste inscrite quelque soit le tirage et peut etre validée ! ie: 1er tour 18pts au six, deuxieme tirage plus de 6, on peut valider quand meme 18 points. C dans le cas ou precement on essaye d'inavlidé le Yazzi avant le Yazzi Bonus
+	//issue: remettre à zero la marque precedente des OnRoll ou OnAllRoll
 	diceName name = DICE_1;
+	int numMark = 0;
+	GtkWidget *pW = NULL;
+	/*
+	on remet a zero la derniere marque cliquée pour evaluation pour les dés	ou pour les figures*/
+	if ((numMark = _g_radio_button_dice_num_active()) != -1)
+		pW = pValueDice[numMark - 1];
+	else if ((numMark = _g_radio_button_figure_num_active()) != -1)
+		pW = pValueFigure[numMark - 7];
+	_g_display_players_widget_css(GTK_WIDGET(pW), "yellow");
+	gtk_entry_set_text(GTK_ENTRY(pW), "0");
+
+	_g_display_players_preliminary_score_all(Players);
+
+	g_printf("\nnumMark %d\n", numMark);
+
 	if (Players->set->count > DICE_SET_MAX_COUNT - 2)
 		_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_COUNTER_MAX));
 	Players->set->count++;
@@ -879,7 +896,8 @@ void OnReleaseRadioButtonFigure(GtkWidget *pWidget, gpointer pData)
 					_g_players_set_dices_is_enable(name);
 				name++;
 			}
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pRadioButtonFigure[7]), TRUE); //Yazzi Bonus
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pRadioButtonFigure[7]), TRUE); //[7]Yazzi Bonus
+																						  //jkjljl
 		}
 		_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_INVALID_YAZZI));
 		_g_display_alert_with_message(pWindowAlert, _("Disabled Yazzi Bonus before this!"));
@@ -1250,7 +1268,7 @@ _g_button_set_state(stateButton *isState)
 static void
 _g_display_players_widget_css(GtkWidget *widget, gpointer pData)
 {
-	const char *pCSS[] = {"dark", "yellow", "violet", "red"};
+	const char *pCSS[] = {"dark", "yellow", "violet", "red", "grey"};
 	int sizeTabCSS = (int)(sizeof(pCSS) / sizeof(char *));
 	gchar *className;
 	for (int i = 0; i < sizeTabCSS; i++)
