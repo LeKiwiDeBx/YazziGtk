@@ -106,7 +106,7 @@ grid>entry#rowScore {
     border-color: transparent;
     box-shadow: inset 0 0, inset 0 0;
     background-color: lightgray;
-    color: @yaz_text_dark;
+    color: @yaz_text_dark ;
     caret-color: transparent;
     outline: transparent;
     font-weight: bolder;
@@ -164,24 +164,10 @@ radiobutton.dark label {
     color: @yaz_text_dark;
 }
 
-/*
-radiobutton.grey:disabled label {
-    text-decoration: line-through blue;
-    color: blue;
-}
-*/
-
 radiobutton.grey:checked label {
     text-decoration: none;
     color: @yaz_text_dark;
 }
-
-/*
-radiobutton.grey label {
-    text-decoration: line-through blue;
-    color: blue;
-}
-*/
 
 /*-------------------------------------------------------------------------------------------*/
 

@@ -163,6 +163,8 @@ _g_display_players_update_score_all(Player *self);
 static void
 _g_display_players_preliminary_score_all(Player *self);
 static void
+_g_display_reset_value_score_select();
+static void
 _g_display_winner();
 static gboolean
 _g_display_play_again();
@@ -604,6 +606,7 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 			_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_COUNTER_MAX));
 		Players->set->count++;
 		_g_display_players_set_count(Players->set->count);
+		_g_display_reset_value_score_select();
 		roll_all(Players);
 	}
 }
@@ -617,29 +620,32 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
  */
 void OnRoll(GtkWidget *pWidget, gpointer pData)
 {
-	//BUG: la marque selectionné precedement reste inscrite quelque soit le tirage et peut etre validée ! ie: 1er tour 18pts au six, deuxieme tirage plus de 6, on peut valider quand meme 18 points. C dans le cas ou precement on essaye d'inavlidé le Yazzi avant le Yazzi Bonus
-	//issue: remettre à zero la marque precedente des OnRoll ou OnAllRoll
 	diceName name = DICE_1;
-	int numMark = 0;
-
+	//BUG: la marque selectionné precedement reste inscrite quelque soit le tirage et peut etre validée ! ie: 1er tour 18pts au six, deuxieme tirage plus de 6, on peut valider quand meme 18 points. C dans le cas ou precedement on essaye d'invalidé le Yazzi avant le Yazzi Bonus
+	//issue: remettre à zero la marque precedente des OnRoll ou OnAllRoll
+	// int numMark = 0;
+	// pLabel = NULL;
+	// pValue = NULL;
 	/*
 	on remet a zero la derniere marque cliquée pour evaluation pour les dés	ou pour les figures*/
-	if ((numMark = _g_radio_button_dice_num_active()) != -1)
-	{
-		pValue = pValueDice[numMark - 1];
-		pLabel = pRadioButtonDice[numMark - 1];
-	}
-	else if ((numMark = _g_radio_button_figure_num_active()) != -1)
-	{
-		pValue = pValueFigure[numMark - 7];
-		pLabel = pRadioButtonFigure[numMark - 7];
-	}
-	_g_display_players_widget_css(GTK_WIDGET(pLabel), "grey");
-	gtk_entry_set_text(GTK_ENTRY(pValue), "0");
-	_g_display_players_preliminary_score_all(Players);
-
-	g_printf("\nnumMark %d\n", numMark);
-
+	// if ((numMark = _g_radio_button_dice_num_active()) != -1)
+	// {
+	// 	pValue = pValueDice[numMark - 1];
+	// 	pLabel = pRadioButtonDice[numMark - 1];
+	// }
+	// else if ((numMark = _g_radio_button_figure_num_active()) != -1)
+	// {
+	// 	pValue = pValueFigure[numMark - 7];
+	// 	pLabel = pRadioButtonFigure[numMark - 7];
+	// }
+	// if (numMark != -1)
+	// {
+	// 	_g_display_players_widget_css(GTK_WIDGET(pLabel), "grey");
+	// 	gtk_entry_set_text(GTK_ENTRY(pValue), "0");
+	// }
+	// _g_display_players_preliminary_score_all(Players);
+	// g_printf("\nnumMark %d\n", numMark);
+	_g_display_reset_value_score_select();
 	if (Players->set->count > DICE_SET_MAX_COUNT - 2)
 		_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_COUNTER_MAX));
 	Players->set->count++;
@@ -650,9 +656,7 @@ void OnRoll(GtkWidget *pWidget, gpointer pData)
 		{
 			Players->set->dices[name].enable = TRUE;
 			roll_a_dice(Players, name);
-			_g_display_players_dices_is_enable(Players->set->dices[name].value,
-											   name,
-											   TRUE);
+			_g_display_players_dices_is_enable(Players->set->dices[name].value, name, TRUE);
 		}
 		name++;
 	};
@@ -1119,6 +1123,38 @@ _g_display_players_preliminary_score_all(Player *self)
 	gtk_label_set_text(GTK_LABEL(pLabelCrunching[4]), display);
 	g_free(display);
 }
+/**
+ * @brief on remet a zero la derniere marque cliquée par l'evaluation pour les dés ou pour les figures
+ * et efface la selection de la marque evaluée.
+ * @brief ne fonctionne qu'au tour 2 car au tour 3 la validation totale est obligatoire
+ * appelé par Roll
+ * @param none
+ */
+static void
+_g_display_reset_value_score_select()
+{
+	int numMark = 0;
+	pLabel = NULL;
+	pValue = NULL;
+	if ((numMark = _g_radio_button_dice_num_active()) != -1)
+	{
+		pValue = pValueDice[numMark - 1];
+		pLabel = pRadioButtonDice[numMark - 1];
+	}
+	else if ((numMark = _g_radio_button_figure_num_active()) != -1)
+	{
+		pValue = pValueFigure[numMark - 7];
+		pLabel = pRadioButtonFigure[numMark - 7];
+	}
+	if (numMark != -1)
+	{
+		_g_display_players_widget_css(GTK_WIDGET(pLabel), "grey");
+		gtk_entry_set_text(GTK_ENTRY(pValue), "0");
+	}
+	_g_display_players_preliminary_score_all(Players);
+	//DEBUG
+	g_printf("\nnumMark %d\n", numMark);
+}
 
 /**
  * @brief Affiche l'image du dé soit actif(selectionne) ou non
@@ -1285,6 +1321,7 @@ _g_display_players_widget_css(GtkWidget *widget, gpointer pData)
 			gtk_style_context_remove_class(gtk_widget_get_style_context(widget), className);
 	}
 	gtk_style_context_add_class(gtk_widget_get_style_context(widget), (char *)pData);
+	gtk_widget_reset_style(widget);
 }
 
 /**
