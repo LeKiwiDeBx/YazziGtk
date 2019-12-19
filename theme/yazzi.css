@@ -164,10 +164,24 @@ radiobutton.dark label {
     color: @yaz_text_dark;
 }
 
-radiobutton.grey:checked label {
+/*
+radiobutton.grey:disabled label {
     text-decoration: line-through blue;
     color: blue;
 }
+*/
+
+radiobutton.grey:checked label {
+    text-decoration: none;
+    color: @yaz_text_dark;
+}
+
+/*
+radiobutton.grey label {
+    text-decoration: line-through blue;
+    color: blue;
+}
+*/
 
 /*-------------------------------------------------------------------------------------------*/
 

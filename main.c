@@ -106,6 +106,8 @@ GtkWidget *pWindowMain = NULL, /* fenetre principale */
 		  *pVBoxNames = NULL,
 		  *pGridMain = NULL,
 		  *pWindowAlert = NULL,
+		  *pValue = NULL,
+		  *pLabel = NULL,
 		  *pLabelAlert = NULL;
 GtkCssProvider *pCssProvider = NULL;
 GtkImage *image = NULL;
@@ -619,16 +621,21 @@ void OnRoll(GtkWidget *pWidget, gpointer pData)
 	//issue: remettre à zero la marque precedente des OnRoll ou OnAllRoll
 	diceName name = DICE_1;
 	int numMark = 0;
-	GtkWidget *pW = NULL;
+
 	/*
 	on remet a zero la derniere marque cliquée pour evaluation pour les dés	ou pour les figures*/
 	if ((numMark = _g_radio_button_dice_num_active()) != -1)
-		pW = pValueDice[numMark - 1];
+	{
+		pValue = pValueDice[numMark - 1];
+		pLabel = pRadioButtonDice[numMark - 1];
+	}
 	else if ((numMark = _g_radio_button_figure_num_active()) != -1)
-		pW = pValueFigure[numMark - 7];
-	_g_display_players_widget_css(GTK_WIDGET(pW), "yellow");
-	gtk_entry_set_text(GTK_ENTRY(pW), "0");
-
+	{
+		pValue = pValueFigure[numMark - 7];
+		pLabel = pRadioButtonFigure[numMark - 7];
+	}
+	_g_display_players_widget_css(GTK_WIDGET(pLabel), "grey");
+	gtk_entry_set_text(GTK_ENTRY(pValue), "0");
 	_g_display_players_preliminary_score_all(Players);
 
 	g_printf("\nnumMark %d\n", numMark);
