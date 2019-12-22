@@ -220,6 +220,10 @@ radiobutton:hover label {
     border-right: 3px solid #6a89cc;
 }
 
+radionbutton:checked radiobutton:not(checked) label {
+    outline-style: none;
+}
+
 /*-------------------------------------------------------------------------------------------*/
 
 /**********************************************************************************************
@@ -228,6 +232,10 @@ radiobutton:hover label {
 
 .dice {
     padding: 10px 0 10px 0;
+}
+
+.dice:focus {
+    background-color: #e55039;
 }
 
 /*---------------------------------- ZONE TEST ----------------------------------------------*/

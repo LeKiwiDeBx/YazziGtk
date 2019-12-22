@@ -281,6 +281,7 @@ int main(int argc, char **argv)
 		k = i + 1;
 		//handleId[i] =
 		g_signal_connect(G_OBJECT(pRadioButtonDice[i]), "released", G_CALLBACK(OnReleaseRadioButtonDice), GINT_TO_POINTER(k));
+		g_signal_connect(G_OBJECT(pRadioButtonDice[i]), "activate", G_CALLBACK(OnReleaseRadioButtonDice), GINT_TO_POINTER(k));
 		// g_signal_handler_disconnect(pRadioButtonDice[i], handleId[i]);
 		//handleId[i] =
 		g_signal_connect(G_OBJECT(pRadioButtonDice[i]), "toggled", G_CALLBACK(OnToggledRadioButtonDice), GINT_TO_POINTER(k));
@@ -295,6 +296,7 @@ int main(int argc, char **argv)
 		gtk_widget_set_tooltip_text(pRadioButtonFigure[i], _(toolTipRadioButtonFigure[i]));
 		k = i + 1;
 		g_signal_connect(G_OBJECT(pRadioButtonFigure[i]), "released", G_CALLBACK(OnReleaseRadioButtonFigure), GINT_TO_POINTER(k));
+		g_signal_connect(G_OBJECT(pRadioButtonFigure[i]), "activate", G_CALLBACK(OnReleaseRadioButtonFigure), GINT_TO_POINTER(k));
 		g_signal_connect(G_OBJECT(pRadioButtonFigure[i]), "toggled", G_CALLBACK(OnToggledRadioButtonFigure), GINT_TO_POINTER(k));
 		g_signal_connect_after(G_OBJECT(pRadioButtonFigure[i]), "released", G_CALLBACK(OnReleaseAfterRadioButtonFigure), GINT_TO_POINTER(k));
 		gtk_grid_attach(GTK_GRID(pGridMain), pRadioButtonFigure[i], 3, i + 2, 1, 1);
@@ -361,7 +363,7 @@ int main(int argc, char **argv)
 	for (i = 0; i < DICE_NUMBER; i++)
 	{
 		eventBoxImageDice[i] = gtk_event_box_new();
-		gtk_event_box_set_visible_window(GTK_EVENT_BOX(eventBoxImageDice[i]), FALSE);
+		gtk_event_box_set_visible_window(GTK_EVENT_BOX(eventBoxImageDice[i]), TRUE);
 		pDice[i] = gtk_image_new_from_file(g_strdup_printf("%s%s", YAZ_REP_IMAGE, de));
 		gtk_grid_attach(GTK_GRID(pGridMain), eventBoxImageDice[i], i, 12, 1, 1);
 		gtk_container_add(GTK_CONTAINER(eventBoxImageDice[i]), GTK_WIDGET(pDice[i]));
@@ -370,6 +372,7 @@ int main(int argc, char **argv)
 						 "button-press-event",
 						 G_CALLBACK(OnClickDice),
 						 GINT_TO_POINTER(i));
+		gtk_widget_set_can_focus(GTK_WIDGET(pDice[i]), TRUE);
 	}
 
 	/* -------------------------------------------------------------------------- */
@@ -379,15 +382,15 @@ int main(int argc, char **argv)
 	/* -------------------------------------------------------------------------- */
 	static const gchar *toolTipButtonLower[] = {N_("Roll all dices"), N_("Roll a dice selection"), N_("Valid a select score"), N_("Go to next player"), N_("Quit the game")};
 	pHButtonBox = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
-	pButtonQuit = gtk_button_new_with_label(_("Quit"));
+	pButtonQuit = gtk_button_new_with_mnemonic(_("_Quit"));
 	gtk_widget_set_tooltip_text(pButtonQuit, toolTipButtonLower[4]);
-	pButtonValid = gtk_button_new_with_label(_("Valid"));
+	pButtonValid = gtk_button_new_with_mnemonic(_("_Valid"));
 	gtk_widget_set_tooltip_text(pButtonValid, toolTipButtonLower[2]);
-	pButtonRollAll = gtk_button_new_with_label(_("Roll All"));
+	pButtonRollAll = gtk_button_new_with_mnemonic(_("Roll _All"));
 	gtk_widget_set_tooltip_text(pButtonRollAll, toolTipButtonLower[0]);
-	pButtonRoll = gtk_button_new_with_label(_("Roll"));
+	pButtonRoll = gtk_button_new_with_mnemonic(_("_Roll"));
 	gtk_widget_set_tooltip_text(pButtonRoll, toolTipButtonLower[1]);
-	pButtonNextPlayer = gtk_button_new_with_label(_("Next Player"));
+	pButtonNextPlayer = gtk_button_new_with_mnemonic(_("_Next Player"));
 	gtk_widget_set_tooltip_text(pButtonNextPlayer, toolTipButtonLower[3]);
 	gtk_grid_attach(GTK_GRID(pGridMain), GTK_WIDGET(pHButtonBox), 0, 13, 5, 1);
 	gtk_box_pack_start(GTK_BOX(pHButtonBox), pButtonRollAll, TRUE, FALSE, 0);
@@ -502,11 +505,12 @@ _g_mediator_widget_state(GtkWidget *pWidget, gpointer pState)
 	*/
 	stateButton stateInit = {TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE};
 	stateButton stateRollAll = {TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE};
+	stateButton stateRoll = {FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE};
 	stateButton stateScoreSelect = {TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE};
 	stateButton stateDiceSelect = {TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE};
 	stateButton stateValid = {FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE};
 	//stateButton stateNextPlayer = {TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE};
-	stateButton stateNextPlayer = {TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE}; //active les des et figures
+	stateButton stateNextPlayer = {TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE}; //EN DEBUGactive les des et figures
 	stateButton stateCounterMax = {FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE};
 	stateButton stateAllOff = {FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE};
 	stateButton stateAllOn = {TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE};
@@ -525,6 +529,9 @@ _g_mediator_widget_state(GtkWidget *pWidget, gpointer pState)
 	case YAZ_STATE_ROLL_ALL:
 		pstate = &stateRollAll;
 		break;
+	case YAZ_STATE_ROLL:
+		pstate = &stateRoll;
+		break;
 	case YAZ_STATE_SCORE_SELECT:
 		pstate = &stateScoreSelect;
 		break;
@@ -532,7 +539,7 @@ _g_mediator_widget_state(GtkWidget *pWidget, gpointer pState)
 		pstate = &stateDiceSelect;
 		break;
 	case YAZ_STATE_VALID:
-		_g_button_set_state(&stateRollAll);
+		//	_g_button_set_state(&stateRollAll);
 		pstate = &stateValid;
 		break;
 	case YAZ_STATE_NEXT_PLAYER:
@@ -598,6 +605,7 @@ void OnDelete(GtkWidget *pWidget, gpointer pData)
  */
 void OnRollAll(GtkWidget *pWidget, gpointer pData)
 {
+
 	if (Players->set->count < DICE_SET_MAX_COUNT)
 	{
 		if (Players->set->count < DICE_SET_MAX_COUNT - 1)
@@ -608,6 +616,15 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 		_g_display_players_set_count(Players->set->count);
 		_g_display_reset_value_score_select();
 		roll_all(Players);
+	}
+	// a ameliorer, faire en sorte que le premier element des radiobutton focusable
+	// soit selectionner:ceci est un draft de fonction à externaliser 
+	// use: gboolean gtk_widget_get_can_focus(GtkWidget *pWidget); au lieu de Players->set->count == 1
+	// ce sera pour les trois jets le premier de libre!:) pour les Dice ET Figure
+	if (Players->set->count == 1)  
+	{
+		gtk_widget_set_can_focus(GTK_WIDGET(pRadioButtonDice[0]), TRUE);
+		gtk_widget_grab_focus(GTK_WIDGET(pRadioButtonDice[0]));
 	}
 }
 
@@ -623,33 +640,11 @@ void OnRoll(GtkWidget *pWidget, gpointer pData)
 	diceName name = DICE_1;
 	//BUG: la marque selectionné precedement reste inscrite quelque soit le tirage et peut etre validée ! ie: 1er tour 18pts au six, deuxieme tirage plus de 6, on peut valider quand meme 18 points. C dans le cas ou precedement on essaye d'invalidé le Yazzi avant le Yazzi Bonus
 	//issue: remettre à zero la marque precedente des OnRoll ou OnAllRoll
-	// int numMark = 0;
-	// pLabel = NULL;
-	// pValue = NULL;
-	/*
-	on remet a zero la derniere marque cliquée pour evaluation pour les dés	ou pour les figures*/
-	// if ((numMark = _g_radio_button_dice_num_active()) != -1)
-	// {
-	// 	pValue = pValueDice[numMark - 1];
-	// 	pLabel = pRadioButtonDice[numMark - 1];
-	// }
-	// else if ((numMark = _g_radio_button_figure_num_active()) != -1)
-	// {
-	// 	pValue = pValueFigure[numMark - 7];
-	// 	pLabel = pRadioButtonFigure[numMark - 7];
-	// }
-	// if (numMark != -1)
-	// {
-	// 	_g_display_players_widget_css(GTK_WIDGET(pLabel), "grey");
-	// 	gtk_entry_set_text(GTK_ENTRY(pValue), "0");
-	// }
-	// _g_display_players_preliminary_score_all(Players);
-	// g_printf("\nnumMark %d\n", numMark);
-	_g_display_reset_value_score_select();
 	if (Players->set->count > DICE_SET_MAX_COUNT - 2)
 		_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_COUNTER_MAX));
 	Players->set->count++;
 	_g_display_players_set_count(Players->set->count);
+	_g_display_reset_value_score_select();
 	while (name <= DICE_5)
 	{
 		if (Players->set->dices[name].enable == FALSE)
@@ -660,6 +655,19 @@ void OnRoll(GtkWidget *pWidget, gpointer pData)
 		}
 		name++;
 	};
+	/**************************************************************************************************/
+	//test test test test test test test test test test test test test test test test test test test test
+	int numMarkDice = _g_radio_button_dice_num_active();
+	int numMarkFigure = _g_radio_button_figure_num_active();
+	if (numMarkDice != -1)
+		gtk_widget_set_state_flags(GTK_WIDGET(pRadioButtonDice[numMarkDice - 1]), GTK_STATE_FLAG_NORMAL, TRUE);
+	else if (numMarkFigure != -1)
+		gtk_widget_set_state_flags(GTK_WIDGET(pRadioButtonFigure[numMarkDice - 7]), GTK_STATE_FLAG_NORMAL, TRUE);
+
+	numMarkDice = _g_radio_button_dice_num_active();
+	g_printf("numMark FLAGS: %d\n", numMarkDice);
+	// fin test  fin test  fin test  fin test  fin test  fin test  fin test  fin test  fin test  fin test
+	/**************************************************************************************************/
 }
 
 /**
@@ -695,6 +703,7 @@ void OnValid(GtkWidget *pWidget, gpointer pData)
 	{
 		_g_display_alert_with_message(pWindowAlert, _("You must select a choice !"));
 	}
+	_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_VALID));
 }
 
 /**
@@ -895,7 +904,10 @@ void OnReleaseRadioButtonFigure(GtkWidget *pWidget, gpointer pData)
 	}
 	value = (value != -1) ? value : 0;
 	// si on veut invalider le Yazzi il faut auparavant avoir invalide le YazziBonus
-	if (value == 0 && numMark == 6 && Players->scoreArray->ptr_cell[16].enable == TRUE)
+	g_printf("\nPlayers->set->count:%d\n", Players->set->count);
+	if (value == 0 && numMark == 6 &&
+		Players->scoreArray->ptr_cell[16].enable == TRUE &&
+		Players->set->count < DICE_SET_MAX_COUNT)
 	{
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pRadioButtonFigure[5]))) //Yazzi
 		{
@@ -910,7 +922,9 @@ void OnReleaseRadioButtonFigure(GtkWidget *pWidget, gpointer pData)
 			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pRadioButtonFigure[7]), TRUE); //[7]Yazzi Bonus
 																						  //jkjljl
 		}
+
 		_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_INVALID_YAZZI));
+
 		_g_display_alert_with_message(pWindowAlert, _("Disabled Yazzi Bonus before this!"));
 	}
 	else
@@ -934,9 +948,13 @@ void OnReleaseRadioButtonFigure(GtkWidget *pWidget, gpointer pData)
  *
  *
  */
-void // DUMMY
-OnLeaveRadioButtonDice(GtkWidget *pWidget, gpointer pData)
+void OnLeaveRadioButtonDice(GtkWidget *pWidget, gpointer pData)
 {
+	/**
+	 * @brief fonction vide
+	 * 
+	 * DUMMY
+	 */
 }
 
 /**
