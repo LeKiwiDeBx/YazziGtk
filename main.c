@@ -130,7 +130,7 @@ void OnReleaseRadioButtonFigure(GtkWidget *pWidget, gpointer pData);
 void OnReleaseAfterRadioButtonFigure(GtkWidget *pWidget, gpointer pData);
 void OnToggledRadioButtonFigure(GtkWidget *pWidget, gpointer pData);
 static gboolean
-OnClickDice(GtkWidget *eventBoxImageDice, GdkEventButton *event, gpointer pData);
+OnClickDice(GtkWidget *eventBoxImageDice, GdkEvent *event, gpointer pData); //GdkEventButton //GdkEventKey
 
 static void
 _g_display_players_set_count(const int count);
@@ -367,12 +367,21 @@ int main(int argc, char **argv)
 		pDice[i] = gtk_image_new_from_file(g_strdup_printf("%s%s", YAZ_REP_IMAGE, de));
 		gtk_grid_attach(GTK_GRID(pGridMain), eventBoxImageDice[i], i, 12, 1, 1);
 		gtk_container_add(GTK_CONTAINER(eventBoxImageDice[i]), GTK_WIDGET(pDice[i]));
-
+		gtk_widget_set_can_focus(GTK_WIDGET(pDice[i]), TRUE);
+		gtk_widget_set_events(GTK_WIDGET(pDice[i]), GDK_KEY_PRESS_MASK || GDK_FOCUS_CHANGE_MASK); // GDK_FOCUS_CHANGE_MASK
 		g_signal_connect(eventBoxImageDice[i],
 						 "button-press-event",
 						 G_CALLBACK(OnClickDice),
 						 GINT_TO_POINTER(i));
-		gtk_widget_set_can_focus(GTK_WIDGET(pDice[i]), TRUE);
+		//evt: set-focus-child  focus-in-event g_signal_connect GTK_CONTAINER(eventBoxImageDice[i])
+		// g_signal_connect(GTK_CONTAINER(eventBoxImageDice[i]),
+		// 				 "set-focus-child",
+		// 				 G_CALLBACK(OnClickDice),
+		// 				 GINT_TO_POINTER(i));
+		g_signal_connect(GTK_WIDGET(pDice[i]),
+						 "key-press-event",
+						 G_CALLBACK(OnClickDice),
+						 GINT_TO_POINTER(i));
 	}
 
 	/* -------------------------------------------------------------------------- */
@@ -618,13 +627,17 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 		roll_all(Players);
 	}
 	// a ameliorer, faire en sorte que le premier element des radiobutton focusable
-	// soit selectionner:ceci est un draft de fonction à externaliser 
+	// soit selectionner:ceci est un draft de fonction à externaliser
 	// use: gboolean gtk_widget_get_can_focus(GtkWidget *pWidget); au lieu de Players->set->count == 1
-	// ce sera pour les trois jets le premier de libre!:) pour les Dice ET Figure
-	if (Players->set->count == 1)  
+	// ce sera pour les trois jets le premier de libre!:) pour les radiobuttoon Dice ET Figure et idem pour les images des dés
+	if (Players->set->count == 1)
 	{
 		gtk_widget_set_can_focus(GTK_WIDGET(pRadioButtonDice[0]), TRUE);
 		gtk_widget_grab_focus(GTK_WIDGET(pRadioButtonDice[0]));
+	}
+	for (int i = 0; i < DICE_NUMBER; i++)
+	{
+		gtk_widget_grab_focus(GTK_WIDGET(pDice[i]));
 	}
 }
 
@@ -795,10 +808,11 @@ void OnNextPlayer(GtkWidget *pWidget, gpointer pData)
  *
  */
 static gboolean
-OnClickDice(GtkWidget *eventBoxImageDice, GdkEventButton *event, gpointer pData)
+OnClickDice(GtkWidget *eventBoxImageDice, GdkEvent *event, gpointer pData) //GdkEventButton //GdkEventKey
 {
 	const int name = GPOINTER_TO_INT(pData);
-	if (Players->set->count > 0 && Players->set->count <= DICE_SET_MAX_COUNT)
+	//g_printf("onClick keyval %d hardware keycode %d\n", event->keyval,event->hardware_keycode);
+	if (Players->set->count > 0 && Players->set->count <= DICE_SET_MAX_COUNT && (((GdkEventKey *)event)->keyval == GDK_KEY_Return || ((GdkEventButton *)event)->type == GDK_BUTTON_PRESS))
 	{
 		_g_mediator_widget_state(eventBoxImageDice, GINT_TO_POINTER(YAZ_STATE_DICE_SELECT));
 		_g_players_set_dices_is_enable(name);

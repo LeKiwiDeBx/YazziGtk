@@ -235,7 +235,8 @@ radionbutton:checked radiobutton:not(checked) label {
 }
 
 .dice:focus {
-    background-color: #e55039;
+    border-top:3px dotted #e55039;
+    /* border-top-style: dotted; */
 }
 
 /*---------------------------------- ZONE TEST ----------------------------------------------*/
