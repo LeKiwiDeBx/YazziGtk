@@ -439,6 +439,15 @@ int main(int argc, char **argv)
 	gtk_container_add(GTK_CONTAINER(pWindowAlert), eventBoxLabelAlert);
 	/* enleve les decoration pour un aspect tool tips*/
 	gtk_window_set_decorated(GTK_WINDOW(pWindowAlert), FALSE);
+	/* transparence */
+	// if (gdk_screen_is_composited(gtk_widget_get_screen(GTK_WIDGET(pWindowAlert))))
+	// {
+	// 	g_printf("gdk_screen\n");
+		gtk_widget_set_opacity(GTK_WIDGET(pLabelAlert), 1.0);
+		//gtk_widget_set_opacity(GTK_WIDGET(eventBoxLabelAlert), 0);
+		gtk_widget_set_opacity(GTK_WIDGET(pWindowAlert), 0.25);
+	// }
+
 	/* callback de l'evenement de la boite evenement */
 	g_signal_connect(eventBoxLabelAlert, "button-press-event", G_CALLBACK(OnCloseAlert), NULL);
 	g_signal_connect(eventBoxLabelAlert, "delete-event", G_CALLBACK(OnCloseAlert), NULL);
@@ -715,8 +724,9 @@ void OnValid(GtkWidget *pWidget, gpointer pData)
 	else
 	{
 		_g_display_alert_with_message(pWindowAlert, _("You must select a choice !"));
+		_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_COUNTER_MAX));
 	}
-	_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_VALID));
+	//_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_VALID));
 }
 
 /**
@@ -919,11 +929,9 @@ void OnReleaseRadioButtonFigure(GtkWidget *pWidget, gpointer pData)
 	value = (value != -1) ? value : 0;
 	// si on veut invalider le Yazzi il faut auparavant avoir invalide le YazziBonus
 	g_printf("\nPlayers->set->count:%d\n", Players->set->count);
-	if (value == 0 && numMark == 6 &&
-		Players->scoreArray->ptr_cell[16].enable == TRUE &&
-		Players->set->count < DICE_SET_MAX_COUNT)
+	if (value == 0 && numMark == 6 && Players->set->count <= DICE_SET_MAX_COUNT && Players->scoreArray->ptr_cell[16].enable == TRUE) //Yazzi select et yazziBonus libre
 	{
-		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pRadioButtonFigure[5]))) //Yazzi
+		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pRadioButtonFigure[5])))
 		{
 			g_printf("yazzi selectionné\n");
 			int name = 0;
@@ -934,21 +942,21 @@ void OnReleaseRadioButtonFigure(GtkWidget *pWidget, gpointer pData)
 				name++;
 			}
 			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pRadioButtonFigure[7]), TRUE); //[7]Yazzi Bonus
-																						  //jkjljl
 		}
-
-		_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_INVALID_YAZZI));
-
+		if (Players->set->count == DICE_SET_MAX_COUNT)
+			_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_COUNTER_MAX));
+		else
+			_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_INVALID_YAZZI));
 		_g_display_alert_with_message(pWindowAlert, _("Disabled Yazzi Bonus before this!"));
 	}
 	else
 	{
-		if (Players->set->count > DICE_SET_MAX_COUNT - 1)
+		if (Players->set->count == DICE_SET_MAX_COUNT)
 			_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_COUNTER_MAX));
 		else
 			_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_SCORE_SELECT));
-		_g_display_players_value_figure_score(numMark, value);
 	}
+	_g_display_players_value_figure_score(numMark, value);
 	// /* ---> DEBUG     <--- */
 	// g_printf("eventRadioButtonFigure numMark: %d\n", numMark);
 	// g_printf("Score crunch: %d\n", value);
@@ -1254,6 +1262,7 @@ _g_button_set_state(stateButton *isState)
 		gtk_widget_set_sensitive(pButtonRollAll, FALSE);
 	else
 		gtk_widget_set_sensitive(pButtonRollAll, isState->rollAll);
+
 	gtk_widget_set_sensitive(pButtonRoll, isState->roll);
 	gtk_widget_set_sensitive(pButtonValid, isState->valid);
 	gtk_widget_set_sensitive(pButtonNextPlayer, isState->nextPlayer);
@@ -1272,10 +1281,10 @@ _g_button_set_state(stateButton *isState)
 			{
 				pStyle = g_strdup_printf("red");
 			}
-			if (Players->set->count < DICE_SET_MAX_COUNT)
+			if (isState->valid || Players->set->count < DICE_SET_MAX_COUNT) //Players->set->count < DICE_SET_MAX_COUNT
 				gtk_widget_set_sensitive(GTK_WIDGET(pRadioButtonDice[i]), isState->radioButtonDice);
-			// else
-			// 	gtk_widget_set_sensitive(GTK_WIDGET(pRadioButtonDice[i]), FALSE);
+			else
+				gtk_widget_set_sensitive(GTK_WIDGET(pRadioButtonDice[i]), FALSE);
 		}
 		else //si cellule validée (non modifiable)
 		{
@@ -1305,10 +1314,10 @@ _g_button_set_state(stateButton *isState)
 			{
 				pStyle = g_strdup_printf("red");
 			}
-			if (Players->set->count < DICE_SET_MAX_COUNT)
+			if (isState->valid || Players->set->count < DICE_SET_MAX_COUNT) //Players->set->count < DICE_SET_MAX_COUNT
 				gtk_widget_set_sensitive(GTK_WIDGET(pRadioButtonFigure[i]), isState->radioButtonFigure);
-			// else
-			// 	gtk_widget_set_sensitive(GTK_WIDGET(pRadioButtonFigure[i]), FALSE);
+			else
+				gtk_widget_set_sensitive(GTK_WIDGET(pRadioButtonFigure[i]), FALSE);
 		}
 		else //si cellule validée (non modifiable)
 		{
