@@ -420,14 +420,15 @@ int main(int argc, char **argv)
 	/* -------------------------------------------------------------------------- */
 	pWindowAlert = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_modal(GTK_WINDOW(pWindowAlert), TRUE);
+	/* Rend dependante la fenetre alerte de la principale, utile pour la rendre modale*/
+	gtk_window_set_transient_for(GTK_WINDOW(pWindowAlert), GTK_WINDOW(pWindowMain));
 	/* Définition de la position */
 	gtk_window_set_position(GTK_WINDOW(pWindowAlert), GTK_WIN_POS_CENTER_ON_PARENT);
 	/* Définition de la taille de la fenêtre */
 	gtk_window_set_default_size(GTK_WINDOW(pWindowAlert), 300, 150);
 	/* Titre de la fenêtre [ inutile car sans decoration] pour un autre aspect may be!*/
 	gtk_window_set_title(GTK_WINDOW(pWindowAlert), _("Message alert"));
-	/* Rend dependante la fenetre alerte de la principale, utile pour la rendre modale*/
-	gtk_window_set_transient_for(GTK_WINDOW(pWindowAlert), GTK_WINDOW(pWindowMain));
+
 	/* ajoute un label null , sera remplit ulterieurement*/
 	pLabelAlert = gtk_label_new(NULL);
 	/* Definition pour un evenement */
@@ -439,13 +440,14 @@ int main(int argc, char **argv)
 	gtk_container_add(GTK_CONTAINER(pWindowAlert), eventBoxLabelAlert);
 	/* enleve les decoration pour un aspect tool tips*/
 	gtk_window_set_decorated(GTK_WINDOW(pWindowAlert), FALSE);
+
 	/* transparence */
 	// if (gdk_screen_is_composited(gtk_widget_get_screen(GTK_WIDGET(pWindowAlert))))
 	// {
 	// 	g_printf("gdk_screen\n");
-		gtk_widget_set_opacity(GTK_WIDGET(pLabelAlert), 1.0);
-		//gtk_widget_set_opacity(GTK_WIDGET(eventBoxLabelAlert), 0);
-		gtk_widget_set_opacity(GTK_WIDGET(pWindowAlert), 0.25);
+	//gtk_widget_set_opacity(GTK_WIDGET(pLabelAlert), 0.75);
+	//gtk_widget_set_opacity(GTK_WIDGET(eventBoxLabelAlert), 0);
+	// gtk_widget_set_opacity(GTK_WIDGET(pWindowAlert), 0.25);
 	// }
 
 	/* callback de l'evenement de la boite evenement */
@@ -474,7 +476,10 @@ int main(int argc, char **argv)
 		if (i != 4)
 			gtk_style_context_add_class(gtk_widget_get_style_context(pLabelCrunching[i]), "labelcrunching");
 	}
-
+	// GdkRGBA transparent = {0.0, 0.0, 0.0, 0.0};
+	// gtk_widget_override_background_color(GTK_WIDGET(pWindowAlert),GTK_STATE_FLAG_ACTIVE|| GTK_STATE_FLAG_NORMAL,&transparent);
+	//gtk_widget_set_opacity(GTK_WIDGET(pWindowAlert), 0.85);
+	gtk_style_context_add_class(gtk_widget_get_style_context(pWindowAlert), "windowAlert");
 	/* -------------------------------------------------------------------------- */
 	/*							VBox Names								  	  	  */
 	/* 	Boite de dialogue modale pour saisir les noms des joueurs	              */
@@ -740,6 +745,9 @@ _g_display_alert_with_message(GtkWidget *alertMessage, const char *message)
 {
 	gtk_label_set_markup(GTK_LABEL(pLabelAlert), g_strdup_printf("%s\n<span style=\"italic\">%s</span>", message, _("clicked to close.")));
 	gtk_widget_show_all(alertMessage);
+	gtk_widget_set_opacity(GTK_WIDGET(pWindowAlert), 0.85);
+	gtk_widget_show_all(alertMessage);
+	
 }
 
 /**

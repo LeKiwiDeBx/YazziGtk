@@ -233,18 +233,28 @@ radionbutton:checked radiobutton:not(checked) label {
 
 .dice {
     padding: 13px 0 10px 0;
-    margin-left:30px;
-    margin-right:30px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .dice:focus {
-    border-top:3px dotted #e55039;
+    border-top: 3px dotted #e55039;
     padding: 10px 0 10px 0;
     /* border-top-style: dotted; */
 }
 
 /*---------------------------------- ZONE TEST ----------------------------------------------*/
 
-question {
+ window.windowAlert {
+    /* 
+    background-color: transparent;
+    border-color: transparent;
+    opacity: 0.85; */
+}
+
+window.windowAlert label {
     background-color: #e55039;
+    color: black;
+    border-radius: 15px ;
+   
 }
