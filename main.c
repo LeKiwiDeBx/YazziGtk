@@ -392,15 +392,15 @@ int main(int argc, char **argv)
 	static const gchar *toolTipButtonLower[] = {N_("Roll all dices"), N_("Roll a dice selection"), N_("Valid a select score"), N_("Go to next player"), N_("Quit the game")};
 	pHButtonBox = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
 	pButtonQuit = gtk_button_new_with_mnemonic(_("_Quit"));
-	gtk_widget_set_tooltip_text(pButtonQuit, toolTipButtonLower[4]);
+	gtk_widget_set_tooltip_text(pButtonQuit, _(toolTipButtonLower[4]));
 	pButtonValid = gtk_button_new_with_mnemonic(_("_Valid"));
-	gtk_widget_set_tooltip_text(pButtonValid, toolTipButtonLower[2]);
+	gtk_widget_set_tooltip_text(pButtonValid, _(toolTipButtonLower[2]));
 	pButtonRollAll = gtk_button_new_with_mnemonic(_("Roll _All"));
-	gtk_widget_set_tooltip_text(pButtonRollAll, toolTipButtonLower[0]);
+	gtk_widget_set_tooltip_text(pButtonRollAll, _(toolTipButtonLower[0]));
 	pButtonRoll = gtk_button_new_with_mnemonic(_("_Roll"));
-	gtk_widget_set_tooltip_text(pButtonRoll, toolTipButtonLower[1]);
+	gtk_widget_set_tooltip_text(pButtonRoll, _(toolTipButtonLower[1]));
 	pButtonNextPlayer = gtk_button_new_with_mnemonic(_("_Next Player"));
-	gtk_widget_set_tooltip_text(pButtonNextPlayer, toolTipButtonLower[3]);
+	gtk_widget_set_tooltip_text(pButtonNextPlayer, _(toolTipButtonLower[3]));
 	gtk_grid_attach(GTK_GRID(pGridMain), GTK_WIDGET(pHButtonBox), 0, 13, 5, 1);
 	gtk_box_pack_start(GTK_BOX(pHButtonBox), pButtonRollAll, TRUE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(pHButtonBox), pButtonRoll, TRUE, FALSE, 0);
@@ -425,10 +425,9 @@ int main(int argc, char **argv)
 	/* Définition de la position */
 	gtk_window_set_position(GTK_WINDOW(pWindowAlert), GTK_WIN_POS_CENTER_ON_PARENT);
 	/* Définition de la taille de la fenêtre */
-	gtk_window_set_default_size(GTK_WINDOW(pWindowAlert), 300, 150);
+	gtk_window_set_default_size(GTK_WINDOW(pWindowAlert), 250, 100);
 	/* Titre de la fenêtre [ inutile car sans decoration] pour un autre aspect may be!*/
 	gtk_window_set_title(GTK_WINDOW(pWindowAlert), _("Message alert"));
-
 	/* ajoute un label null , sera remplit ulterieurement*/
 	pLabelAlert = gtk_label_new(NULL);
 	/* Definition pour un evenement */
@@ -440,16 +439,6 @@ int main(int argc, char **argv)
 	gtk_container_add(GTK_CONTAINER(pWindowAlert), eventBoxLabelAlert);
 	/* enleve les decoration pour un aspect tool tips*/
 	gtk_window_set_decorated(GTK_WINDOW(pWindowAlert), FALSE);
-
-	/* transparence */
-	// if (gdk_screen_is_composited(gtk_widget_get_screen(GTK_WIDGET(pWindowAlert))))
-	// {
-	// 	g_printf("gdk_screen\n");
-	//gtk_widget_set_opacity(GTK_WIDGET(pLabelAlert), 0.75);
-	//gtk_widget_set_opacity(GTK_WIDGET(eventBoxLabelAlert), 0);
-	// gtk_widget_set_opacity(GTK_WIDGET(pWindowAlert), 0.25);
-	// }
-
 	/* callback de l'evenement de la boite evenement */
 	g_signal_connect(eventBoxLabelAlert, "button-press-event", G_CALLBACK(OnCloseAlert), NULL);
 	g_signal_connect(eventBoxLabelAlert, "delete-event", G_CALLBACK(OnCloseAlert), NULL);
@@ -476,10 +465,8 @@ int main(int argc, char **argv)
 		if (i != 4)
 			gtk_style_context_add_class(gtk_widget_get_style_context(pLabelCrunching[i]), "labelcrunching");
 	}
-	// GdkRGBA transparent = {0.0, 0.0, 0.0, 0.0};
-	// gtk_widget_override_background_color(GTK_WIDGET(pWindowAlert),GTK_STATE_FLAG_ACTIVE|| GTK_STATE_FLAG_NORMAL,&transparent);
-	//gtk_widget_set_opacity(GTK_WIDGET(pWindowAlert), 0.85);
 	gtk_style_context_add_class(gtk_widget_get_style_context(pWindowAlert), "windowAlert");
+
 	/* -------------------------------------------------------------------------- */
 	/*							VBox Names								  	  	  */
 	/* 	Boite de dialogue modale pour saisir les noms des joueurs	              */
@@ -562,7 +549,6 @@ _g_mediator_widget_state(GtkWidget *pWidget, gpointer pState)
 		pstate = &stateDiceSelect;
 		break;
 	case YAZ_STATE_VALID:
-		//	_g_button_set_state(&stateRollAll);
 		pstate = &stateValid;
 		break;
 	case YAZ_STATE_NEXT_PLAYER:
@@ -731,7 +717,6 @@ void OnValid(GtkWidget *pWidget, gpointer pData)
 		_g_display_alert_with_message(pWindowAlert, _("You must select a choice !"));
 		_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_COUNTER_MAX));
 	}
-	//_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_VALID));
 }
 
 /**
@@ -743,11 +728,15 @@ void OnValid(GtkWidget *pWidget, gpointer pData)
 static void
 _g_display_alert_with_message(GtkWidget *alertMessage, const char *message)
 {
-	gtk_label_set_markup(GTK_LABEL(pLabelAlert), g_strdup_printf("%s\n<span style=\"italic\">%s</span>", message, _("clicked to close.")));
+	const gchar *markupAlert = g_strdup_printf("%s\n<span style=\"italic\">%s</span>", message, _("clicked to close."));
+	//const double opacity = 0.75;
+	GValue valOpacity = {0,} ;
+	//g_value_init(&valOpacity,G_TYPE_DOUBLE);
+	gtk_style_context_get_property(gtk_widget_get_style_context(pWindowAlert), "opacity", GTK_STATE_FLAG_NORMAL, &valOpacity);
+	//g_printf("opacity: %s\n", g_strdup_value_contents(&valOpacity));
+	gtk_label_set_markup(GTK_LABEL(pLabelAlert), markupAlert);
 	gtk_widget_show_all(alertMessage);
-	gtk_widget_set_opacity(GTK_WIDGET(pWindowAlert), 0.85);
-	gtk_widget_show_all(alertMessage);
-	
+	gtk_widget_set_opacity(GTK_WIDGET(pWindowAlert), g_value_get_double(&valOpacity));
 }
 
 /**
@@ -758,9 +747,8 @@ _g_display_alert_with_message(GtkWidget *alertMessage, const char *message)
  */
 void OnCloseAlert(GtkWidget *widget, gpointer pData)
 {
-	g_printf("\nOnCloseAlert!\n");
+	// g_printf("\nOnCloseAlert!\n");
 	gtk_widget_hide(pWindowAlert);
-	// gtk_widget_destroy(pWindowAlert);
 }
 
 /**

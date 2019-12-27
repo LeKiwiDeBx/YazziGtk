@@ -243,18 +243,19 @@ radionbutton:checked radiobutton:not(checked) label {
     /* border-top-style: dotted; */
 }
 
-/*---------------------------------- ZONE TEST ----------------------------------------------*/
+/*-------------------------------------------------------------------------------------------*/
 
- window.windowAlert {
-    /* 
-    background-color: transparent;
-    border-color: transparent;
-    opacity: 0.85; */
+/**********************************************************************************************
+*   Pour les messages d'alerte 
+*   la transparence est codée par gtk_widget_set_opacity() APRES un showAll()
+**********************************************************************************************/
+
+.windowAlert {
+    opacity: 0.75;
 }
 
 window.windowAlert label {
     background-color: #e55039;
     color: black;
-    border-radius: 15px ;
-   
+    border-radius: 5px;
 }
