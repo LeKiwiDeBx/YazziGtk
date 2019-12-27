@@ -174,6 +174,8 @@ static void
 _g_display_players_set_all_names();
 static void
 _g_display_alert_with_message(GtkWidget *alertMessage, const char *message);
+static gboolean
+_g_chain_order_focus();
 
 /**
  * @brief C LE MAINEUH         =|8°() <\ © the-little-monkey >
@@ -627,18 +629,53 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 		roll_all(Players);
 	}
 	// a ameliorer, faire en sorte que le premier element des radiobutton focusable
-	// soit selectionner:ceci est un draft de fonction à externaliser
+	// soit selectionné: ceci est un draft de fonction à externaliser
 	// use: gboolean gtk_widget_get_can_focus(GtkWidget *pWidget); au lieu de Players->set->count == 1
-	// ce sera pour les trois jets le premier de libre!:) pour les radiobuttoon Dice ET Figure et idem pour les images des dés
-	if (Players->set->count == 1)
+	// ce sera pour les trois jets le premier de libre!:) pour les radiobutton Dice ET Figure et idem pour les images des dés
+	// if (Players->set->count == 1)
+	_g_chain_order_focus();
+	// {
+	// 	gtk_widget_set_can_focus(GTK_WIDGET(pRadioButtonDice[0]), TRUE);
+	// 	gtk_widget_grab_focus(GTK_WIDGET(pRadioButtonDice[0]));
+	// }
+	// for (int i = 0; i < DICE_NUMBER; i++)
+	// {
+	// 	gtk_widget_grab_focus(GTK_WIDGET(pDice[i]));
+	// }
+}
+
+/**
+ * @brief ordonne la chaine des focus sur le premier widget des scores sensible au focus
+ * 
+ * @return gboolean retouve un focus ou pas
+ */
+
+static gboolean
+_g_chain_order_focus()
+{
+	GList *chain;
+	for (int i = 0; i < 6; i++)
 	{
-		gtk_widget_set_can_focus(GTK_WIDGET(pRadioButtonDice[0]), TRUE);
-		gtk_widget_grab_focus(GTK_WIDGET(pRadioButtonDice[0]));
+		if (gtk_widget_get_can_focus(pRadioButtonDice[i]) &&
+			gtk_widget_is_sensitive(pRadioButtonDice[i]))
+		{
+			gtk_widget_set_can_focus(GTK_WIDGET(pRadioButtonDice[i]), TRUE);
+			gtk_widget_grab_focus(pRadioButtonDice[i]);
+			g_printf("focus %d\n", i);
+			return (TRUE);
+		}
 	}
-	for (int i = 0; i < DICE_NUMBER; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		gtk_widget_grab_focus(GTK_WIDGET(pDice[i]));
+		if (gtk_widget_get_can_focus(pRadioButtonFigure[i]) &&
+			gtk_widget_is_sensitive(pRadioButtonFigure[i]))
+		{
+			gtk_widget_set_can_focus(GTK_WIDGET(pRadioButtonFigure[i]), TRUE);
+			gtk_widget_grab_focus(pRadioButtonFigure[i]);
+			return (TRUE);
+		}
 	}
+	return (FALSE);
 }
 
 /**
@@ -681,6 +718,7 @@ void OnRoll(GtkWidget *pWidget, gpointer pData)
 	g_printf("numMark FLAGS: %d\n", numMarkDice);
 	// fin test  fin test  fin test  fin test  fin test  fin test  fin test  fin test  fin test  fin test
 	/**************************************************************************************************/
+	_g_chain_order_focus();
 }
 
 /**
@@ -717,6 +755,7 @@ void OnValid(GtkWidget *pWidget, gpointer pData)
 		_g_display_alert_with_message(pWindowAlert, _("You must select a choice !"));
 		_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_COUNTER_MAX));
 	}
+	_g_chain_order_focus();
 }
 
 /**
@@ -730,7 +769,9 @@ _g_display_alert_with_message(GtkWidget *alertMessage, const char *message)
 {
 	const gchar *markupAlert = g_strdup_printf("%s\n<span style=\"italic\">%s</span>", message, _("clicked to close."));
 	//const double opacity = 0.75;
-	GValue valOpacity = {0,} ;
+	GValue valOpacity = {
+		0,
+	};
 	//g_value_init(&valOpacity,G_TYPE_DOUBLE);
 	gtk_style_context_get_property(gtk_widget_get_style_context(pWindowAlert), "opacity", GTK_STATE_FLAG_NORMAL, &valOpacity);
 	//g_printf("opacity: %s\n", g_strdup_value_contents(&valOpacity));
@@ -817,7 +858,14 @@ static gboolean
 OnClickDice(GtkWidget *eventBoxImageDice, GdkEvent *event, gpointer pData) //GdkEventButton //GdkEventKey
 {
 	const int name = GPOINTER_TO_INT(pData);
-	//g_printf("onClick keyval %d hardware keycode %d\n", event->keyval,event->hardware_keycode);
+	GdkModifierType modifiers;
+	modifiers = gtk_accelerator_get_default_mod_mask(); //evite interference caps lock/num lock
+	if ((((GdkEventKey *)event)->keyval == GDK_d) && ((((GdkEventKey *)event)->state & modifiers) == GDK_CONTROL_MASK))
+	{
+		g_printf("Ctrl+d\n");
+		return (TRUE);
+	}
+	//g_printf("onClick keyval %d hardware keycode %d\n", ((GdkEventKey *)event)->keyval, ((GdkEventKey *)event)->hardware_keycode);
 	if (Players->set->count > 0 && Players->set->count <= DICE_SET_MAX_COUNT && (((GdkEventKey *)event)->keyval == GDK_KEY_Return || ((GdkEventButton *)event)->type == GDK_BUTTON_PRESS))
 	{
 		_g_mediator_widget_state(eventBoxImageDice, GINT_TO_POINTER(YAZ_STATE_DICE_SELECT));

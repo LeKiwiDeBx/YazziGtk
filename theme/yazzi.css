@@ -214,7 +214,7 @@ radiobutton.yellow:checked label {
 /*-------------------------------------------------------------------------------------------*/
 
 /**********************************************************************************************
-*   Quand survol le radio bouton signal la zone
+*   Quand le radio bouton signal la zone
 **********************************************************************************************/
 
 radiobutton:hover label {
@@ -251,7 +251,7 @@ radionbutton:checked radiobutton:not(checked) label {
 **********************************************************************************************/
 
 .windowAlert {
-    opacity: 0.75;
+    opacity: 0.85;
 }
 
 window.windowAlert label {
