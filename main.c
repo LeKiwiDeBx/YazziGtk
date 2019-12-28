@@ -117,6 +117,8 @@ GtkWidget *eventBoxLabelAlert = NULL;
 
 void OnDestroy(GtkWidget *pWidget, gpointer pData);
 void OnDelete(GtkWidget *pWidget, gpointer pData);
+static gboolean
+OnKeyPressWindowMain(GtkWidget *pWidget, GdkEvent *event, gpointer pData);
 void OnRollAll(GtkWidget *pWidget, gpointer pData);
 void OnRoll(GtkWidget *pWidget, gpointer pData);
 void OnValid(GtkWidget *pWidget, gpointer pData);
@@ -176,6 +178,8 @@ static void
 _g_display_alert_with_message(GtkWidget *alertMessage, const char *message);
 static gboolean
 _g_chain_order_focus();
+static gboolean
+_g_set_focus_dice(int pos);
 
 /**
  * @brief C LE MAINEUH         =|8°() <\ © the-little-monkey >
@@ -229,10 +233,12 @@ int main(int argc, char **argv)
 	/* 						Connexion des evenements sur les CallBack(evt) 		  */
 	/* evt: "destroy" 		-> suite bouton quitter								  */
 	/*      "delete-event" 	-> suite appel fermeture fenetre principale			  */
-	/*																			  */
+	/*		"key-press-event"-> appui sur des touches clavier (combinées ou pas)  */
 	/* -------------------------------------------------------------------------- */
+	gtk_widget_set_events(GTK_WIDGET(pWindowMain), GDK_KEY_PRESS_MASK || GDK_FOCUS_CHANGE_MASK);
 	g_signal_connect(pWindowMain, "destroy", G_CALLBACK(OnDestroy), NULL);
 	g_signal_connect(pWindowMain, "delete-event", G_CALLBACK(OnDelete), NULL);
+	g_signal_connect(pWindowMain, "key-press-event", G_CALLBACK(OnKeyPressWindowMain), NULL);
 
 	/* -------------------------------------------------------------------------- */
 	/*							Table 	==> GtkGrid reecriture pour gtk3		  */
@@ -314,6 +320,7 @@ int main(int argc, char **argv)
 	{
 		pValueDice[i] = gtk_entry_new();
 		gtk_editable_set_editable(GTK_EDITABLE(pValueDice[i]), FALSE);
+		gtk_widget_set_can_focus(GTK_EDITABLE(pValueDice[i]), FALSE);
 		gtk_entry_set_max_length(GTK_ENTRY(pValueDice[i]), 2);
 		gtk_entry_set_width_chars(GTK_ENTRY(pValueDice[i]), 2);
 		gtk_entry_set_text(GTK_ENTRY(pValueDice[i]), "0");
@@ -327,6 +334,7 @@ int main(int argc, char **argv)
 	{
 		pValueFigure[i] = gtk_entry_new();
 		gtk_editable_set_editable(GTK_EDITABLE(pValueFigure[i]), FALSE);
+		gtk_widget_set_can_focus(GTK_EDITABLE(pValueFigure[i]), FALSE);
 		gtk_entry_set_max_length(GTK_ENTRY(pValueFigure[i]), 2);
 		gtk_entry_set_width_chars(GTK_ENTRY(pValueFigure[i]), 2);
 		gtk_entry_set_text(GTK_ENTRY(pValueFigure[i]), "0");
@@ -370,7 +378,7 @@ int main(int argc, char **argv)
 		gtk_grid_attach(GTK_GRID(pGridMain), eventBoxImageDice[i], i, 12, 1, 1);
 		gtk_container_add(GTK_CONTAINER(eventBoxImageDice[i]), GTK_WIDGET(pDice[i]));
 		gtk_widget_set_can_focus(GTK_WIDGET(pDice[i]), TRUE);
-		gtk_widget_set_events(GTK_WIDGET(pDice[i]), GDK_KEY_PRESS_MASK || GDK_FOCUS_CHANGE_MASK); // GDK_FOCUS_CHANGE_MASK
+		gtk_widget_set_events(GTK_WIDGET(pDice[i]), GDK_KEY_PRESS_MASK || GDK_FOCUS_CHANGE_MASK);
 		g_signal_connect(eventBoxImageDice[i],
 						 "button-press-event",
 						 G_CALLBACK(OnClickDice),
@@ -608,6 +616,53 @@ void OnDelete(GtkWidget *pWidget, gpointer pData)
 }
 
 /**
+ * @brief Gestion des evenements clavier sur la fenetre principale
+ * 
+ * @param pWidget la fenetre principale
+ * @param event   evenement que l'on transtype clavier pour etre plus souple
+ * @param pData   un data, peut etre NULL
+ */
+static gboolean
+OnKeyPressWindowMain(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
+{
+	GdkModifierType modifiers = gtk_accelerator_get_default_mod_mask(); //evite interference caps lock/num lock
+	// g_printf("CALLBACK: OnKeyPressWindowMain calc keyval 0x%03x state %d\n",
+	// 		 ((GdkEventKey *)event)->keyval,
+	// 		 (((GdkEventKey *)event)->state & modifiers));
+	// g_printf("CALLBACK: OnKeyPressWindowMain refe keyval 0x%03x state %d\n", GDK_d, GDK_CONTROL_MASK);
+	if (((GdkEventKey *)event)->keyval == GDK_d && (((GdkEventKey *)event)->state & modifiers) == GDK_CONTROL_MASK)
+	{
+		g_printf("Ctrl+d\n");
+		_g_set_focus_dice(1);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+/**
+ * @brief met le focus sur un dé à jouer
+ * 
+ * @param pos position du dé {1..DICE_NUMBER}
+ * @return gboolean a pu ou pas
+ */
+static gboolean
+_g_set_focus_dice(int pos)
+{
+	const int ind = pos - 1;
+	if (ind >= 0 && ind <= DICE_NUMBER)
+	{
+		if (gtk_widget_get_can_focus(pDice[ind]) && gtk_widget_is_sensitive(pDice[ind]))
+		{
+			gtk_widget_set_can_focus(pDice[ind], TRUE);
+			gtk_widget_grab_focus(pDice[ind]);
+			g_printf("focus %d\n", ind);
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+/**
  * @brief On demande de jouer tous les dés
  * @param pWidget
  * @param pData
@@ -616,7 +671,6 @@ void OnDelete(GtkWidget *pWidget, gpointer pData)
  */
 void OnRollAll(GtkWidget *pWidget, gpointer pData)
 {
-
 	if (Players->set->count < DICE_SET_MAX_COUNT)
 	{
 		if (Players->set->count < DICE_SET_MAX_COUNT - 1)
@@ -628,20 +682,7 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 		_g_display_reset_value_score_select();
 		roll_all(Players);
 	}
-	// a ameliorer, faire en sorte que le premier element des radiobutton focusable
-	// soit selectionné: ceci est un draft de fonction à externaliser
-	// use: gboolean gtk_widget_get_can_focus(GtkWidget *pWidget); au lieu de Players->set->count == 1
-	// ce sera pour les trois jets le premier de libre!:) pour les radiobutton Dice ET Figure et idem pour les images des dés
-	// if (Players->set->count == 1)
 	_g_chain_order_focus();
-	// {
-	// 	gtk_widget_set_can_focus(GTK_WIDGET(pRadioButtonDice[0]), TRUE);
-	// 	gtk_widget_grab_focus(GTK_WIDGET(pRadioButtonDice[0]));
-	// }
-	// for (int i = 0; i < DICE_NUMBER; i++)
-	// {
-	// 	gtk_widget_grab_focus(GTK_WIDGET(pDice[i]));
-	// }
 }
 
 /**
@@ -858,13 +899,6 @@ static gboolean
 OnClickDice(GtkWidget *eventBoxImageDice, GdkEvent *event, gpointer pData) //GdkEventButton //GdkEventKey
 {
 	const int name = GPOINTER_TO_INT(pData);
-	GdkModifierType modifiers;
-	modifiers = gtk_accelerator_get_default_mod_mask(); //evite interference caps lock/num lock
-	if ((((GdkEventKey *)event)->keyval == GDK_d) && ((((GdkEventKey *)event)->state & modifiers) == GDK_CONTROL_MASK))
-	{
-		g_printf("Ctrl+d\n");
-		return (TRUE);
-	}
 	//g_printf("onClick keyval %d hardware keycode %d\n", ((GdkEventKey *)event)->keyval, ((GdkEventKey *)event)->hardware_keycode);
 	if (Players->set->count > 0 && Players->set->count <= DICE_SET_MAX_COUNT && (((GdkEventKey *)event)->keyval == GDK_KEY_Return || ((GdkEventButton *)event)->type == GDK_BUTTON_PRESS))
 	{

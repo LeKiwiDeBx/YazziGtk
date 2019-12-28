@@ -112,6 +112,9 @@ grid>entry#rowScore {
     font-weight: bolder;
     font-size: 1.2em;
 }
+grid>entry#rowScore:focus{
+    background-color: #e55039;
+}
 
 /*-------------------------------------------------------------------------------------------*/
 
