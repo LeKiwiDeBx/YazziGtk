@@ -139,6 +139,10 @@ void OnReleaseAfterRadioButtonFigure(GtkWidget *pWidget, gpointer pData);
 void OnToggledRadioButtonFigure(GtkWidget *pWidget, gpointer pData);
 static gboolean
 OnClickDice(GtkWidget *eventBoxImageDice, GdkEvent *event, gpointer pData); //GdkEventButton //GdkEventKey
+static gboolean
+OnKeyPressRadioButtonDice(GtkWidget *pWidget, GdkEvent *event, gpointer pData);
+static gboolean
+OnKeyPressRadioButtonFigure(GtkWidget *pWidget, GdkEvent *event, gpointer pData);
 
 static void
 _g_display_players_set_count(const int count);
@@ -296,6 +300,7 @@ int main(int argc, char **argv)
 		g_signal_connect(G_OBJECT(pRadioButtonDice[i]), "activate", G_CALLBACK(OnReleaseRadioButtonDice), GINT_TO_POINTER(k));
 		g_signal_connect(G_OBJECT(pRadioButtonDice[i]), "toggled", G_CALLBACK(OnToggledRadioButtonDice), GINT_TO_POINTER(k));
 		g_signal_connect_after(G_OBJECT(pRadioButtonDice[i]), "released", G_CALLBACK(OnReleaseAfterRadioButtonDice), GINT_TO_POINTER(k));
+		g_signal_connect(G_OBJECT(pRadioButtonDice[i]), "key-press-event", G_CALLBACK(OnKeyPressRadioButtonDice), GINT_TO_POINTER(k));
 		gtk_grid_attach(GTK_GRID(pGridMain), pRadioButtonDice[i], 0, i + 2, 1, 1);
 	}
 	for (i = 0; i < YAZ_NB_BOUTON_FIGURE; i++)
@@ -308,6 +313,7 @@ int main(int argc, char **argv)
 		g_signal_connect(G_OBJECT(pRadioButtonFigure[i]), "activate", G_CALLBACK(OnReleaseRadioButtonFigure), GINT_TO_POINTER(k));
 		g_signal_connect(G_OBJECT(pRadioButtonFigure[i]), "toggled", G_CALLBACK(OnToggledRadioButtonFigure), GINT_TO_POINTER(k));
 		g_signal_connect_after(G_OBJECT(pRadioButtonFigure[i]), "released", G_CALLBACK(OnReleaseAfterRadioButtonFigure), GINT_TO_POINTER(k));
+		g_signal_connect(G_OBJECT(pRadioButtonFigure[i]), "key-press-event", G_CALLBACK(OnKeyPressRadioButtonFigure), GINT_TO_POINTER(k));
 		gtk_grid_attach(GTK_GRID(pGridMain), pRadioButtonFigure[i], 3, i + 2, 1, 1);
 	}
 
@@ -919,6 +925,46 @@ OnClickDice(GtkWidget *eventBoxImageDice, GdkEvent *event, gpointer pData) //Gdk
 	else
 		return FALSE;
 	return TRUE;
+}
+
+/**
+ * @brief une touche clavier sur le radio button des dés
+ * 
+ * @param pWidget le widget appelant
+ * @param event evenement clavier
+ * @param pData la position du radio bouton
+ * @return gboolean 
+ */
+static gboolean
+OnKeyPressRadioButtonDice(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
+{
+	if (Players->set->count > 0 && Players->set->count <= DICE_SET_MAX_COUNT && (((GdkEventKey *)event)->keyval == GDK_KEY_Return || ((GdkEventButton *)event)->type == GDK_BUTTON_PRESS))
+	{
+		OnReleaseRadioButtonDice(pWidget, pData);
+		_g_display_players_preliminary_score_all(Players);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+/**
+ * @brief une touche clavier sur le radio button des figure
+ * 
+ * @param pWidget le widget appelant
+ * @param event evenement clavier
+ * @param pData la position du radio bouton
+ * @return gboolean 
+ */
+static gboolean
+OnKeyPressRadioButtonFigure(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
+{
+	if (Players->set->count > 0 && Players->set->count <= DICE_SET_MAX_COUNT && (((GdkEventKey *)event)->keyval == GDK_KEY_Return || ((GdkEventButton *)event)->type == GDK_BUTTON_PRESS))
+	{
+		OnReleaseRadioButtonFigure(pWidget, pData);
+		_g_display_players_preliminary_score_all(Players);
+		return TRUE;
+	}
+	return FALSE;
 }
 
 /**
