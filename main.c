@@ -63,6 +63,12 @@ typedef enum e_yaz_state
 	YAZ_STATE_ALL_OFF
 } yazState;
 
+typedef enum e_yaz_eventKey
+{
+	YAZ_KEY_CTRL_D,
+	YAZ_KEY_CTRL_R
+} yazEventKey;
+
 typedef struct s_state_button
 {
 	gboolean rollAll;
@@ -182,7 +188,7 @@ static gboolean
 _g_set_focus_dice(int pos);
 
 /**
- * @brief C LE MAINEUH         =|8°() <\ © the-little-monkey >
+ * @brief Cé LE MAINEUH         =|8°() <\ © the-little-monkey >
  * @param argc
  * @param argv
  * @returns
@@ -278,7 +284,6 @@ int main(int argc, char **argv)
 	static const gchar *toolTipRadioButtonFigure[] = {N_("30 points"), N_("40 points"), N_("25 points"), N_("Sum"), N_("Sum"), N_("50 points"), N_("Sum"), N_("50 points")};
 	gchar *display;
 	gint k = 0;
-	// gulong handleId[DICE_NUMBER];
 	for (i = 0; i <= DICE_NUMBER; i++)
 	{
 		pRadioButtonDice[i] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pGroupScore), _(labelRadioButtonDice[i]));
@@ -287,14 +292,10 @@ int main(int argc, char **argv)
 		g_free(display);
 		// (toggled, activate, clicked, enter, leave, pressed, released).
 		k = i + 1;
-		//handleId[i] =
 		g_signal_connect(G_OBJECT(pRadioButtonDice[i]), "released", G_CALLBACK(OnReleaseRadioButtonDice), GINT_TO_POINTER(k));
 		g_signal_connect(G_OBJECT(pRadioButtonDice[i]), "activate", G_CALLBACK(OnReleaseRadioButtonDice), GINT_TO_POINTER(k));
-		// g_signal_handler_disconnect(pRadioButtonDice[i], handleId[i]);
-		//handleId[i] =
 		g_signal_connect(G_OBJECT(pRadioButtonDice[i]), "toggled", G_CALLBACK(OnToggledRadioButtonDice), GINT_TO_POINTER(k));
 		g_signal_connect_after(G_OBJECT(pRadioButtonDice[i]), "released", G_CALLBACK(OnReleaseAfterRadioButtonDice), GINT_TO_POINTER(k));
-		//g_signal_handler_disconnect(pRadioButtonDice[i], handleId[i]);
 		gtk_grid_attach(GTK_GRID(pGridMain), pRadioButtonDice[i], 0, i + 2, 1, 1);
 	}
 	for (i = 0; i < YAZ_NB_BOUTON_FIGURE; i++)
@@ -320,7 +321,7 @@ int main(int argc, char **argv)
 	{
 		pValueDice[i] = gtk_entry_new();
 		gtk_editable_set_editable(GTK_EDITABLE(pValueDice[i]), FALSE);
-		gtk_widget_set_can_focus(GTK_EDITABLE(pValueDice[i]), FALSE);
+		gtk_widget_set_can_focus(pValueDice[i], FALSE);
 		gtk_entry_set_max_length(GTK_ENTRY(pValueDice[i]), 2);
 		gtk_entry_set_width_chars(GTK_ENTRY(pValueDice[i]), 2);
 		gtk_entry_set_text(GTK_ENTRY(pValueDice[i]), "0");
@@ -334,7 +335,7 @@ int main(int argc, char **argv)
 	{
 		pValueFigure[i] = gtk_entry_new();
 		gtk_editable_set_editable(GTK_EDITABLE(pValueFigure[i]), FALSE);
-		gtk_widget_set_can_focus(GTK_EDITABLE(pValueFigure[i]), FALSE);
+		gtk_widget_set_can_focus(pValueFigure[i], FALSE);
 		gtk_entry_set_max_length(GTK_ENTRY(pValueFigure[i]), 2);
 		gtk_entry_set_width_chars(GTK_ENTRY(pValueFigure[i]), 2);
 		gtk_entry_set_text(GTK_ENTRY(pValueFigure[i]), "0");
@@ -529,7 +530,6 @@ _g_mediator_widget_state(GtkWidget *pWidget, gpointer pState)
 	stateButton stateScoreSelect = {TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE};
 	stateButton stateDiceSelect = {TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE};
 	stateButton stateValid = {FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE};
-	//stateButton stateNextPlayer = {TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE};
 	stateButton stateNextPlayer = {TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE}; //EN DEBUGactive les des et figures
 	stateButton stateCounterMax = {FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE};
 	stateButton stateAllOff = {FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE};
@@ -625,6 +625,7 @@ void OnDelete(GtkWidget *pWidget, gpointer pData)
 static gboolean
 OnKeyPressWindowMain(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
 {
+	yazEventKey eventKey;
 	GdkModifierType modifiers = gtk_accelerator_get_default_mod_mask(); //evite interference caps lock/num lock
 	// g_printf("CALLBACK: OnKeyPressWindowMain calc keyval 0x%03x state %d\n",
 	// 		 ((GdkEventKey *)event)->keyval,
@@ -632,11 +633,26 @@ OnKeyPressWindowMain(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
 	// g_printf("CALLBACK: OnKeyPressWindowMain refe keyval 0x%03x state %d\n", GDK_d, GDK_CONTROL_MASK);
 	if (((GdkEventKey *)event)->keyval == GDK_d && (((GdkEventKey *)event)->state & modifiers) == GDK_CONTROL_MASK)
 	{
-		g_printf("Ctrl+d\n");
-		_g_set_focus_dice(1);
-		return TRUE;
+		eventKey = YAZ_KEY_CTRL_D;
 	}
-	return FALSE;
+	if (((GdkEventKey *)event)->keyval == GDK_r && (((GdkEventKey *)event)->state & modifiers) == GDK_CONTROL_MASK)
+	{
+		eventKey = YAZ_KEY_CTRL_R;
+	}
+
+	switch (eventKey)
+	{
+	case YAZ_KEY_CTRL_D:
+		return _g_set_focus_dice(1);
+		break;
+	case YAZ_KEY_CTRL_R:
+		return _g_chain_order_focus();
+		break;
+	default:
+		return FALSE;
+		break;
+	}
+	return TRUE;
 }
 
 /**
@@ -655,7 +671,6 @@ _g_set_focus_dice(int pos)
 		{
 			gtk_widget_set_can_focus(pDice[ind], TRUE);
 			gtk_widget_grab_focus(pDice[ind]);
-			g_printf("focus %d\n", ind);
 			return TRUE;
 		}
 	}
@@ -694,7 +709,6 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 static gboolean
 _g_chain_order_focus()
 {
-	GList *chain;
 	for (int i = 0; i < 6; i++)
 	{
 		if (gtk_widget_get_can_focus(pRadioButtonDice[i]) &&
@@ -702,7 +716,6 @@ _g_chain_order_focus()
 		{
 			gtk_widget_set_can_focus(GTK_WIDGET(pRadioButtonDice[i]), TRUE);
 			gtk_widget_grab_focus(pRadioButtonDice[i]);
-			g_printf("focus %d\n", i);
 			return (TRUE);
 		}
 	}
@@ -809,16 +822,15 @@ static void
 _g_display_alert_with_message(GtkWidget *alertMessage, const char *message)
 {
 	const gchar *markupAlert = g_strdup_printf("%s\n<span style=\"italic\">%s</span>", message, _("clicked to close."));
-	//const double opacity = 0.75;
 	GValue valOpacity = {
 		0,
 	};
 	//g_value_init(&valOpacity,G_TYPE_DOUBLE);
 	gtk_style_context_get_property(gtk_widget_get_style_context(pWindowAlert), "opacity", GTK_STATE_FLAG_NORMAL, &valOpacity);
-	//g_printf("opacity: %s\n", g_strdup_value_contents(&valOpacity));
 	gtk_label_set_markup(GTK_LABEL(pLabelAlert), markupAlert);
 	gtk_widget_show_all(alertMessage);
 	gtk_widget_set_opacity(GTK_WIDGET(pWindowAlert), g_value_get_double(&valOpacity));
+	//g_printf("opacity: %s\n", g_strdup_value_contents(&valOpacity));
 }
 
 /**
@@ -829,7 +841,6 @@ _g_display_alert_with_message(GtkWidget *alertMessage, const char *message)
  */
 void OnCloseAlert(GtkWidget *widget, gpointer pData)
 {
-	// g_printf("\nOnCloseAlert!\n");
 	gtk_widget_hide(pWindowAlert);
 }
 
@@ -1066,10 +1077,6 @@ void OnLeaveRadioButtonDice(GtkWidget *pWidget, gpointer pData)
  */
 void OnToggledRadioButtonDice(GtkWidget *pWidget, gpointer pData)
 {
-	/*debug*/
-	// g_printf("\n toggle RadioButtonDice\n");
-	//g_printf("\n pWidget:%s", gtk_widget_get_name(pWidget));
-	/*fin debug*/
 	if (GPOINTER_TO_INT(pData) > 0 && GPOINTER_TO_INT(pData) < 7)
 		if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pWidget)))
 			gtk_entry_set_text(GTK_ENTRY(pValueDice[GPOINTER_TO_INT(pData) - 1]), "0");
@@ -1270,8 +1277,6 @@ _g_display_reset_value_score_select()
 		gtk_entry_set_text(GTK_ENTRY(pValue), "0");
 	}
 	_g_display_players_preliminary_score_all(Players);
-	//DEBUG
-	g_printf("\nnumMark %d\n", numMark);
 }
 
 /**
