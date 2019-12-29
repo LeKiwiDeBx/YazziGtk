@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <time.h>
 #include </usr/include/gtk-3.0/gdk/gdkkeysyms-compat.h>
 #include "board_engine.h"
 #include "dice_engine.h"
@@ -215,6 +216,7 @@ int main(int argc, char **argv)
 	/*							Init players						  	  		  */
 	/* 						On initialise les joueurs, le tableau de jeu	      */
 	/* -------------------------------------------------------------------------- */
+	srand(time(NULL));
 	player_init();
 	board_init();
 
@@ -1232,6 +1234,10 @@ _g_display_players_update_score_all(Player *self)
 
 	display = g_strdup_printf("%s %d", _(labelCrunching[4]), self->scoreArray->ptr_cell[GrandTotal].value);
 	gtk_label_set_text(GTK_LABEL(pLabelCrunching[4]), display);
+
+	display = g_strdup_printf("%s %d\n%s %d", Player_1.name, Player_1.scoreArray->ptr_cell[GrandTotal].value, Player_2.name, Player_2.scoreArray->ptr_cell[GrandTotal].value);
+	gtk_widget_set_tooltip_text(pLabelCrunching[4],display) ;
+
 	g_free(display);
 }
 

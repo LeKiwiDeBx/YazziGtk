@@ -36,7 +36,7 @@ int is_enables(Player *self, diceName name);
  * @return int 
  */
 int _dice_rand(void)
-{
+{   
 	int x, max = 7, min = 1;
 	x = rand() % (max - min) + min;
 	return (x);
@@ -175,7 +175,7 @@ void roll_all(Player *self)
 	if (p == NULL)
 		exit(EXIT_FAILURE);
 	p = self->set->dices;
-	srand(time(NULL));
+	//srand(time(NULL));
 	for (i = 0; i < DICE_NUMBER; i++)
 	{
 		set_value_face(self, _dice_rand());
@@ -200,7 +200,7 @@ void roll_a_dice(Player *self, diceName name)
 	if (p == NULL)
 		exit(EXIT_FAILURE);
 	p = self->set->dices;
-	srand(time(NULL));
+	//srand(time(NULL));
 	for (de = DICE_1; de <= DICE_5; de++)
 	{
 		if (de == name)
