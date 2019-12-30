@@ -334,7 +334,7 @@ dice
 }
 
 /**
- * @brief donne une vameur a la face du dé
+ * @brief donne une valeur a la face du dé
  * 
  * @param self 
  * @param value 

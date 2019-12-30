@@ -15,6 +15,7 @@
 #include "dice_engine.h"
 #include "player.h"
 #include "result_sheet.h"
+#include "eprai.h"
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 // #include <glib/gi18n-lib.h>
@@ -706,6 +707,10 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 		roll_all(Players);
 	}
 	_g_chain_order_focus();
+	/*
+	epr AI
+	*/
+_epr_get_set_dices(Players);
 }
 
 /**

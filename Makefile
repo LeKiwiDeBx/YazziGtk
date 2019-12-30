@@ -5,8 +5,7 @@ CC = gcc
 
 CFLAGS = -Wall -o
 
-OBJECTS = main.o board_engine.o player.o dice_engine.o result_sheet.o
-# eprai.o
+OBJECTS = main.o board_engine.o player.o dice_engine.o result_sheet.o eprai.o
 
 PKG_CONFIG = pkg-config --cflags --libs gtk+-3.0
 
@@ -23,8 +22,8 @@ board_engine.o: board_engine.c board_engine.h dice_engine.h player.h result_shee
 dice_engine.o: dice_engine.c dice_engine.h player.h result_sheet.h
 	$(CC) $(CFLAGS) dice_engine.o -c dice_engine.c $(shell $(PKG_CONFIG))
 
-# eprai.o: eprai.c eprai.h dice_engine.h player.h result_sheet.h
-#	  $(CC) $(CFLAGS) eprai.o -c eprai.c $(shell $(PKG_CONFIG))
+eprai.o: eprai.c eprai.h dice_engine.h player.h result_sheet.h
+	$(CC) $(CFLAGS) eprai.o -c eprai.c $(shell $(PKG_CONFIG))
 
 main.o: main.c board_engine.h player.h dice_engine.h result_sheet.h eprai.h
 	$(CC) $(CFLAGS) main.o -c main.c $(shell $(PKG_CONFIG))

@@ -531,7 +531,7 @@ int calcScoreLargeStraight(Player *self)
 /**
  * @brief Evalue si les des forment une petite suite
  * 
- * @param self le joueur en courss
+ * @param self le joueur en cours
  * @return int la valeur YAZZI_SMALL_STRAIGHT
  */
 int calcScoreSmallStraight(Player *self)
