@@ -222,7 +222,7 @@ diceSet
 		p = self->set->dices;
 	for (int i = 0; i < DICE_NUMBER; i++)
 	{
-		/* dsiplay debug */
+		/* display debug */
 		g_printf("dé #%d: %d\n", i + 1, p->value);
 		p++;
 	}
