@@ -13,5 +13,14 @@
 
 //public
 // void epr_mediator_engine() ;
-diceSet *_epr_get_set_dices();
+//diceSet *_epr_get_set_dices();
+typedef enum e_eprTab
+{
+	TAB_SORT_ASC,
+	TAB_SORT_DESC,
+	TAB_RAW
+} eprTab;
+
+typedef int tabDice[DICE_NUMBER];
+tabDice * _epr_factory_new();
 #endif

@@ -60,7 +60,8 @@ label.labelcrunching {
     padding: 2px;
     background-color: #78e08f;
     font-size: 1.1em;
-    /*font-family: 'Courier New', Courier, monospace;*/
+    color:@yaz_text_dark;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 /*-------------------------------------------------------------------------------------------*/
@@ -102,10 +103,11 @@ grid>entry#rowScore {
     margin: 0;
     padding: 0 1em 0 1em;
     border-radius: 0;
-    border: 1px solid transparent;
+    border: 0px solid transparent;
     border-color: transparent;
     box-shadow: inset 0 0, inset 0 0;
     background-color: lightgray;
+    background-image:none;
     color: @yaz_text_dark ;
     caret-color: transparent;
     outline: transparent;
@@ -258,4 +260,25 @@ window.windowAlert label {
     background-color: #e55039;
     color: black;
     border-radius: 5px;
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*   Pour les tooltips 
+*   
+**********************************************************************************************/
+
+tooltip {
+    background-color: rgba(59, 59, 59, 0.85);
+    border-color: rgba(59, 59, 59, 0.85);
+    border-radius: 5px;
+}
+
+tooltip label {
+    font-size: 1em;
+    font-weight: bold;
+    color: rgba(245, 245, 245, 0.85);
+    /* background-color: @tooltip_bg_color;
+    color: @tooltip_fg_color; */
 }

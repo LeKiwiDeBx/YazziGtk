@@ -19,9 +19,7 @@
 #include <gtk/gtk.h>
 
 #define LEVEL_LOW 2  //nombre de face identique basse (sensibilité)
-#define LEVEL_HIGH 3 //nombre de face identique haute (sensibilité) \
-					 // extern Player *Players ;                    \
-					 //
+#define LEVEL_HIGH 3 //nombre de face identique haute (sensibilité)
 
 typedef enum e_eprOpenFamilyPattern
 {
@@ -42,6 +40,11 @@ typedef enum e_eprFamilyPattern
 	FA_DIRECT_PATTERN,		// Figure entiere identifiée
 	FA_OTHERS				// Aucune des precedentes
 } eprFamilyPattern;
+
+tabDice dataBase;
+
+static void _epr_set_dices_tab();
+static void _epr_sort_set_dices();
 
 //
 // typedef struct s_eprAtom{
@@ -205,11 +208,37 @@ typedef enum e_eprFamilyPattern
 // }
 
 /**
- * @brief
+ * @brief fabrique la base de donnée
+ * 
+ * @param tab 
+ * @return dataBase* 
+ */
+tabDice *_epr_factory_new(Player *self, eprTab tab)
+{
+	dice *p = (dice *)g_try_malloc(DICE_NUMBER * sizeof(dice));
+	if (p == NULL)
+		exit(EXIT_FAILURE);
+	else
+	{
+		p = self->set->dices;
+		_epr_set_dices_tab(self, dataBase);
+		switch (tab)
+		{
+		case TAB_SORT_ASC:
+			_epr_sort_set_dices(self, dataBase);
+			break;
+
+		default:
+			break;
+		}
+	}
+	return &dataBase;
+}
+
+/**
+ * @brief recupere le tirage de dés pour le joueur en cours
  * @param self
  * @returns
- *
- *
  */
 diceSet
 	*
@@ -231,16 +260,36 @@ diceSet
 }
 
 /**
- * @brief
+ * @brief ordonne de facon croisante le tirage de dés
+ * pour le joueur en cours
  * @param self
  * @param tab_dice_sort
- *
- *
  */
-// void
-// _epr_sort_set_dices(Player *self, int *tab_dice_sort){
-// ;
-// }
+void _epr_sort_set_dices(Player *self, int *tab_dice_sort)
+{
+	sort_dice_value_order_by(self, tab_dice_sort, ASC);
+}
+
+/**
+ * @brief met dans le tableau d'analyse le tirage des dés
+ * 
+ * @param self 
+ * @param tab_dice_sort 
+ */
+void _epr_set_dices_tab(Player *self, int *tab_dice_sort)
+{
+	dice *p = (dice *)g_try_malloc(DICE_NUMBER * sizeof(dice));
+	if (p == NULL)
+		exit(EXIT_FAILURE);
+	else
+		p = self->set->dices;
+	for (int i = 0; i < DICE_NUMBER; i++)
+	{
+		/* display debug */
+		tab_dice_sort[i] = p->value;
+		p++;
+	}
+}
 
 /**
  * @brief
