@@ -122,6 +122,8 @@ GtkImage *image = NULL;
 static const gchar *labelCrunching[] = {N_("SubSum"), N_("Bonus"), N_("Upper"), N_("Lower"), N_("Grand Total")};
 GtkWidget *pLabelCrunching[5] = {NULL, NULL, NULL, NULL, NULL};
 GtkWidget *eventBoxLabelAlert = NULL;
+GdkCursor *cursorDice = NULL;
+GdkCursor *cursorRowScore = NULL;
 
 void OnDestroy(GtkWidget *pWidget, gpointer pData);
 void OnDelete(GtkWidget *pWidget, gpointer pData);
@@ -237,7 +239,8 @@ int main(int argc, char **argv)
 	/* Définition de la position */
 	gtk_window_set_position(GTK_WINDOW(pWindowMain), GTK_WIN_POS_CENTER);
 	/* Définition de la taille de la fenêtre */
-	gtk_window_set_default_size(GTK_WINDOW(pWindowMain), -1, -1);
+	gtk_window_set_default_size(GTK_WINDOW(pWindowMain), 450, 300);
+	gtk_widget_set_valign(pWindowMain, GTK_ALIGN_CENTER);
 	/* Titre de la fenêtre */
 	gtk_window_set_title(GTK_WINDOW(pWindowMain), YAZ_WINDOW_MAIN_TITLE);
 
@@ -389,6 +392,8 @@ int main(int argc, char **argv)
 		gtk_container_add(GTK_CONTAINER(eventBoxImageDice[i]), GTK_WIDGET(pDice[i]));
 		gtk_widget_set_can_focus(GTK_WIDGET(pDice[i]), TRUE);
 		gtk_widget_set_events(GTK_WIDGET(pDice[i]), GDK_KEY_PRESS_MASK || GDK_FOCUS_CHANGE_MASK);
+		// win = gtk_widget_get_window(GTK_WINDOW(Dice[i]));
+		// gdk_window_set_cursor(GTK_WINDOW(win), cursorDice);
 		g_signal_connect(eventBoxImageDice[i],
 						 "button-press-event",
 						 G_CALLBACK(OnClickDice),
@@ -478,7 +483,9 @@ int main(int argc, char **argv)
 	gtk_style_context_add_class(gtk_widget_get_style_context(pLabelCount), "labeltop");
 	gtk_style_context_add_class(gtk_widget_get_style_context(pLabelTurn), "labeltop");
 	for (gint i = 0; i < DICE_NUMBER; i++)
+	{
 		gtk_style_context_add_class(gtk_widget_get_style_context(pDice[i]), "dice");
+	}
 	gtk_style_context_add_class(gtk_widget_get_style_context(pLabelCrunching[4]), "important");
 	for (int i = 0; i < 5; i++)
 	{
@@ -486,6 +493,7 @@ int main(int argc, char **argv)
 			gtk_style_context_add_class(gtk_widget_get_style_context(pLabelCrunching[i]), "labelcrunching");
 	}
 	gtk_style_context_add_class(gtk_widget_get_style_context(pWindowAlert), "windowAlert");
+	gtk_widget_set_name(pWindowMain, "windowMain");
 
 	/* -------------------------------------------------------------------------- */
 	/*							VBox Names								  	  	  */
@@ -710,7 +718,24 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 	/*
 	epr AI
 	*/
-_epr_get_set_dices(Players);
+	_epr_get_set_dices(Players);
+	//debug
+	cursorDice = gdk_cursor_new_from_name(gdk_display_get_default(), "grabbing");
+	cursorRowScore = gdk_cursor_new_from_name(gdk_display_get_default(), "pointer");
+	GdkCursor *  cursorDefault = gdk_cursor_new_from_name(gdk_display_get_default(), "default");
+	GdkWindow *win = NULL;
+	for (int i = 0; i < DICE_NUMBER; i++)
+	{
+		win = gtk_widget_get_parent_window(pDice[i]);
+		gdk_window_set_cursor(win, cursorDice);
+	}
+	for (int i = 0; i < 6; i++)// pRadioButtonDice[i]
+	{
+		win = gtk_widget_get_parent_window( pRadioButtonDice[i]);
+		gdk_window_set_cursor(win, cursorRowScore);
+	}
+	win = gtk_widget_get_parent_window(pButtonRoll);
+		gdk_window_set_cursor(win, cursorDefault);
 }
 
 /**
@@ -1241,7 +1266,7 @@ _g_display_players_update_score_all(Player *self)
 	gtk_label_set_text(GTK_LABEL(pLabelCrunching[4]), display);
 
 	display = g_strdup_printf("%s %d\n%s %d", Player_1.name, Player_1.scoreArray->ptr_cell[GrandTotal].value, Player_2.name, Player_2.scoreArray->ptr_cell[GrandTotal].value);
-	gtk_widget_set_tooltip_text(pLabelCrunching[4],display) ;
+	gtk_widget_set_tooltip_text(pLabelCrunching[4], display);
 
 	g_free(display);
 }

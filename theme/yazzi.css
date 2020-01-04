@@ -20,6 +20,23 @@ twitter: #BalanceTonCodeHexa
 **********************************************************************************************/
 
 @define-color yaz_text_dark #2e3436;
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*   Pour la fenetre principale
+*   
+**********************************************************************************************/
+
+#windowMain {
+    background-color: #6a89cc;
+    ;
+}
+
+/*                                                                                           
+|                                                                                             |
+|---------------------------------------------------------------------------------------------|
+*/
+
 /**********************************************************************************************
 * Grille pour organiser les elements de la fenetre (Layout)
 **********************************************************************************************/
@@ -60,8 +77,9 @@ label.labelcrunching {
     padding: 2px;
     background-color: #78e08f;
     font-size: 1.1em;
-    color:@yaz_text_dark;
-    font-family: 'Courier New', Courier, monospace;
+    color: @yaz_text_dark;
+    font-family: sans-serif;
+    /* 'Courier New', Courier, monospace; */
 }
 
 /*-------------------------------------------------------------------------------------------*/
@@ -107,7 +125,7 @@ grid>entry#rowScore {
     border-color: transparent;
     box-shadow: inset 0 0, inset 0 0;
     background-color: lightgray;
-    background-image:none;
+    background-image: none;
     color: @yaz_text_dark ;
     caret-color: transparent;
     outline: transparent;
@@ -148,6 +166,20 @@ button:focus {
 
 button:disabled {
     color: lightgray;
+}
+
+button:disabled>label {
+    color: lightgray;
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*   radio bouton general
+**********************************************************************************************/
+
+radiobutton {
+    margin-top: 6px;
 }
 
 /*-------------------------------------------------------------------------------------------*/
@@ -282,3 +314,5 @@ tooltip label {
     /* background-color: @tooltip_bg_color;
     color: @tooltip_fg_color; */
 }
+
+/*-------------------------------------------------------------------------------------------*/
