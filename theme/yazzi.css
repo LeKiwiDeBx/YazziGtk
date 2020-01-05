@@ -193,7 +193,6 @@ radiobutton:hover label {
 
 radionbutton:checked radiobutton:not(checked) label {
     outline-style: none;
-    border-right: none;
 }
 
 /*-------------------------------------------------------------------------------------------*/

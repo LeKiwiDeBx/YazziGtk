@@ -1366,12 +1366,7 @@ _g_display_players_update_score_all(Player *self)
 	display = g_strdup_printf("%s %d", _(labelCrunching[4]), self->scoreArray->ptr_cell[GrandTotal].value);
 	gtk_label_set_text(GTK_LABEL(pLabelCrunching[4]), display);
 
-// msg = g_strdup_printf(_("And the winner is %s!\n\n#\t%-20s\tscore:\t%03d points\n#\t%-20s\tscore:\t%03d points\n"),
-// 							  winner->name, Player_1.name, Player_1.score->scoreGrandTotal,
-// 							  Player_2.name, Player_2.score->scoreGrandTotal);
-
-
-	display = g_strdup_printf("%-20s\t%3d points\n%-20s\t%3d points", Player_1.name, Player_1.scoreArray->ptr_cell[GrandTotal].value, Player_2.name, Player_2.scoreArray->ptr_cell[GrandTotal].value);
+	display = g_strdup_printf("%-25s\t%03d points\n%-25s\t%03d points", Player_1.name, Player_1.scoreArray->ptr_cell[GrandTotal].value, Player_2.name, Player_2.scoreArray->ptr_cell[GrandTotal].value);
 	gtk_widget_set_tooltip_text(pLabelCrunching[4], display);
 
 	g_free(display);
