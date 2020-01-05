@@ -147,6 +147,14 @@ static gboolean
 OnKeyPressRadioButtonDice(GtkWidget *pWidget, GdkEvent *event, gpointer pData);
 static gboolean
 OnKeyPressRadioButtonFigure(GtkWidget *pWidget, GdkEvent *event, gpointer pData);
+static gboolean
+OnEnterDice(GtkWidget *pWidget, GdkEvent *event, gpointer pData);
+static gboolean
+OnLeaveDice(GtkWidget *pWidget, GdkEvent *event, gpointer pData);
+static gboolean
+OnEnterRadioButtonScore(GtkWidget *pWidget, GdkEvent *event, gpointer pData);
+static gboolean
+OnLeaveRadioButtonScore(GtkWidget *pWidget, GdkEvent *event, gpointer pData);
 
 static void
 _g_display_players_set_count(const int count);
@@ -307,6 +315,8 @@ int main(int argc, char **argv)
 		g_signal_connect(G_OBJECT(pRadioButtonDice[i]), "toggled", G_CALLBACK(OnToggledRadioButtonDice), GINT_TO_POINTER(k));
 		g_signal_connect_after(G_OBJECT(pRadioButtonDice[i]), "released", G_CALLBACK(OnReleaseAfterRadioButtonDice), GINT_TO_POINTER(k));
 		g_signal_connect(G_OBJECT(pRadioButtonDice[i]), "key-press-event", G_CALLBACK(OnKeyPressRadioButtonDice), GINT_TO_POINTER(k));
+		g_signal_connect(G_OBJECT(pRadioButtonDice[i]), "enter-notify-event", G_CALLBACK(OnEnterRadioButtonScore), GINT_TO_POINTER(k));
+		g_signal_connect(G_OBJECT(pRadioButtonDice[i]), "leave-notify-event", G_CALLBACK(OnLeaveRadioButtonScore), GINT_TO_POINTER(k));
 		gtk_grid_attach(GTK_GRID(pGridMain), pRadioButtonDice[i], 0, i + 2, 1, 1);
 	}
 	for (i = 0; i < YAZ_NB_BOUTON_FIGURE; i++)
@@ -320,6 +330,8 @@ int main(int argc, char **argv)
 		g_signal_connect(G_OBJECT(pRadioButtonFigure[i]), "toggled", G_CALLBACK(OnToggledRadioButtonFigure), GINT_TO_POINTER(k));
 		g_signal_connect_after(G_OBJECT(pRadioButtonFigure[i]), "released", G_CALLBACK(OnReleaseAfterRadioButtonFigure), GINT_TO_POINTER(k));
 		g_signal_connect(G_OBJECT(pRadioButtonFigure[i]), "key-press-event", G_CALLBACK(OnKeyPressRadioButtonFigure), GINT_TO_POINTER(k));
+		g_signal_connect(G_OBJECT(pRadioButtonFigure[i]), "enter-notify-event", G_CALLBACK(OnEnterRadioButtonScore), GINT_TO_POINTER(k));
+		g_signal_connect(G_OBJECT(pRadioButtonFigure[i]), "leave-notify-event", G_CALLBACK(OnLeaveRadioButtonScore), GINT_TO_POINTER(k));
 		gtk_grid_attach(GTK_GRID(pGridMain), pRadioButtonFigure[i], 3, i + 2, 1, 1);
 	}
 
@@ -392,8 +404,6 @@ int main(int argc, char **argv)
 		gtk_container_add(GTK_CONTAINER(eventBoxImageDice[i]), GTK_WIDGET(pDice[i]));
 		gtk_widget_set_can_focus(GTK_WIDGET(pDice[i]), TRUE);
 		gtk_widget_set_events(GTK_WIDGET(pDice[i]), GDK_KEY_PRESS_MASK || GDK_FOCUS_CHANGE_MASK);
-		// win = gtk_widget_get_window(GTK_WINDOW(Dice[i]));
-		// gdk_window_set_cursor(GTK_WINDOW(win), cursorDice);
 		g_signal_connect(eventBoxImageDice[i],
 						 "button-press-event",
 						 G_CALLBACK(OnClickDice),
@@ -407,6 +417,8 @@ int main(int argc, char **argv)
 						 "key-press-event",
 						 G_CALLBACK(OnClickDice),
 						 GINT_TO_POINTER(i));
+		g_signal_connect(GTK_WIDGET(eventBoxImageDice[i]), "enter-notify-event", G_CALLBACK(OnEnterDice), GINT_TO_POINTER(i));
+		g_signal_connect(GTK_WIDGET(eventBoxImageDice[i]), "leave-notify-event", G_CALLBACK(OnLeaveDice), GINT_TO_POINTER(i));
 	}
 
 	/* -------------------------------------------------------------------------- */
@@ -719,23 +731,6 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 	epr AI
 	*/
 	_epr_get_set_dices(Players);
-	//debug
-	cursorDice = gdk_cursor_new_from_name(gdk_display_get_default(), "grabbing");
-	cursorRowScore = gdk_cursor_new_from_name(gdk_display_get_default(), "pointer");
-	GdkCursor *  cursorDefault = gdk_cursor_new_from_name(gdk_display_get_default(), "default");
-	GdkWindow *win = NULL;
-	for (int i = 0; i < DICE_NUMBER; i++)
-	{
-		win = gtk_widget_get_parent_window(pDice[i]);
-		gdk_window_set_cursor(win, cursorDice);
-	}
-	for (int i = 0; i < 6; i++)// pRadioButtonDice[i]
-	{
-		win = gtk_widget_get_parent_window( pRadioButtonDice[i]);
-		gdk_window_set_cursor(win, cursorRowScore);
-	}
-	win = gtk_widget_get_parent_window(pButtonRoll);
-		gdk_window_set_cursor(win, cursorDefault);
 }
 
 /**
@@ -780,8 +775,6 @@ _g_chain_order_focus()
 void OnRoll(GtkWidget *pWidget, gpointer pData)
 {
 	diceName name = DICE_1;
-	//BUG: la marque selectionné precedement reste inscrite quelque soit le tirage et peut etre validée ! ie: 1er tour 18pts au six, deuxieme tirage plus de 6, on peut valider quand meme 18 points. C dans le cas ou precedement on essaye d'invalidé le Yazzi avant le Yazzi Bonus
-	//issue: remettre à zero la marque precedente des OnRoll ou OnAllRoll
 	if (Players->set->count > DICE_SET_MAX_COUNT - 2)
 		_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_COUNTER_MAX));
 	Players->set->count++;
@@ -1173,6 +1166,94 @@ void OnToggledRadioButtonFigure(GtkWidget *pWidget, gpointer pData)
 	if (GPOINTER_TO_INT(pData) > 0 && GPOINTER_TO_INT(pData) < 9)
 		if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pWidget)) && pData != 0)
 			gtk_entry_set_text(GTK_ENTRY(pValueFigure[GPOINTER_TO_INT(pData) - 1]), "0");
+}
+
+/**
+ * @brief quand la souris entre sur le Dé:
+ * - change la forme du curseur
+ * 
+ * @param pWidget le dé en question
+ * @param event enter-notify-event
+ * @param pData indice du dé
+ * @return gboolean 
+ */
+static gboolean
+OnEnterDice(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
+{
+	GtkWindow *win = NULL;
+	cursorDice = gdk_cursor_new_from_name(gdk_display_get_default(), "grabbing");
+	win = gtk_widget_get_parent_window(pWidget);
+	if (win != NULL)
+		gdk_window_set_cursor(win, cursorDice);
+	g_printf("OnEnterDice\n");
+	return TRUE;
+}
+
+/**
+ * @brief quand la souris sort du Dé:
+ * - change la forme du curseur
+ * 
+ * @param pWidget le dé en question
+ * @param event enter-notify-event
+ * @param pData indice du dé
+ * @return gboolean 
+ */
+static gboolean
+OnLeaveDice(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
+{
+	GtkWindow *win = NULL;
+	cursorDice = gdk_cursor_new_from_name(gdk_display_get_default(), "default");
+	win = gtk_widget_get_parent_window(pWidget);
+	gdk_window_set_cursor(win, cursorDice);
+	g_printf("OnLeaveDice\n");
+	return TRUE;
+}
+/**
+ * @brief Quand la souris entre sur radiobutton
+ * 
+ * @param pWidget le radio button
+ * @param event enter-notify-event
+ * @param pData indice du radiobutton
+ * @return gboolean 
+ */
+static gboolean
+OnEnterRadioButtonScore(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
+{
+	if (gdk_event_get_event_type(event) == GDK_ENTER_NOTIFY)
+	{
+		GtkWindow *win = NULL;
+		cursorRowScore = gdk_cursor_new_from_name(gdk_display_get_default(), "pointer");
+		win = gtk_widget_get_parent_window(pWidget);
+		if (win != NULL)
+			gdk_window_set_cursor(win, cursorRowScore);
+		g_printf("OnEnterRadioButtonScore\n");
+		return TRUE;
+	}
+	return FALSE;
+}
+
+/**
+ * @brief Quand la souris sort du radio button
+ * 
+ * @param pWidget le radiobutton en cours
+ * @param event leave-notify-event
+ * @param pData l'indice du radiobutton
+ * @return gboolean 
+ */
+static gboolean
+OnLeaveRadioButtonScore(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
+{
+	if (gdk_event_get_event_type(event) == GDK_LEAVE_NOTIFY)
+	{
+		GtkWindow *win = NULL;
+		cursorRowScore = gdk_cursor_new_from_name(gdk_display_get_default(), "default");
+		win = gtk_widget_get_parent_window(pWidget);
+		if (win != NULL)
+			gdk_window_set_cursor(win, cursorRowScore);
+		g_printf("OnLeaveRadioButtonScore\n");
+		return TRUE;
+	}
+	return FALSE;
 }
 
 /**

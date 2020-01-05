@@ -29,7 +29,6 @@ twitter: #BalanceTonCodeHexa
 
 #windowMain {
     background-color: #6a89cc;
-    ;
 }
 
 /*                                                                                           
@@ -185,6 +184,21 @@ radiobutton {
 /*-------------------------------------------------------------------------------------------*/
 
 /**********************************************************************************************
+*   Quand le radio bouton signal la zone
+**********************************************************************************************/
+
+radiobutton:hover label {
+    border-right: 3px solid #6a89cc;
+}
+
+radionbutton:checked radiobutton:not(checked) label {
+    outline-style: none;
+    border-right: none;
+}
+
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
 *   Quand une cellule est modifiable et accessible en ecriture 
 *   [enabled && write]
 **********************************************************************************************/
@@ -243,20 +257,6 @@ radiobutton.yellow:disabled label {
 radiobutton.yellow:checked label {
     text-decoration: line-through @yaz_text_dark;
     color: @yaz_text_dark;
-}
-
-/*-------------------------------------------------------------------------------------------*/
-
-/**********************************************************************************************
-*   Quand le radio bouton signal la zone
-**********************************************************************************************/
-
-radiobutton:hover label {
-    border-right: 3px solid #6a89cc;
-}
-
-radionbutton:checked radiobutton:not(checked) label {
-    outline-style: none;
 }
 
 /*-------------------------------------------------------------------------------------------*/
