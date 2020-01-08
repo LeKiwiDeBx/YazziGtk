@@ -22,5 +22,6 @@ typedef enum e_eprTab
 } eprTab;
 
 typedef int tabDice[DICE_NUMBER];
+typedef char tabDelta[DICE_NUMBER-1];
 tabDice * _epr_factory_new();
 #endif

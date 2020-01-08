@@ -16,18 +16,19 @@
 #include "player.h"
 #include <glib/gi18n.h>
 #include <glib/gprintf.h>
+#include <glib/gregex.h>
 #include <gtk/gtk.h>
 
 #define LEVEL_LOW 2  //nombre de face identique basse (sensibilité)
 #define LEVEL_HIGH 3 //nombre de face identique haute (sensibilité)
 
-typedef enum e_eprOpenFamilyPattern
+typedef enum e_eprOpenPattern
 {
 	OP_DIFFERENT, // les des sont tres differents
 	OP_SIMILAR,   // les des ont des double ou triple
 	OP_BIG_SUM,   // la somme des des et importante
 	OP_MISC		  // divers aucun des cas
-} eprOpenFamilyPattern;
+} eprOpenPattern;
 
 typedef enum e_eprFamilyPattern
 {							// quoi: Famille des patterns à chercher (strategie)
@@ -42,9 +43,13 @@ typedef enum e_eprFamilyPattern
 } eprFamilyPattern;
 
 tabDice dataBase;
+tabDelta deltaDB;
 
 static void _epr_set_dices_tab();
 static void _epr_sort_set_dices();
+diceSet *_epr_get_set_dices();
+static void _epr_search_pattern();
+static void _epr_delta_pattern();
 
 //
 // typedef struct s_eprAtom{
@@ -226,6 +231,12 @@ tabDice *_epr_factory_new(Player *self, eprTab tab)
 		{
 		case TAB_SORT_ASC:
 			_epr_sort_set_dices(self, dataBase);
+			_epr_delta_pattern(dataBase);
+			/* test debug*/
+			//auparavent analyse du database en chaine Delta :: ecart entre les des
+			_epr_search_pattern(OP_DIFFERENT);
+			_epr_search_pattern(OP_SIMILAR);
+			/*fin test debug*/
 			break;
 
 		default:
@@ -252,11 +263,15 @@ diceSet
 	for (int i = 0; i < DICE_NUMBER; i++)
 	{
 		/* display debug */
-		g_printf("dé #%d: %d\n", i + 1, p->value);
+		//g_printf("dé #%d: %d\n", i + 1, p->value);
 		p++;
 	}
 
 	return self->set;
+}
+
+void _epr_fetch_succ(Player *self, int *tab)
+{
 }
 
 /**
@@ -285,10 +300,67 @@ void _epr_set_dices_tab(Player *self, int *tab_dice_sort)
 		p = self->set->dices;
 	for (int i = 0; i < DICE_NUMBER; i++)
 	{
-		/* display debug */
 		tab_dice_sort[i] = p->value;
 		p++;
 	}
+}
+static void _epr_delta_pattern(const int *DB)
+{
+	char *p = (char *)g_try_malloc(4 * sizeof(char));
+	p = deltaDB;
+	g_printf("delta: ");
+	for (int i = 0; i < (DICE_NUMBER - 1); i++)
+	{
+		p = g_strdup_printf("%d", (DB[i + 1] - DB[i]));
+		deltaDB[i] = *p;
+		p++;
+	}
+	g_printf("%s\n", deltaDB);
+}
+
+static void _epr_search_pattern(eprOpenPattern op)
+{
+	GRegex *regex = NULL;
+	GMatchInfo *match_info;
+	char *typeOP = "nothing";
+	g_printf("search pattern...\n");
+	switch (op)
+	{
+	case OP_SIMILAR:
+		g_printf("# (H) search similar: (C)");
+		g_printf("chaine %s ", deltaDB);
+		typeOP = "similar";
+		regex = g_regex_new("0+.*0+", 0, 0, NULL); // au moins deux double(ou triple)
+		break;
+	case OP_DIFFERENT:
+		g_printf("# (H) search different: (C)");
+		g_printf("chaine %s ", deltaDB);
+		typeOP = "different";
+		regex = g_regex_new("1+0*1+", 0, 0, NULL); // au moins trois qui se succede (deux delta de 1)
+		break;
+	case OP_MISC:
+		g_printf("# (H) search misc: (C)");
+		g_printf("chaine %s\n", deltaDB);
+		typeOP = "misc";
+
+		//regex = g_regex_new("", 0, 0, NULL); // 1 double au plus et/ou moins de trois qui se succede
+	}
+	if (g_regex_match(regex, deltaDB, 0, &match_info))
+		g_printf("OK %s ", typeOP);
+		else
+		{
+			g_printf("NOP\n");
+		}
+		
+	while (g_match_info_matches(match_info))
+	{
+		gchar *pattern = g_match_info_fetch(match_info, 0);
+		g_print(" pour le Pattern: %s\n", pattern);
+		g_free(pattern);
+		g_match_info_next(match_info, NULL);
+	}
+	g_match_info_free(match_info);
+	g_regex_unref(regex);
 }
 
 /**

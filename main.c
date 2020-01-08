@@ -47,7 +47,8 @@ extern Player *Players,
 extern ptr_Player p;
 extern int (*row_sheet_score[])(Player *);
 extern int _sheet_score_already(Player *self, int numMark);
-
+extern diceSet *_epr_get_set_dices(Player *self);
+extern tabDice *_epr_factory_new(Player *self, eprTab tab);
 int player_id;
 
 typedef enum e_yaz_state
@@ -732,7 +733,15 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 	/*
 	epr AI
 	*/
-	_epr_get_set_dices(Players);
+	// _epr_get_set_dices(Players);
+	int *p = (int *)g_malloc(DICE_NUMBER * sizeof(int));
+	if (p != NULL)
+		p = _epr_factory_new(Players, TAB_SORT_ASC)[0];
+	for (int i = 0; i < DICE_NUMBER; i++)
+	{
+		g_printf("dices in order : %d\n", *p);
+		p++;
+	}
 }
 
 /**
@@ -944,7 +953,7 @@ OnClickDice(GtkWidget *eventBoxImageDice, GdkEvent *event, gpointer pData) //Gdk
 {
 	const int name = GPOINTER_TO_INT(pData);
 	//g_printf("onClick keyval %d hardware keycode %d\n", ((GdkEventKey *)event)->keyval, ((GdkEventKey *)event)->hardware_keycode);
-	if (Players->set->count > 0 && Players->set->count <= DICE_SET_MAX_COUNT && (((GdkEventKey *)event)->keyval == GDK_KEY_Return || ((GdkEventButton *)event)->type == GDK_BUTTON_PRESS))
+	if (Players->set->count > 0 && Players->set->count <= DICE_SET_MAX_COUNT && (((GdkEventKey *)event)->keyval == GDK_KEY_space || ((GdkEventButton *)event)->type == GDK_BUTTON_PRESS))
 	{
 		_g_mediator_widget_state(eventBoxImageDice, GINT_TO_POINTER(YAZ_STATE_DICE_SELECT));
 		_g_players_set_dices_is_enable(name);
@@ -1184,7 +1193,7 @@ OnEnterDice(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
 {
 	if (gdk_event_get_event_type(event) == GDK_ENTER_NOTIFY)
 	{
-		GtkWindow *win = NULL;
+		GdkWindow *win = NULL;
 		cursorDice = gdk_cursor_new_from_name(gdk_display_get_default(), "grabbing");
 		win = gtk_widget_get_parent_window(pWidget);
 		if (win != NULL && cursorDice != NULL)
@@ -1194,8 +1203,7 @@ OnEnterDice(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
 			return TRUE;
 		}
 	}
-	else
-		return FALSE;
+	return FALSE;
 }
 
 /**
@@ -1212,7 +1220,7 @@ OnLeaveDice(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
 {
 	if (gdk_event_get_event_type(event) == GDK_LEAVE_NOTIFY)
 	{
-		GtkWindow *win = NULL;
+		GdkWindow *win = NULL;
 		cursorDice = gdk_cursor_new_from_name(gdk_display_get_default(), "default");
 		win = gtk_widget_get_parent_window(pWidget);
 		if (win != NULL && cursorDice != NULL)
@@ -1237,7 +1245,7 @@ OnEnterRadioButtonScore(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
 {
 	if (gdk_event_get_event_type(event) == GDK_ENTER_NOTIFY)
 	{
-		GtkWindow *win = NULL;
+		GdkWindow *win = NULL;
 		cursorRowScore = gdk_cursor_new_from_name(gdk_display_get_default(), "pointer");
 		win = gtk_widget_get_parent_window(pWidget);
 		if (win != NULL && cursorRowScore != NULL)
@@ -1263,7 +1271,7 @@ OnLeaveRadioButtonScore(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
 {
 	if (gdk_event_get_event_type(event) == GDK_LEAVE_NOTIFY)
 	{
-		GtkWindow *win = NULL;
+		GdkWindow *win = NULL;
 		cursorRowScore = gdk_cursor_new_from_name(gdk_display_get_default(), "default");
 		win = gtk_widget_get_parent_window(pWidget);
 		if (win != NULL && cursorRowScore != NULL)
@@ -1366,7 +1374,7 @@ _g_display_players_update_score_all(Player *self)
 	display = g_strdup_printf("%s %d", _(labelCrunching[4]), self->scoreArray->ptr_cell[GrandTotal].value);
 	gtk_label_set_text(GTK_LABEL(pLabelCrunching[4]), display);
 
-	display = g_strdup_printf("%-25s\t%03d points\n%-25s\t%03d points", Player_1.name, Player_1.scoreArray->ptr_cell[GrandTotal].value, Player_2.name, Player_2.scoreArray->ptr_cell[GrandTotal].value);
+	display = g_strdup_printf("%-20s%3d\n%-20s%3d", Player_1.name, Player_1.scoreArray->ptr_cell[GrandTotal].value, Player_2.name, Player_2.scoreArray->ptr_cell[GrandTotal].value);
 	gtk_widget_set_tooltip_text(pLabelCrunching[4], display);
 
 	g_free(display);

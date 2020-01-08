@@ -307,8 +307,9 @@ tooltip {
 }
 
 tooltip label {
-    font-size: 1em;
+    font-size: 0.90em;
     font-weight: bold;
+    font-family: 'Aerial Mono', 'DejaVu Sans Mono', monospace;
     color: rgba(245, 245, 245, 0.85);
     /* background-color: @tooltip_bg_color;
     color: @tooltip_fg_color; */
