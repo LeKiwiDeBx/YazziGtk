@@ -236,6 +236,7 @@ tabDice *_epr_factory_new(Player *self, eprTab tab)
 			//auparavent analyse du database en chaine Delta :: ecart entre les des
 			_epr_search_pattern(OP_DIFFERENT);
 			_epr_search_pattern(OP_SIMILAR);
+			_epr_search_pattern(OP_MISC);
 			/*fin test debug*/
 			break;
 
@@ -329,29 +330,30 @@ static void _epr_search_pattern(eprOpenPattern op)
 	case OP_SIMILAR:
 		g_printf("# (H) search similar: (C)");
 		g_printf("chaine %s ", deltaDB);
-		typeOP = "similar";
+		typeOP = "similar (like start full or Yazzi)";
 		regex = g_regex_new("0+.*0+", 0, 0, NULL); // au moins deux double(ou triple)
 		break;
 	case OP_DIFFERENT:
 		g_printf("# (H) search different: (C)");
 		g_printf("chaine %s ", deltaDB);
-		typeOP = "different";
+		typeOP = "different (like start straight)";
 		regex = g_regex_new("1+0*1+", 0, 0, NULL); // au moins trois qui se succede (deux delta de 1)
 		break;
 	case OP_MISC:
 		g_printf("# (H) search misc: (C)");
-		g_printf("chaine %s\n", deltaDB);
-		typeOP = "misc";
+		g_printf("chaine %s ", deltaDB);
+		typeOP = "misc (not wrong/ not good)";
+		regex = g_regex_new("^(?!.*(10?1|0.*0)).*", 0, 0, NULL); //exclut tous ce qui est suite et double/triple
 
 		//regex = g_regex_new("", 0, 0, NULL); // 1 double au plus et/ou moins de trois qui se succede
 	}
 	if (g_regex_match(regex, deltaDB, 0, &match_info))
 		g_printf("OK %s ", typeOP);
-		else
-		{
-			g_printf("NOP\n");
-		}
-		
+	else
+	{
+		g_printf("NOP\n");
+	}
+
 	while (g_match_info_matches(match_info))
 	{
 		gchar *pattern = g_match_info_fetch(match_info, 0);
