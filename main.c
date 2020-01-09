@@ -733,7 +733,7 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 	/*
 	epr AI
 	*/
-	// _epr_get_set_dices(Players);
+	// 
 	int *p = (int *)g_malloc(DICE_NUMBER * sizeof(int));
 	if (p != NULL)
 		p = _epr_factory_new(Players, TAB_SORT_ASC)[0];
@@ -815,6 +815,18 @@ void OnRoll(GtkWidget *pWidget, gpointer pData)
 	// fin test  fin test  fin test  fin test  fin test  fin test  fin test  fin test  fin test  fin test
 	/**************************************************************************************************/
 	_g_chain_order_focus();
+	/*
+	epr AI
+	*/
+	// 
+	int *p = (int *)g_malloc(DICE_NUMBER * sizeof(int));
+	if (p != NULL)
+		p = _epr_factory_new(Players, TAB_SORT_ASC)[0];
+	for (int i = 0; i < DICE_NUMBER; i++)
+	{
+		g_printf("dices in order : %d\n", *p);
+		p++;
+	}
 }
 
 /**

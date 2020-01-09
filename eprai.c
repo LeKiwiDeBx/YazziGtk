@@ -26,8 +26,17 @@ typedef enum e_eprOpenPattern
 {
 	OP_DIFFERENT, // les des sont tres differents
 	OP_SIMILAR,   // les des ont des double ou triple
-	OP_BIG_SUM,   // la somme des des et importante
-	OP_MISC		  // divers aucun des cas
+	OP_MISC,	  // divers aucun des cas
+	OP_SMALL_STRAIGHT,
+	OP_LARGE_STRAIGHT,
+	OP_FULL_HOUSE,
+	OP_THREE_OF_KIND,
+	OP_FOUR_OF_KIND,
+	OP_YAZZI,
+	OP_CHANCE,
+	OP_YAZZI_BONUS,
+	OP_BIG_SUM, // la somme des des est importante
+
 } eprOpenPattern;
 
 typedef enum e_eprFamilyPattern
@@ -234,9 +243,10 @@ tabDice *_epr_factory_new(Player *self, eprTab tab)
 			_epr_delta_pattern(dataBase);
 			/* test debug*/
 			//auparavent analyse du database en chaine Delta :: ecart entre les des
-			_epr_search_pattern(OP_DIFFERENT);
-			_epr_search_pattern(OP_SIMILAR);
-			_epr_search_pattern(OP_MISC);
+			for (int op = OP_DIFFERENT; op <= OP_MISC; op++)
+			{
+				_epr_search_pattern(op);
+			}
 			/*fin test debug*/
 			break;
 
@@ -324,7 +334,7 @@ static void _epr_search_pattern(eprOpenPattern op)
 	GRegex *regex = NULL;
 	GMatchInfo *match_info;
 	char *typeOP = "nothing";
-	g_printf("search pattern...\n");
+	//g_printf("search pattern...\n");
 	switch (op)
 	{
 	case OP_SIMILAR:
@@ -339,13 +349,62 @@ static void _epr_search_pattern(eprOpenPattern op)
 		typeOP = "different (like start straight)";
 		regex = g_regex_new("1+0*1+", 0, 0, NULL); // au moins trois qui se succede (deux delta de 1)
 		break;
+	case OP_SMALL_STRAIGHT:
+		typeOP = "small straight ";
+		g_printf("# (H) search :%s (C)", typeOP);
+		g_printf("chaine %s ", deltaDB);
+		regex = g_regex_new("(^[^1]?1{3})[^1]", 0, 0, NULL);
+		break;
+	case OP_LARGE_STRAIGHT:
+		typeOP = "Large straight ";
+		g_printf("# (H) search :%s (C)", typeOP);
+		g_printf("chaine %s ", deltaDB);
+		regex = g_regex_new("1{4}", 0, 0, NULL);
+		break;
+	case OP_FULL_HOUSE:
+		typeOP = "Full House ";
+		g_printf("# (H) search :%s (C)", typeOP);
+		g_printf("chaine %s ", deltaDB);
+		regex = g_regex_new("^0(0[^0]|[^0]0)0$", 0, 0, NULL);
+		break;
+	case OP_THREE_OF_KIND:
+		typeOP = "Three of kind ";
+		g_printf("# (H) search :%s (C)", typeOP);
+		g_printf("chaine %s ", deltaDB);
+		regex = g_regex_new("^[1-4]?[^0]?(0{2})[^0]", 0, 0, NULL);
+		break;
+	case OP_FOUR_OF_KIND:
+		typeOP = "Four of kind ";
+		g_printf("# (H) search :%s (C)", typeOP);
+		g_printf("chaine %s ", deltaDB);
+		regex = g_regex_new("(0{3})[^0]", 0, 0, NULL);
+		break;
+	case OP_YAZZI:
+		typeOP = "Yazzi ";
+		g_printf("# (H) search :%s (C)", typeOP);
+		g_printf("chaine %s ", deltaDB);
+		regex = g_regex_new("0{4}", 0, 0, NULL);
+		break;
+	case OP_CHANCE:
+		typeOP = "Chance ";
+		g_printf("# (H) search :%s (C)", typeOP);
+		g_printf("chaine %s ", deltaDB);
+		regex = g_regex_new("", 0, 0, NULL);
+		break;
+	case OP_YAZZI_BONUS:
+		typeOP = "Yazzi Bonus ";
+		g_printf("# (H) search :%s (C)", typeOP);
+		g_printf("chaine %s ", deltaDB);
+		regex = g_regex_new("0{4}", 0, 0, NULL);
+		break;
 	case OP_MISC:
 		g_printf("# (H) search misc: (C)");
 		g_printf("chaine %s ", deltaDB);
 		typeOP = "misc (not wrong/ not good)";
 		regex = g_regex_new("^(?!.*(10?1|0.*0)).*", 0, 0, NULL); //exclut tous ce qui est suite et double/triple
-
-		//regex = g_regex_new("", 0, 0, NULL); // 1 double au plus et/ou moins de trois qui se succede
+		break;
+	case OP_BIG_SUM:
+	default:;
 	}
 	if (g_regex_match(regex, deltaDB, 0, &match_info))
 		g_printf("OK %s ", typeOP);
