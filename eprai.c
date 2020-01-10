@@ -33,7 +33,7 @@ typedef enum e_eprOpenPattern
 	OP_THREE_OF_KIND,
 	OP_FOUR_OF_KIND,
 	OP_YAZZI,
-	OP_CHANCE,
+	//	OP_CHANCE, // not yet implemented
 	OP_YAZZI_BONUS,
 	OP_BIG_SUM, // la somme des des est importante
 
@@ -243,7 +243,7 @@ tabDice *_epr_factory_new(Player *self, eprTab tab)
 			_epr_delta_pattern(dataBase);
 			/* test debug*/
 			//auparavent analyse du database en chaine Delta :: ecart entre les des
-			for (int op = OP_DIFFERENT; op <= OP_MISC; op++)
+			for (int op = OP_DIFFERENT; op <= OP_BIG_SUM; op++)
 			{
 				_epr_search_pattern(op);
 			}
@@ -333,7 +333,7 @@ static void _epr_search_pattern(eprOpenPattern op)
 {
 	GRegex *regex = NULL;
 	GMatchInfo *match_info;
-	char *typeOP = "nothing";
+	char *typeOP = "not yet implemented";
 	//g_printf("search pattern...\n");
 	switch (op)
 	{
@@ -353,7 +353,7 @@ static void _epr_search_pattern(eprOpenPattern op)
 		typeOP = "small straight ";
 		g_printf("# (H) search :%s (C)", typeOP);
 		g_printf("chaine %s ", deltaDB);
-		regex = g_regex_new("(^[^1]?1{3})[^1]", 0, 0, NULL);
+		regex = g_regex_new("^(1)?(?(1)(01|10|1)1|[^1]111)", 0, 0, NULL);
 		break;
 	case OP_LARGE_STRAIGHT:
 		typeOP = "Large straight ";
@@ -371,13 +371,13 @@ static void _epr_search_pattern(eprOpenPattern op)
 		typeOP = "Three of kind ";
 		g_printf("# (H) search :%s (C)", typeOP);
 		g_printf("chaine %s ", deltaDB);
-		regex = g_regex_new("^[1-4]?[^0]?(0{2})[^0]", 0, 0, NULL);
+		regex = g_regex_new("([^0]|^)(0{2})([^0]|$)", 0, 0, NULL); //au sens strict: pas de 4 à la suite
 		break;
 	case OP_FOUR_OF_KIND:
 		typeOP = "Four of kind ";
 		g_printf("# (H) search :%s (C)", typeOP);
 		g_printf("chaine %s ", deltaDB);
-		regex = g_regex_new("(0{3})[^0]", 0, 0, NULL);
+		regex = g_regex_new("([^0]|^)(0{3})([^0]|$)", 0, 0, NULL);
 		break;
 	case OP_YAZZI:
 		typeOP = "Yazzi ";
@@ -385,12 +385,7 @@ static void _epr_search_pattern(eprOpenPattern op)
 		g_printf("chaine %s ", deltaDB);
 		regex = g_regex_new("0{4}", 0, 0, NULL);
 		break;
-	case OP_CHANCE:
-		typeOP = "Chance ";
-		g_printf("# (H) search :%s (C)", typeOP);
-		g_printf("chaine %s ", deltaDB);
-		regex = g_regex_new("", 0, 0, NULL);
-		break;
+
 	case OP_YAZZI_BONUS:
 		typeOP = "Yazzi Bonus ";
 		g_printf("# (H) search :%s (C)", typeOP);
@@ -400,11 +395,13 @@ static void _epr_search_pattern(eprOpenPattern op)
 	case OP_MISC:
 		g_printf("# (H) search misc: (C)");
 		g_printf("chaine %s ", deltaDB);
-		typeOP = "misc (not wrong/ not good)";
+		typeOP = "misc (not good/not bad :°) )";
 		regex = g_regex_new("^(?!.*(10?1|0.*0)).*", 0, 0, NULL); //exclut tous ce qui est suite et double/triple
 		break;
 	case OP_BIG_SUM:
-	default:;
+	default:
+		regex = g_regex_new(".*", 0, 0, NULL);
+		;
 	}
 	if (g_regex_match(regex, deltaDB, 0, &match_info))
 		g_printf("OK %s ", typeOP);
