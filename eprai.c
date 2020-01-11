@@ -353,7 +353,7 @@ static void _epr_search_pattern(eprOpenPattern op)
 		typeOP = "small straight ";
 		g_printf("# (H) search :%s (C)", typeOP);
 		g_printf("chaine %s ", deltaDB);
-		regex = g_regex_new("^(1)?(?(1)(01|10|1)1|[^1]111)", 0, 0, NULL);
+		regex = g_regex_new("^(1)?(?(1)(011|101|11)($|[^1])|[^1]111)", 0, 0, NULL); //sens strict: pas grande suite
 		break;
 	case OP_LARGE_STRAIGHT:
 		typeOP = "Large straight ";
