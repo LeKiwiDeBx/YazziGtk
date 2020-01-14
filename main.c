@@ -431,6 +431,7 @@ int main(int argc, char **argv)
 	/* -------------------------------------------------------------------------- */
 	static const gchar *toolTipButtonLower[] = {N_("Roll all dices"), N_("Roll a dice selection"), N_("Valid a select score"), N_("Go to next player"), N_("Quit the game")};
 	pHButtonBox = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
+	gtk_box_set_spacing(GTK_BOX(pHButtonBox), GTK_BUTTONBOX_SPREAD);
 	pButtonQuit = gtk_button_new_with_mnemonic(_("_Quit"));
 	gtk_widget_set_tooltip_text(pButtonQuit, _(toolTipButtonLower[4]));
 	pButtonValid = gtk_button_new_with_mnemonic(_("_Valid"));
@@ -733,7 +734,7 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 	/*
 	epr AI
 	*/
-	// 
+	//
 	int *p = (int *)g_malloc(DICE_NUMBER * sizeof(int));
 	if (p != NULL)
 		p = _epr_factory_new(Players, TAB_SORT_ASC)[0];
@@ -818,7 +819,7 @@ void OnRoll(GtkWidget *pWidget, gpointer pData)
 	/*
 	epr AI
 	*/
-	// 
+	//
 	int *p = (int *)g_malloc(DICE_NUMBER * sizeof(int));
 	if (p != NULL)
 		p = _epr_factory_new(Players, TAB_SORT_ASC)[0];

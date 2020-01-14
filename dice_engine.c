@@ -22,6 +22,7 @@ extern GtkImage *image;
 
 static ptr_dice tab_dice;		//tableau objet de type structure
 static ptr_diceSet tab_diceSet; //tableau objet de type structure
+static GRand *g_rand = NULL;
 
 int _dice_rand(void);
 void dice_create(dice *newDice, diceName name, int id);
@@ -36,9 +37,10 @@ int is_enables(Player *self, diceName name);
  * @return int 
  */
 int _dice_rand(void)
-{   
-	int x, max = 7, min = 1;
-	x = rand() % (max - min) + min;
+{
+	// int x, max = 7, min = 1;
+	// x = rand() % (max - min) + min;
+	int x = g_rand_int_range(g_rand, 1, 7);
 	return (x);
 }
 
@@ -128,7 +130,8 @@ void dice_set_new(Player *newPlayer)
 	int i, j;
 	diceName dicename;
 
-	srand(time(NULL));
+	//srand(time(NULL));
+	g_rand = g_rand_new();
 	if (diceSetId == 0)
 	{
 		tab_dice = (ptr_dice)malloc(DICE_NUMBER * NB_DICE_SET * sizeof(dice));
