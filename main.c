@@ -117,7 +117,9 @@ GtkWidget *pWindowMain = NULL, /* fenetre principale */
 		  *pWindowAlert = NULL,
 		  *pValue = NULL,
 		  *pLabel = NULL,
-		  *pLabelAlert = NULL;
+		  *pLabelAlert = NULL,
+		  *pLabelBar = NULL,
+		  *pBar = NULL;
 GtkCssProvider *pCssProvider = NULL;
 GtkImage *image = NULL;
 static const gchar *labelCrunching[] = {N_("SubSum"), N_("Bonus"), N_("Upper"), N_("Lower"), N_("Grand Total")};
@@ -454,6 +456,18 @@ int main(int argc, char **argv)
 	g_signal_connect(pButtonNextPlayer, "clicked", G_CALLBACK(OnNextPlayer), NULL);
 	g_signal_connect(pButtonQuit, "clicked", G_CALLBACK(OnDestroy), NULL);
 	_g_mediator_widget_state(pWindowMain, GINT_TO_POINTER(YAZ_STATE_INIT));
+
+	/* -------------------------------------------------------------------------- */
+	/*							Info Bar Lower    				  	  		      */
+	/* 						Barre d'info en bas de jeu							  */
+	/* -------------------------------------------------------------------------- */
+	GtkWidget *pBoxBar = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+	pBar = gtk_info_bar_new();
+	gtk_box_pack_start(GTK_BOX(pBoxBar), pBar, TRUE, TRUE, 0);
+	gtk_info_bar_set_message_type(GTK_INFO_BAR(pBar), GTK_MESSAGE_INFO);
+	pLabelBar = gtk_label_new("This is an info bar with message type GTK_MESSAGE_INFO");
+	gtk_box_pack_start(GTK_BOX(gtk_info_bar_get_content_area(GTK_INFO_BAR(pBar))), pLabelBar, TRUE, TRUE, 0);
+	gtk_grid_attach(GTK_GRID(pGridMain), GTK_WIDGET(pBoxBar), 0, 14, 5, 1);
 
 	/* -------------------------------------------------------------------------- */
 	/*							Boite d'alerte de l'application		     	      */
