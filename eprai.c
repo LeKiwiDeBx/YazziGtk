@@ -22,6 +22,8 @@
 #define LEVEL_LOW 2  //nombre de face identique basse (sensibilité)
 #define LEVEL_HIGH 3 //nombre de face identique haute (sensibilité)
 
+extern GtkWidget *pLabelBar;
+
 typedef enum e_eprOpenPattern
 {
 	OP_DIFFERENT, // les des sont tres differents
@@ -59,6 +61,7 @@ static void _epr_sort_set_dices();
 diceSet *_epr_get_set_dices();
 static void _epr_search_pattern();
 static void _epr_delta_pattern();
+static void _epr_do_message_bar();
 
 //
 // typedef struct s_eprAtom{
@@ -416,11 +419,18 @@ static void _epr_search_pattern(eprOpenPattern op)
 		g_print(" pour le Pattern: %s\n", pattern);
 		g_free(pattern);
 		g_match_info_next(match_info, NULL);
+		_epr_do_message_bar(typeOP);
 	}
 	g_match_info_free(match_info);
 	g_regex_unref(regex);
 }
 
+static void _epr_do_message_bar(gchar *sOP)
+{
+	static gchar *OP;
+	OP = g_strconcat(g_strdup_printf("%s", sOP),"*", NULL);
+	gtk_label_set_text(GTK_LABEL(pLabelBar), g_strdup_printf("%s", OP));
+}
 /**
  * @brief
  * @param pAtom
