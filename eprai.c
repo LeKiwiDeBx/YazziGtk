@@ -38,6 +38,7 @@ typedef enum e_eprOpenPattern
 	//	OP_CHANCE, // not yet implemented
 	OP_YAZZI_BONUS,
 	OP_BIG_SUM, // la somme des des est importante
+	OP_NOP		//pas de pattern
 
 } eprOpenPattern;
 
@@ -59,7 +60,7 @@ tabDelta deltaDB;
 static void _epr_set_dices_tab();
 static void _epr_sort_set_dices();
 diceSet *_epr_get_set_dices();
-static void _epr_search_pattern();
+static eprOpenPattern _epr_search_pattern();
 static void _epr_delta_pattern();
 static void _epr_do_message_bar();
 
@@ -249,8 +250,10 @@ tabDice *_epr_factory_new(Player *self, eprTab tab)
 			for (int op = OP_DIFFERENT; op <= OP_BIG_SUM; op++)
 			{
 				_epr_search_pattern(op);
+				_epr_do_message_bar("pattern trouvé !"); //debug uniquement doit tenir compte de la valeur de retour de _epr_search_pattern(op)
 			}
 			/*fin test debug*/
+
 			break;
 
 		default:
@@ -332,7 +335,7 @@ static void _epr_delta_pattern(const int *DB)
 	g_printf("%s\n", deltaDB);
 }
 
-static void _epr_search_pattern(eprOpenPattern op)
+static eprOpenPattern _epr_search_pattern(eprOpenPattern op)
 {
 	GRegex *regex = NULL;
 	GMatchInfo *match_info;
@@ -388,7 +391,6 @@ static void _epr_search_pattern(eprOpenPattern op)
 		g_printf("chaine %s ", deltaDB);
 		regex = g_regex_new("0{4}", 0, 0, NULL);
 		break;
-
 	case OP_YAZZI_BONUS:
 		typeOP = "Yazzi Bonus ";
 		g_printf("# (H) search :%s (C)", typeOP);
@@ -402,34 +404,36 @@ static void _epr_search_pattern(eprOpenPattern op)
 		regex = g_regex_new("^(?!.*(10?1|0.*0)).*", 0, 0, NULL); //exclut tous ce qui est suite et double/triple
 		break;
 	case OP_BIG_SUM:
+	case OP_NOP:
 	default:
 		regex = g_regex_new(".*", 0, 0, NULL);
 		;
 	}
 	if (g_regex_match(regex, deltaDB, 0, &match_info))
+	{
 		g_printf("OK %s ", typeOP);
+	}
 	else
 	{
 		g_printf("NOP\n");
+		return OP_NOP;
 	}
-
 	while (g_match_info_matches(match_info))
 	{
 		gchar *pattern = g_match_info_fetch(match_info, 0);
 		g_print(" pour le Pattern: %s\n", pattern);
 		g_free(pattern);
 		g_match_info_next(match_info, NULL);
-		_epr_do_message_bar(typeOP);
 	}
 	g_match_info_free(match_info);
 	g_regex_unref(regex);
+	return op;
 }
 
-static void _epr_do_message_bar(gchar *sOP)
+static void _epr_do_message_bar(const gchar *sOP)
 {
-	static gchar *OP;
-	OP = g_strconcat(g_strdup_printf("%s", sOP),"*", NULL);
-	gtk_label_set_text(GTK_LABEL(pLabelBar), g_strdup_printf("%s", OP));
+	gtk_label_set_text(GTK_LABEL(pLabelBar), sOP);
+	g_printf("concat %s\n", sOP);
 }
 /**
  * @brief
