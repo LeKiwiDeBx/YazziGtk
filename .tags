@@ -1,0 +1,481 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+TAB_SIZE	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^#define TAB_SIZE(/;"	macro	line:18	file:
+MIN_BONUS	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^#define MIN_BONUS /;"	macro	line:19	file:
+sheetScore_1	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^static sheetScore sheetScore_1, sheetScore_2;$/;"	variable	line:23	file:
+sheetScore_2	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^static sheetScore sheetScore_1, sheetScore_2;$/;"	variable	line:23	file:
+sheetScoreArray_1	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^static sheetScoreArray sheetScoreArray_1, sheetScoreArray_2;$/;"	variable	line:24	file:
+sheetScoreArray_2	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^static sheetScoreArray sheetScoreArray_1, sheetScoreArray_2;$/;"	variable	line:24	file:
+Cell_1	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^static sheetScoreCell Cell_1[YAZZI_NB_CELL], Cell_2[YAZZI_NB_CELL];$/;"	variable	line:25	file:
+Cell_2	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^static sheetScoreCell Cell_1[YAZZI_NB_CELL], Cell_2[YAZZI_NB_CELL];$/;"	variable	line:25	file:
+row_sheet_score	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^int (*row_sheet_score[])(Player *) = {calcScoreSameSide,$/;"	variable	line:26
+cellName	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^char *cellName[] = {$/;"	variable	line:36
+cellScoreName	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^typedef enum cellScoreName$/;"	enum	line:59	file:
+Aces	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	Aces,		   \/\/indice 0 -----debut des choix 'enable'$/;"	enumerator	line:61	enum:cellScoreName	file:
+Twos	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	Twos,		   \/\/1$/;"	enumerator	line:62	enum:cellScoreName	file:
+Threes	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	Threes,		   \/\/2$/;"	enumerator	line:63	enum:cellScoreName	file:
+Fours	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	Fours,		   \/\/3$/;"	enumerator	line:64	enum:cellScoreName	file:
+Fives	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	Fives,		   \/\/4$/;"	enumerator	line:65	enum:cellScoreName	file:
+Sixes	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	Sixes,		   \/\/5$/;"	enumerator	line:66	enum:cellScoreName	file:
+SmallStraight	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	SmallStraight, \/\/6$/;"	enumerator	line:67	enum:cellScoreName	file:
+LargeStraight	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	LargeStraight, \/\/7$/;"	enumerator	line:68	enum:cellScoreName	file:
+FullHouse	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	FullHouse,	 \/\/8$/;"	enumerator	line:69	enum:cellScoreName	file:
+ThreeOfKind	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	ThreeOfKind,   \/\/9$/;"	enumerator	line:70	enum:cellScoreName	file:
+FourOfKind	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	FourOfKind,	\/\/10$/;"	enumerator	line:71	enum:cellScoreName	file:
+Yazzi	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	Yazzi,		   \/\/11$/;"	enumerator	line:72	enum:cellScoreName	file:
+Chance	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	Chance,		   \/\/12------------fin des choix possibles 'enable'$/;"	enumerator	line:73	enum:cellScoreName	file:
+SubSum	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	SubSum,		   \/\/13$/;"	enumerator	line:74	enum:cellScoreName	file:
+Bonus	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	Bonus,		   \/\/14$/;"	enumerator	line:75	enum:cellScoreName	file:
+UpperSection	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	UpperSection,  \/\/15$/;"	enumerator	line:76	enum:cellScoreName	file:
+YazziBonus	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	YazziBonus,	\/\/16---------------choix possible apres Yazzi validé$/;"	enumerator	line:77	enum:cellScoreName	file:
+LowerSection	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	LowerSection,  \/\/17$/;"	enumerator	line:78	enum:cellScoreName	file:
+GrandTotal	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	GrandTotal	 \/\/18$/;"	enumerator	line:79	enum:cellScoreName	file:
+cellScoreName	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^} cellScoreName;$/;"	typedef	line:80	typeref:enum:cellScoreName	file:
+display_result_sheet	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^int display_result_sheet(Player *self, int numMark)$/;"	function	line:89	signature:(Player *self, int numMark)
+_fetch_count	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^void _fetch_count(Player *self, int *tab_count_value)$/;"	function	line:98	signature:(Player *self, int *tab_count_value)
+sheet_score_new	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^void sheet_score_new(Player *newPlayer)$/;"	function	line:108	signature:(Player *newPlayer)
+sheet_score_init	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^void sheet_score_init(Player *self)$/;"	function	line:132	signature:(Player *self)
+sheet_score_get	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^	sheet_score_get(Player *self)$/;"	function	line:173	signature:(Player *self)
+sheet_score_destroy	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^void sheet_score_destroy()$/;"	function	line:181
+sheet_score_all_reset	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^void sheet_score_all_reset()$/;"	function	line:189
+sheet_score_write	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^int sheet_score_write(Player *self, int numMark)$/;"	function	line:230	signature:(Player *self, int numMark)
+_sheet_score_already	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^int _sheet_score_already(Player *self, int numMark)$/;"	function	line:259	signature:(Player *self, int numMark)
+sheet_score_update_all	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^void sheet_score_update_all(Player *self)$/;"	function	line:279	signature:(Player *self)
+_sheet_score_update_upper_section	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^_sheet_score_update_upper_section(Player *self)$/;"	function	line:306	file:	signature:(Player *self)
+_sheet_score_update_lower_section	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^_sheet_score_update_lower_section(Player *self)$/;"	function	line:325	file:	signature:(Player *self)
+_sheet_score_update_grand_total	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^_sheet_score_update_grand_total(Player *self)$/;"	function	line:337	file:	signature:(Player *self)
+_adaptator_sheet_score	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^_adaptator_sheet_score(Player *self, int numMark)$/;"	function	line:353	file:	signature:(Player *self, int numMark)
+_set_sheet_scoreArray_cell_enable	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^_set_sheet_scoreArray_cell_enable(Player *self)$/;"	function	line:397	file:	signature:(Player *self)
+full_sheet_score	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^int full_sheet_score(Player *self)$/;"	function	line:406	signature:(Player *self)
+calcScoreSameSide	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^int calcScoreSameSide(Player *self, int value)$/;"	function	line:419	signature:(Player *self, int value)
+calcScoreFullHouse	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^int calcScoreFullHouse(Player *self)$/;"	function	line:425	signature:(Player *self)
+calcScoreThreeOfKind	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^int calcScoreThreeOfKind(Player *self)$/;"	function	line:445	signature:(Player *self)
+calcScoreFourOfKind	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^int calcScoreFourOfKind(Player *self)$/;"	function	line:465	signature:(Player *self)
+calcScoreYazzi	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^int calcScoreYazzi(Player *self)$/;"	function	line:485	signature:(Player *self)
+calcScoreYazziBonus	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^int calcScoreYazziBonus(Player *self)$/;"	function	line:498	signature:(Player *self)
+calcScoreLargeStraight	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^int calcScoreLargeStraight(Player *self)$/;"	function	line:507	signature:(Player *self)
+calcScoreSmallStraight	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^int calcScoreSmallStraight(Player *self)$/;"	function	line:537	signature:(Player *self)
+calcScoreChance	/home/jean/YazziGtk/YazziGtk/result_sheet.c	/^int calcScoreChance(Player *self)$/;"	function	line:580	signature:(Player *self)
+_BOARD_ENGINE_H_	/home/jean/YazziGtk/YazziGtk/board_engine.h	/^#define _BOARD_ENGINE_H_$/;"	macro	line:8
+Player_1	/home/jean/YazziGtk/YazziGtk/player.c	/^Player Player_1 =$/;"	variable	line:21
+Player_2	/home/jean/YazziGtk/YazziGtk/player.c	/^Player Player_2 =$/;"	variable	line:30
+Players	/home/jean/YazziGtk/YazziGtk/player.c	/^Player *Players;$/;"	variable	line:39
+_player_get_new_id	/home/jean/YazziGtk/YazziGtk/player.c	/^_player_get_new_id(Player *player)$/;"	function	line:49	file:	signature:(Player *player)
+get_player_all	/home/jean/YazziGtk/YazziGtk/player.c	/^get_player_all()$/;"	function	line:62
+player_init	/home/jean/YazziGtk/YazziGtk/player.c	/^void player_init()$/;"	function	line:76
+player_all_set_reset	/home/jean/YazziGtk/YazziGtk/player.c	/^void player_all_set_reset()$/;"	function	line:136
+player_set_name	/home/jean/YazziGtk/YazziGtk/player.c	/^void player_set_name(Player *player, gchar *name)$/;"	function	line:171	signature:(Player *player, gchar *name)
+player_set_can_play	/home/jean/YazziGtk/YazziGtk/player.c	/^void player_set_can_play(Player *player, int canPlay)$/;"	function	line:185	signature:(Player *player, int canPlay)
+player_get_can_play	/home/jean/YazziGtk/YazziGtk/player.c	/^	player_get_can_play()$/;"	function	line:197
+player_set_status	/home/jean/YazziGtk/YazziGtk/player.c	/^void player_set_status(Player *player, statePlayer status)$/;"	function	line:215	signature:(Player *player, statePlayer status)
+player_swap	/home/jean/YazziGtk/YazziGtk/player.c	/^	player_swap(Player *playerCurrent, Player *p)$/;"	function	line:229	signature:(Player *playerCurrent, Player *p)
+player_which_winner	/home/jean/YazziGtk/YazziGtk/player.c	/^player_which_winner()$/;"	function	line:251
+_RESULT_SHEET_H_	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^#define _RESULT_SHEET_H_$/;"	macro	line:9
+YAZZI_VALUE	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^#define YAZZI_VALUE /;"	macro	line:14
+BONUS	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^#define	BONUS /;"	macro	line:15
+YAZZI_MIN_BONUS	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^#define YAZZI_MIN_BONUS /;"	macro	line:16
+YAZZI_SMALL_STRAIGHT	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^#define YAZZI_SMALL_STRAIGHT /;"	macro	line:17
+YAZZI_LARGE_STRAIGHT	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^#define YAZZI_LARGE_STRAIGHT /;"	macro	line:18
+YAZZI_FULL_HOUSE	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^#define YAZZI_FULL_HOUSE /;"	macro	line:19
+YAZZI_MAX_ACES	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^#define YAZZI_MAX_ACES	/;"	macro	line:20
+YAZZI_MAX_TWOS	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^#define YAZZI_MAX_TWOS	/;"	macro	line:21
+YAZZI_MAX_THREES	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^#define YAZZI_MAX_THREES /;"	macro	line:22
+YAZZI_MAX_FOURS	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^#define YAZZI_MAX_FOURS	/;"	macro	line:23
+YAZZI_MAX_FIVES	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^#define YAZZI_MAX_FIVES	/;"	macro	line:24
+YAZZI_MAX_SIXES	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^#define YAZZI_MAX_SIXES	/;"	macro	line:25
+YAZZI_NB_SHEET	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^#define YAZZI_NB_SHEET /;"	macro	line:26
+YAZZI_NB_CELL	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^#define YAZZI_NB_CELL /;"	macro	line:27
+s_sheet_Score	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^typedef struct s_sheet_Score{$/;"	struct	line:29
+id	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int id;$/;"	member	line:30	struct:s_sheet_Score
+player_id	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int player_id;$/;"	member	line:31	struct:s_sheet_Score
+scoreAces	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreAces;$/;"	member	line:32	struct:s_sheet_Score
+scoreTwos	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreTwos;$/;"	member	line:33	struct:s_sheet_Score
+scoreThrees	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreThrees;$/;"	member	line:34	struct:s_sheet_Score
+scoreFours	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreFours;$/;"	member	line:35	struct:s_sheet_Score
+scoreFives	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreFives;$/;"	member	line:36	struct:s_sheet_Score
+scoreSixes	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreSixes;$/;"	member	line:37	struct:s_sheet_Score
+scoreSubSum	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreSubSum;$/;"	member	line:38	struct:s_sheet_Score
+scoreBonus	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreBonus;$/;"	member	line:39	struct:s_sheet_Score
+scoreUpperSection	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreUpperSection;$/;"	member	line:40	struct:s_sheet_Score
+scoreSmallStraight	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreSmallStraight;$/;"	member	line:41	struct:s_sheet_Score
+scoreLargeStraight	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreLargeStraight;$/;"	member	line:42	struct:s_sheet_Score
+scoreFullHouse	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreFullHouse;$/;"	member	line:43	struct:s_sheet_Score
+scoreThreeOfKind	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreThreeOfKind;$/;"	member	line:44	struct:s_sheet_Score
+scoreFourOfKind	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreFourOfKind;$/;"	member	line:45	struct:s_sheet_Score
+scoreYazzi	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreYazzi;$/;"	member	line:46	struct:s_sheet_Score
+scoreChance	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreChance;$/;"	member	line:47	struct:s_sheet_Score
+scoreYazziBonus	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreYazziBonus;$/;"	member	line:48	struct:s_sheet_Score
+scoreLowerSection	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreLowerSection;$/;"	member	line:49	struct:s_sheet_Score
+scoreGrandTotal	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int scoreGrandTotal;$/;"	member	line:50	struct:s_sheet_Score
+sheetScore	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	} sheetScore ;$/;"	typedef	line:51	typeref:struct:s_sheet_Score
+ptr_sheetScore	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^sheetScore *ptr_sheetScore[YAZZI_NB_SHEET] ; \/* carnet de score *\/$/;"	variable	line:53
+s_sheet_Score_Cell	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^typedef struct s_sheet_Score_Cell{$/;"	struct	line:55
+id	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int id;$/;"	member	line:56	struct:s_sheet_Score_Cell
+name	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	char *name;$/;"	member	line:57	struct:s_sheet_Score_Cell
+value	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int value;$/;"	member	line:58	struct:s_sheet_Score_Cell
+enable	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int enable;$/;"	member	line:59	struct:s_sheet_Score_Cell
+sheetScoreCell	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^} sheetScoreCell ;$/;"	typedef	line:60	typeref:struct:s_sheet_Score_Cell
+s_sheet_Score_Array	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^typedef struct s_sheet_Score_Array{$/;"	struct	line:62
+id	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int id;$/;"	member	line:63	struct:s_sheet_Score_Array
+player_id	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int player_id;$/;"	member	line:64	struct:s_sheet_Score_Array
+full	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	int full;$/;"	member	line:65	struct:s_sheet_Score_Array
+ptr_cell	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^	sheetScoreCell *ptr_cell;$/;"	member	line:66	struct:s_sheet_Score_Array
+sheetScoreArray	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^} sheetScoreArray;$/;"	typedef	line:67	typeref:struct:s_sheet_Score_Array
+ptr_sheetScoreArray	/home/jean/YazziGtk/YazziGtk/result_sheet.h	/^sheetScoreArray *ptr_sheetScoreArray[YAZZI_NB_SHEET] ;$/;"	variable	line:69
+_DICE_ENGINE_H_	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^#define _DICE_ENGINE_H_$/;"	macro	line:8
+DICE_NUMBER	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^#define DICE_NUMBER /;"	macro	line:13
+DICE_SET_MAX_COUNT	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^#define DICE_SET_MAX_COUNT /;"	macro	line:14
+NB_DICE_SET	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^#define NB_DICE_SET /;"	macro	line:15
+DICE_ALL	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^#define DICE_ALL /;"	macro	line:16
+e_diceOrderBy	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^typedef enum e_diceOrderBy$/;"	enum	line:18
+ASC	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	ASC,$/;"	enumerator	line:20	enum:e_diceOrderBy
+DESC	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	DESC$/;"	enumerator	line:21	enum:e_diceOrderBy
+diceOrderBy	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^} diceOrderBy;$/;"	typedef	line:22	typeref:enum:e_diceOrderBy
+e_diceName	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^typedef enum e_diceName$/;"	enum	line:24
+DICE_1	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	DICE_1,$/;"	enumerator	line:26	enum:e_diceName
+DICE_2	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	DICE_2,$/;"	enumerator	line:27	enum:e_diceName
+DICE_3	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	DICE_3,$/;"	enumerator	line:28	enum:e_diceName
+DICE_4	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	DICE_4,$/;"	enumerator	line:29	enum:e_diceName
+DICE_5	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	DICE_5$/;"	enumerator	line:30	enum:e_diceName
+diceName	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^} diceName;$/;"	typedef	line:31	typeref:enum:e_diceName
+s_dice	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^typedef struct s_dice$/;"	struct	line:33
+id	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	int id;$/;"	member	line:35	struct:s_dice
+name	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	diceName name; \/* identifiant	*\/$/;"	member	line:36	struct:s_dice
+value	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	int value;$/;"	member	line:37	struct:s_dice
+enable	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	int enable; \/* jouable - non jouable *\/$/;"	member	line:38	struct:s_dice
+dice	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^} dice, *ptr_dice;$/;"	typedef	line:39	typeref:struct:s_dice
+ptr_dice	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^} dice, *ptr_dice;$/;"	typedef	line:39	typeref:struct:s_dice
+e_nameDiceSet	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^typedef enum e_nameDiceSet$/;"	enum	line:41
+DICE_SET_1	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	DICE_SET_1,$/;"	enumerator	line:43	enum:e_nameDiceSet
+DICE_SET_2	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	DICE_SET_2$/;"	enumerator	line:44	enum:e_nameDiceSet
+nameDiceSet	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^} nameDiceSet;$/;"	typedef	line:45	typeref:enum:e_nameDiceSet
+s_diceSet	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^typedef struct s_diceSet$/;"	struct	line:47
+id	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	int id;$/;"	member	line:49	struct:s_diceSet
+name	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	nameDiceSet name;$/;"	member	line:50	struct:s_diceSet
+player_id	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	int player_id;$/;"	member	line:51	struct:s_diceSet
+dices	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	dice *dices;$/;"	member	line:52	struct:s_diceSet
+count	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^	int count; \/* nombre de fois joué <= DICE_SET_MAX_COUNT*\/$/;"	member	line:53	struct:s_diceSet
+diceSet	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^} diceSet, *ptr_diceSet;$/;"	typedef	line:54	typeref:struct:s_diceSet
+ptr_diceSet	/home/jean/YazziGtk/YazziGtk/dice_engine.h	/^} diceSet, *ptr_diceSet;$/;"	typedef	line:54	typeref:struct:s_diceSet
+files.associations	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^    "files.associations": {$/;"	function	line:2
+gdkkeysyms-compat.h	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^        "gdkkeysyms-compat.h": "c",$/;"	function	line:3
+gtk.h	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^        "gtk.h": "c",$/;"	function	line:4
+gi18n.h	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^        "gi18n.h": "c",$/;"	function	line:5
+*.h	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^        "*.h": "c",$/;"	function	line:6
+*.ipp	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^        "*.ipp": "c",$/;"	function	line:7
+optional	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^        "optional": "c"$/;"	function	line:8
+C_Cpp.errorSquiggles	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^    "C_Cpp.errorSquiggles": "Disabled",$/;"	function	line:10
+c-cpp-flylint.cppcheck.language	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^    "c-cpp-flylint.cppcheck.language": "c",$/;"	function	line:11
+c-cpp-flylint.clang.language	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^    "c-cpp-flylint.clang.language": "c",$/;"	function	line:12
+c-cpp-flylint.clang.includePaths	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^    "c-cpp-flylint.clang.includePaths": [$/;"	function	line:13
+C_Cpp.intelliSenseEngine	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^    "C_Cpp.intelliSenseEngine": "Default",$/;"	function	line:20
+editor.quickSuggestions	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^    "editor.quickSuggestions": {$/;"	function	line:21
+other	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^        "other": true,$/;"	function	line:22
+comments	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^        "comments": false,$/;"	function	line:23
+strings	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^        "strings": false$/;"	function	line:24
+editor.suggestSelection	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^    "editor.suggestSelection": "recentlyUsed",$/;"	function	line:26
+editor.suggestOnTriggerCharacters	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^    "editor.suggestOnTriggerCharacters": true,$/;"	function	line:27
+files.encoding	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^    "files.encoding": "utf8",$/;"	function	line:28
+cSpell.words	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^    "cSpell.words": [$/;"	function	line:29
+search.useGlobalIgnoreFiles	/home/jean/YazziGtk/YazziGtk/.vscode/settings.json	/^    "search.useGlobalIgnoreFiles": true$/;"	function	line:33
+configurations	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^    "configurations": [$/;"	function	line:2
+name	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^            "name": "Linux",$/;"	function	line:4
+includePath	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^            "includePath": [$/;"	function	line:5
+defines	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^            "defines": [],$/;"	function	line:8
+compilerPath	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^            "compilerPath": "\/usr\/bin\/clang"$/;"	function	line:9
+name	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^            "name": "LinuxGTK",$/;"	function	line:12
+includePath	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^            "includePath": [$/;"	function	line:13
+defines	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^            "defines": [],$/;"	function	line:25
+compilerPath	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^            "compilerPath": "\/usr\/bin\/x86_64-linux-gnu-gcc-8",$/;"	function	line:26
+cStandard	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^            "cStandard": "c11",$/;"	function	line:27
+cppStandard	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^            "cppStandard": "c++17",$/;"	function	line:28
+browse	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^            "browse": {$/;"	function	line:29
+path	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^                "path": [$/;"	function	line:30
+limitSymbolsToIncludedHeaders	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^                "limitSymbolsToIncludedHeaders": "true",$/;"	function	line:34
+databaseFilename	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^                "databaseFilename": "${workspaceFolder}\/.vscode\/browse.vc.db"$/;"	function	line:35
+version	/home/jean/YazziGtk/YazziGtk/.vscode/c_cpp_properties.json	/^    "version": 4$/;"	function	line:39
+tasks	/home/jean/YazziGtk/YazziGtk/.vscode/tasks.json	/^    "tasks": [$/;"	function	line:2
+type	/home/jean/YazziGtk/YazziGtk/.vscode/tasks.json	/^            "type": "shell",$/;"	function	line:4
+label	/home/jean/YazziGtk/YazziGtk/.vscode/tasks.json	/^            "label": "gcc-5 build active file",$/;"	function	line:5
+command	/home/jean/YazziGtk/YazziGtk/.vscode/tasks.json	/^            "command": "\/usr\/bin\/gcc-5",$/;"	function	line:6
+args	/home/jean/YazziGtk/YazziGtk/.vscode/tasks.json	/^            "args": [$/;"	function	line:7
+options	/home/jean/YazziGtk/YazziGtk/.vscode/tasks.json	/^            "options": {$/;"	function	line:13
+cwd	/home/jean/YazziGtk/YazziGtk/.vscode/tasks.json	/^                "cwd": "\/usr\/bin"$/;"	function	line:14
+version	/home/jean/YazziGtk/YazziGtk/.vscode/tasks.json	/^    "version": "2.0.0"$/;"	function	line:18
+version	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^    "version": "0.2.0",$/;"	function	line:5
+configurations	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^    "configurations": [$/;"	function	line:6
+name	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^            "name": "gcc-5 build and debug active file",$/;"	function	line:8
+type	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^            "type": "cppdbg",$/;"	function	line:9
+request	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^            "request": "launch",$/;"	function	line:10
+program	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^            "program": "${fileDirname}\/yazziGtk",$/;"	function	line:11
+args	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^            "args": [],$/;"	function	line:12
+stopAtEntry	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^            "stopAtEntry": false,$/;"	function	line:13
+cwd	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^            "cwd": "${workspaceFolder}",$/;"	function	line:14
+environment	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^            "environment": [],$/;"	function	line:15
+externalConsole	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^            "externalConsole": false,$/;"	function	line:16
+MIMode	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^            "MIMode": "gdb",$/;"	function	line:17
+setupCommands	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^            "setupCommands": [$/;"	function	line:18
+description	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^                    "description": "Activer l'impression en mode Pretty pour gdb",$/;"	function	line:20
+text	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^                    "text": "-enable-pretty-printing",$/;"	function	line:21
+ignoreFailures	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^                    "ignoreFailures": true$/;"	function	line:22
+preLaunchTask	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^            "preLaunchTask": "",$/;"	function	line:25
+miDebuggerPath	/home/jean/YazziGtk/YazziGtk/.vscode/launch.json	/^            "miDebuggerPath": "\/usr\/bin\/gdb"$/;"	function	line:26
+PROG	/home/jean/YazziGtk/YazziGtk/Makefile	/^PROG = yazziGtk$/;"	macro	line:2
+CC	/home/jean/YazziGtk/YazziGtk/Makefile	/^CC = gcc$/;"	macro	line:4
+CFLAGS	/home/jean/YazziGtk/YazziGtk/Makefile	/^CFLAGS = -Wall -o$/;"	macro	line:6
+OBJECTS	/home/jean/YazziGtk/YazziGtk/Makefile	/^OBJECTS = main.o board_engine.o player.o dice_engine.o result_sheet.o eprai.o$/;"	macro	line:8
+PKG_CONFIG	/home/jean/YazziGtk/YazziGtk/Makefile	/^PKG_CONFIG = pkg-config --cflags --libs gtk+-3.0$/;"	macro	line:10
+lockfileVersion	/home/jean/YazziGtk/YazziGtk/package-lock.json	/^  "lockfileVersion": 1$/;"	function	line:2
+<No copyright>   <void Happy_Coding()	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^<No copyright>   <void Happy_Coding(){}>      <\/ LeKiwiDeBx >    <No trademark>$/;"	function	line:14
+#windowMain	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^#windowMain {$/;"	function	line:30
+grid	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^grid {$/;"	function	line:43
+grid>label	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^grid>label {$/;"	function	line:48
+label.labeltop	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^label.labeltop {$/;"	function	line:61
+label.labelcrunching	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^label.labelcrunching {$/;"	function	line:74
+label.important	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^label.important {$/;"	function	line:90
+image:disabled	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^image:disabled {$/;"	function	line:106
+grid>entry#rowScore	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^grid>entry#rowScore {$/;"	function	line:119
+button	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^button {$/;"	function	line:141
+button:hover	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^button:hover {$/;"	function	line:152
+button:focus	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^button:focus {$/;"	function	line:161
+button:disabled	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^button:disabled {$/;"	function	line:166
+button:disabled>label	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^button:disabled>label {$/;"	function	line:170
+radiobutton	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^radiobutton {$/;"	function	line:180
+radiobutton:hover label	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^radiobutton:hover label {$/;"	function	line:190
+radionbutton:checked radiobutton:not(checked) label	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^radionbutton:checked radiobutton:not(checked) label {$/;"	function	line:194
+radiobutton.dark:checked label	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^radiobutton.dark:checked label {$/;"	function	line:205
+radiobutton.dark label	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^radiobutton.dark label {$/;"	function	line:210
+radiobutton.grey:checked label	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^radiobutton.grey:checked label {$/;"	function	line:215
+radiobutton.red:disabled label	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^radiobutton.red:disabled label {$/;"	function	line:227
+radiobutton.violet:disabled label	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^radiobutton.violet:disabled label {$/;"	function	line:239
+radiobutton.yellow:disabled label	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^radiobutton.yellow:disabled label {$/;"	function	line:251
+radiobutton.yellow:checked label	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^radiobutton.yellow:checked label {$/;"	function	line:256
+.dice	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^.dice {$/;"	function	line:267
+.dice:focus	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^.dice:focus {$/;"	function	line:273
+.windowAlert	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^.windowAlert {$/;"	function	line:286
+window.windowAlert label	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^window.windowAlert label {$/;"	function	line:290
+tooltip	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^tooltip {$/;"	function	line:303
+tooltip label	/home/jean/YazziGtk/YazziGtk/theme/yazzi.css	/^tooltip label {$/;"	function	line:309
+ERR_VALUE_FACE	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^#define ERR_VALUE_FACE /;"	macro	line:17	file:
+ERR_ENABLE_FACE	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^#define ERR_ENABLE_FACE /;"	macro	line:18	file:
+tab_dice	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^static ptr_dice tab_dice;		\/\/tableau objet de type structure$/;"	variable	line:23	file:
+tab_diceSet	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^static ptr_diceSet tab_diceSet; \/\/tableau objet de type structure$/;"	variable	line:24	file:
+g_rand	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^static GRand *g_rand = NULL;$/;"	variable	line:25	file:
+_dice_rand	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^int _dice_rand(void)$/;"	function	line:39	signature:(void)
+sort_dice_value_order_by	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^void sort_dice_value_order_by(Player *self, int *tab_dice_sort, diceOrderBy orderBy)$/;"	function	line:54	signature:(Player *self, int *tab_dice_sort, diceOrderBy orderBy)
+dice_create	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^void dice_create(dice *newDice, diceName name, int id)$/;"	function	line:97	signature:(dice *newDice, diceName name, int id)
+dice_set_create	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^void dice_set_create(Player *self, diceSet *newDiceSet, dice *newDice, int newId)$/;"	function	line:113	signature:(Player *self, diceSet *newDiceSet, dice *newDice, int newId)
+dice_set_new	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^void dice_set_new(Player *newPlayer)$/;"	function	line:127	signature:(Player *newPlayer)
+dice_set_destroy	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^void dice_set_destroy()$/;"	function	line:163
+roll_all	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^void roll_all(Player *self)$/;"	function	line:174	signature:(Player *self)
+roll_a_dice	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^void roll_a_dice(Player *self, diceName name)$/;"	function	line:199	signature:(Player *self, diceName name)
+roll_a_dice_slice	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^void roll_a_dice_slice(Player *self, int *slice)$/;"	function	line:222	signature:(Player *self, int *slice)
+is_which	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^void is_which()$/;"	function	line:240
+is_enables	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^int is_enables(Player *self, diceName name)$/;"	function	line:252	signature:(Player *self, diceName name)
+count_value_dice	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^int count_value_dice(Player *self, int value)$/;"	function	line:275	signature:(Player *self, int value)
+get_value_face	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^int get_value_face(Player *self, diceName name)$/;"	function	line:306	signature:(Player *self, diceName name)
+get_all_dices	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^	get_all_dices(Player *self)$/;"	function	line:330	signature:(Player *self)
+set_value_face	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^void set_value_face(Player *self, int value)$/;"	function	line:345	signature:(Player *self, int value)
+set_raz_value_face	/home/jean/YazziGtk/YazziGtk/dice_engine.c	/^void set_raz_value_face(Player *self)$/;"	function	line:358	signature:(Player *self)
+LEVEL_LOW	/home/jean/YazziGtk/YazziGtk/eprai.c	/^#define LEVEL_LOW /;"	macro	line:22	file:
+LEVEL_HIGH	/home/jean/YazziGtk/YazziGtk/eprai.c	/^#define LEVEL_HIGH /;"	macro	line:23	file:
+e_eprOpenPattern	/home/jean/YazziGtk/YazziGtk/eprai.c	/^typedef enum e_eprOpenPattern$/;"	enum	line:27	file:
+OP_DIFFERENT	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	OP_DIFFERENT, \/\/ les des sont tres differents$/;"	enumerator	line:29	enum:e_eprOpenPattern	file:
+OP_SIMILAR	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	OP_SIMILAR,   \/\/ les des ont des double ou triple$/;"	enumerator	line:30	enum:e_eprOpenPattern	file:
+OP_MISC	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	OP_MISC,	  \/\/ divers aucun des cas$/;"	enumerator	line:31	enum:e_eprOpenPattern	file:
+OP_SMALL_STRAIGHT	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	OP_SMALL_STRAIGHT,$/;"	enumerator	line:32	enum:e_eprOpenPattern	file:
+OP_LARGE_STRAIGHT	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	OP_LARGE_STRAIGHT,$/;"	enumerator	line:33	enum:e_eprOpenPattern	file:
+OP_FULL_HOUSE	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	OP_FULL_HOUSE,$/;"	enumerator	line:34	enum:e_eprOpenPattern	file:
+OP_THREE_OF_KIND	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	OP_THREE_OF_KIND,$/;"	enumerator	line:35	enum:e_eprOpenPattern	file:
+OP_FOUR_OF_KIND	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	OP_FOUR_OF_KIND,$/;"	enumerator	line:36	enum:e_eprOpenPattern	file:
+OP_YAZZI	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	OP_YAZZI,$/;"	enumerator	line:37	enum:e_eprOpenPattern	file:
+OP_YAZZI_BONUS	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	OP_YAZZI_BONUS,$/;"	enumerator	line:39	enum:e_eprOpenPattern	file:
+OP_BIG_SUM	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	OP_BIG_SUM, \/\/ la somme des des est importante$/;"	enumerator	line:40	enum:e_eprOpenPattern	file:
+OP_NOP	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	OP_NOP		\/\/pas de pattern$/;"	enumerator	line:41	enum:e_eprOpenPattern	file:
+eprOpenPattern	/home/jean/YazziGtk/YazziGtk/eprai.c	/^} eprOpenPattern;$/;"	typedef	line:43	typeref:enum:e_eprOpenPattern	file:
+e_eprFamilyPattern	/home/jean/YazziGtk/YazziGtk/eprai.c	/^typedef enum e_eprFamilyPattern$/;"	enum	line:45	file:
+FA_SAME_DICE_LOW	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	FA_SAME_DICE_LOW,		\/\/ dés egaux (ie plusieurs 3) #1 #2 #3 poids bas$/;"	enumerator	line:47	enum:e_eprFamilyPattern	file:
+FA_SAME_DICE_HIGH	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	FA_SAME_DICE_HIGH,		\/\/ dés egaux (ie plusieurs 3) #3 #4 #5 poids hauts$/;"	enumerator	line:48	enum:e_eprFamilyPattern	file:
+FA_STRAIGHT_DICE	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	FA_STRAIGHT_DICE,		\/\/ SS LS une suite (ie 2 3 4 or 4 5 6)$/;"	enumerator	line:49	enum:e_eprFamilyPattern	file:
+FA_FULL_HOUSE	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	FA_FULL_HOUSE,			\/\/ FH YAZ YB$/;"	enumerator	line:50	enum:e_eprFamilyPattern	file:
+FA_FULL_HOUSE_WITH_MIN	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	FA_FULL_HOUSE_WITH_MIN, \/\/ ToK FoK et sum > 12$/;"	enumerator	line:51	enum:e_eprFamilyPattern	file:
+FA_SUM_DICE	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	FA_SUM_DICE,			\/\/ Sum$/;"	enumerator	line:52	enum:e_eprFamilyPattern	file:
+FA_DIRECT_PATTERN	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	FA_DIRECT_PATTERN,		\/\/ Figure entiere identifiée$/;"	enumerator	line:53	enum:e_eprFamilyPattern	file:
+FA_OTHERS	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	FA_OTHERS				\/\/ Aucune des precedentes$/;"	enumerator	line:54	enum:e_eprFamilyPattern	file:
+eprFamilyPattern	/home/jean/YazziGtk/YazziGtk/eprai.c	/^} eprFamilyPattern;$/;"	typedef	line:55	typeref:enum:e_eprFamilyPattern	file:
+dataBase	/home/jean/YazziGtk/YazziGtk/eprai.c	/^tabDice dataBase;$/;"	variable	line:57
+deltaDB	/home/jean/YazziGtk/YazziGtk/eprai.c	/^tabDelta deltaDB;$/;"	variable	line:58
+_epr_factory_new	/home/jean/YazziGtk/YazziGtk/eprai.c	/^tabDice *_epr_factory_new(Player *self, eprTab tab)$/;"	function	line:234	signature:(Player *self, eprTab tab)
+_epr_get_set_dices	/home/jean/YazziGtk/YazziGtk/eprai.c	/^	_epr_get_set_dices(Player *self)$/;"	function	line:273	signature:(Player *self)
+_epr_fetch_succ	/home/jean/YazziGtk/YazziGtk/eprai.c	/^void _epr_fetch_succ(Player *self, int *tab)$/;"	function	line:290	signature:(Player *self, int *tab)
+_epr_sort_set_dices	/home/jean/YazziGtk/YazziGtk/eprai.c	/^void _epr_sort_set_dices(Player *self, int *tab_dice_sort)$/;"	function	line:300	signature:(Player *self, int *tab_dice_sort)
+_epr_set_dices_tab	/home/jean/YazziGtk/YazziGtk/eprai.c	/^void _epr_set_dices_tab(Player *self, int *tab_dice_sort)$/;"	function	line:311	signature:(Player *self, int *tab_dice_sort)
+_epr_delta_pattern	/home/jean/YazziGtk/YazziGtk/eprai.c	/^static void _epr_delta_pattern(const int *DB)$/;"	function	line:324	file:	signature:(const int *DB)
+_epr_search_pattern	/home/jean/YazziGtk/YazziGtk/eprai.c	/^static eprOpenPattern _epr_search_pattern(eprOpenPattern op)$/;"	function	line:338	file:	signature:(eprOpenPattern op)
+_epr_do_message_bar	/home/jean/YazziGtk/YazziGtk/eprai.c	/^static void _epr_do_message_bar(const gchar *sOP)$/;"	function	line:433	file:	signature:(const gchar *sOP)
+_EPRAI_H_	/home/jean/YazziGtk/YazziGtk/eprai.h	/^#define _EPRAI_H_$/;"	macro	line:8
+e_eprTab	/home/jean/YazziGtk/YazziGtk/eprai.h	/^typedef enum e_eprTab$/;"	enum	line:17
+TAB_SORT_ASC	/home/jean/YazziGtk/YazziGtk/eprai.h	/^	TAB_SORT_ASC,$/;"	enumerator	line:19	enum:e_eprTab
+TAB_SORT_DESC	/home/jean/YazziGtk/YazziGtk/eprai.h	/^	TAB_SORT_DESC,$/;"	enumerator	line:20	enum:e_eprTab
+TAB_RAW	/home/jean/YazziGtk/YazziGtk/eprai.h	/^	TAB_RAW$/;"	enumerator	line:21	enum:e_eprTab
+eprTab	/home/jean/YazziGtk/YazziGtk/eprai.h	/^} eprTab;$/;"	typedef	line:22	typeref:enum:e_eprTab
+tabDice	/home/jean/YazziGtk/YazziGtk/eprai.h	/^typedef int tabDice[DICE_NUMBER];$/;"	typedef	line:24
+tabDelta	/home/jean/YazziGtk/YazziGtk/eprai.h	/^typedef char tabDelta[DICE_NUMBER-1];$/;"	typedef	line:25
+MAX_CAR	/home/jean/YazziGtk/YazziGtk/board_engine.c	/^#define MAX_CAR /;"	macro	line:20	file:
+p	/home/jean/YazziGtk/YazziGtk/board_engine.c	/^ptr_Player p;$/;"	variable	line:23
+board_init	/home/jean/YazziGtk/YazziGtk/board_engine.c	/^void board_init()$/;"	function	line:30
+_PLAYER_H_	/home/jean/YazziGtk/YazziGtk/player.h	/^#define _PLAYER_H_$/;"	macro	line:9
+NB_PLAYER	/home/jean/YazziGtk/YazziGtk/player.h	/^#define NB_PLAYER /;"	macro	line:16
+e_state_Player	/home/jean/YazziGtk/YazziGtk/player.h	/^typedef enum e_state_Player$/;"	enum	line:18
+WINNER_PLAYER	/home/jean/YazziGtk/YazziGtk/player.h	/^	WINNER_PLAYER, \/* 0 *\/$/;"	enumerator	line:20	enum:e_state_Player
+LOOSER_PLAYER	/home/jean/YazziGtk/YazziGtk/player.h	/^	LOOSER_PLAYER, \/* 1 *\/$/;"	enumerator	line:21	enum:e_state_Player
+EQUAL_PLAYER	/home/jean/YazziGtk/YazziGtk/player.h	/^	EQUAL_PLAYER,  \/* 2 *\/$/;"	enumerator	line:22	enum:e_state_Player
+NEW_PLAYER	/home/jean/YazziGtk/YazziGtk/player.h	/^	NEW_PLAYER,	\/* 3  nouveau joueur ou qui a jouer second au premier match *\/$/;"	enumerator	line:23	enum:e_state_Player
+BEGIN_PLAYER	/home/jean/YazziGtk/YazziGtk/player.h	/^	BEGIN_PLAYER   \/* 4  le joueur qui a commencer la partie*\/$/;"	enumerator	line:24	enum:e_state_Player
+statePlayer	/home/jean/YazziGtk/YazziGtk/player.h	/^} statePlayer;$/;"	typedef	line:25	typeref:enum:e_state_Player
+s_Player	/home/jean/YazziGtk/YazziGtk/player.h	/^typedef struct s_Player$/;"	struct	line:27
+id	/home/jean/YazziGtk/YazziGtk/player.h	/^	int id;$/;"	member	line:29	struct:s_Player
+name	/home/jean/YazziGtk/YazziGtk/player.h	/^	gchar *name;				 \/* un joueur *\/$/;"	member	line:30	struct:s_Player
+scoreArray	/home/jean/YazziGtk/YazziGtk/player.h	/^	sheetScoreArray *scoreArray; \/* Forme tab:: a une feuille de marque pour un jeu *\/$/;"	member	line:31	struct:s_Player
+score	/home/jean/YazziGtk/YazziGtk/player.h	/^	sheetScore *score;			 \/* Forme simple:: a une feuille de marque pour un jeu *\/$/;"	member	line:32	struct:s_Player
+set	/home/jean/YazziGtk/YazziGtk/player.h	/^	diceSet *set;				 \/* a un jeu de dés *\/$/;"	member	line:33	struct:s_Player
+canPlay	/home/jean/YazziGtk/YazziGtk/player.h	/^	gint canPlay;				 \/* a son tour\/ou pas de jouer *\/$/;"	member	line:34	struct:s_Player
+status	/home/jean/YazziGtk/YazziGtk/player.h	/^	statePlayer status;			 \/* gagnant,perdant... *\/$/;"	member	line:35	struct:s_Player
+Player	/home/jean/YazziGtk/YazziGtk/player.h	/^} Player, *ptr_Player;$/;"	typedef	line:36	typeref:struct:s_Player
+ptr_Player	/home/jean/YazziGtk/YazziGtk/player.h	/^} Player, *ptr_Player;$/;"	typedef	line:36	typeref:struct:s_Player
+GETTEXT_DOMAIN_NAME	/home/jean/YazziGtk/YazziGtk/main.c	/^#define GETTEXT_DOMAIN_NAME /;"	macro	line:30	file:
+GETTEXT_DIR_NAME	/home/jean/YazziGtk/YazziGtk/main.c	/^#define GETTEXT_DIR_NAME /;"	macro	line:31	file:
+YAZ_APP_NAME	/home/jean/YazziGtk/YazziGtk/main.c	/^#define YAZ_APP_NAME /;"	macro	line:33	file:
+YAZ_WINDOW_MAIN_SIZE_H	/home/jean/YazziGtk/YazziGtk/main.c	/^#define YAZ_WINDOW_MAIN_SIZE_H /;"	macro	line:34	file:
+YAZ_WINDOW_MAIN_SIZE_V	/home/jean/YazziGtk/YazziGtk/main.c	/^#define YAZ_WINDOW_MAIN_SIZE_V /;"	macro	line:35	file:
+YAZ_WINDOW_MAIN_TITLE	/home/jean/YazziGtk/YazziGtk/main.c	/^#define YAZ_WINDOW_MAIN_TITLE /;"	macro	line:36	file:
+YAZ_TABLE_MAIN_ROWS	/home/jean/YazziGtk/YazziGtk/main.c	/^#define YAZ_TABLE_MAIN_ROWS /;"	macro	line:37	file:
+YAZ_TABLE_MAIN_COLS	/home/jean/YazziGtk/YazziGtk/main.c	/^#define YAZ_TABLE_MAIN_COLS /;"	macro	line:38	file:
+YAZ_REP_IMAGE	/home/jean/YazziGtk/YazziGtk/main.c	/^#define YAZ_REP_IMAGE /;"	macro	line:39	file:
+YAZ_NB_BOUTON_FIGURE	/home/jean/YazziGtk/YazziGtk/main.c	/^#define YAZ_NB_BOUTON_FIGURE /;"	macro	line:40	file:
+_YAZ_CONCAT	/home/jean/YazziGtk/YazziGtk/main.c	/^#define _YAZ_CONCAT(/;"	macro	line:41	file:
+YAZ_ENTRY_NAME_MAX_LENGTH	/home/jean/YazziGtk/YazziGtk/main.c	/^#define YAZ_ENTRY_NAME_MAX_LENGTH /;"	macro	line:42	file:
+YAZ_THEME_PATH	/home/jean/YazziGtk/YazziGtk/main.c	/^#define YAZ_THEME_PATH /;"	macro	line:43	file:
+YAZ_THEME_FILE	/home/jean/YazziGtk/YazziGtk/main.c	/^#define YAZ_THEME_FILE /;"	macro	line:44	file:
+player_id	/home/jean/YazziGtk/YazziGtk/main.c	/^int player_id;$/;"	variable	line:52
+e_yaz_state	/home/jean/YazziGtk/YazziGtk/main.c	/^typedef enum e_yaz_state$/;"	enum	line:54	file:
+YAZ_STATE_INIT	/home/jean/YazziGtk/YazziGtk/main.c	/^	YAZ_STATE_INIT,$/;"	enumerator	line:56	enum:e_yaz_state	file:
+YAZ_STATE_DICE_SELECT	/home/jean/YazziGtk/YazziGtk/main.c	/^	YAZ_STATE_DICE_SELECT,$/;"	enumerator	line:57	enum:e_yaz_state	file:
+YAZ_STATE_SCORE_SELECT	/home/jean/YazziGtk/YazziGtk/main.c	/^	YAZ_STATE_SCORE_SELECT,$/;"	enumerator	line:58	enum:e_yaz_state	file:
+YAZ_STATE_ROLL_ALL	/home/jean/YazziGtk/YazziGtk/main.c	/^	YAZ_STATE_ROLL_ALL,$/;"	enumerator	line:59	enum:e_yaz_state	file:
+YAZ_STATE_ROLL	/home/jean/YazziGtk/YazziGtk/main.c	/^	YAZ_STATE_ROLL,$/;"	enumerator	line:60	enum:e_yaz_state	file:
+YAZ_STATE_VALID	/home/jean/YazziGtk/YazziGtk/main.c	/^	YAZ_STATE_VALID,$/;"	enumerator	line:61	enum:e_yaz_state	file:
+YAZ_STATE_NEXT_PLAYER	/home/jean/YazziGtk/YazziGtk/main.c	/^	YAZ_STATE_NEXT_PLAYER,$/;"	enumerator	line:62	enum:e_yaz_state	file:
+YAZ_STATE_COUNTER_MAX	/home/jean/YazziGtk/YazziGtk/main.c	/^	YAZ_STATE_COUNTER_MAX,$/;"	enumerator	line:63	enum:e_yaz_state	file:
+YAZ_STATE_INVALID_YAZZI	/home/jean/YazziGtk/YazziGtk/main.c	/^	YAZ_STATE_INVALID_YAZZI,$/;"	enumerator	line:64	enum:e_yaz_state	file:
+YAZ_STATE_ALL_ON	/home/jean/YazziGtk/YazziGtk/main.c	/^	YAZ_STATE_ALL_ON,$/;"	enumerator	line:65	enum:e_yaz_state	file:
+YAZ_STATE_ALL_OFF	/home/jean/YazziGtk/YazziGtk/main.c	/^	YAZ_STATE_ALL_OFF$/;"	enumerator	line:66	enum:e_yaz_state	file:
+yazState	/home/jean/YazziGtk/YazziGtk/main.c	/^} yazState;$/;"	typedef	line:67	typeref:enum:e_yaz_state	file:
+e_yaz_eventKey	/home/jean/YazziGtk/YazziGtk/main.c	/^typedef enum e_yaz_eventKey$/;"	enum	line:69	file:
+YAZ_KEY_CTRL_D	/home/jean/YazziGtk/YazziGtk/main.c	/^	YAZ_KEY_CTRL_D,$/;"	enumerator	line:71	enum:e_yaz_eventKey	file:
+YAZ_KEY_CTRL_R	/home/jean/YazziGtk/YazziGtk/main.c	/^	YAZ_KEY_CTRL_R$/;"	enumerator	line:72	enum:e_yaz_eventKey	file:
+yazEventKey	/home/jean/YazziGtk/YazziGtk/main.c	/^} yazEventKey;$/;"	typedef	line:73	typeref:enum:e_yaz_eventKey	file:
+s_state_button	/home/jean/YazziGtk/YazziGtk/main.c	/^typedef struct s_state_button$/;"	struct	line:75	file:
+rollAll	/home/jean/YazziGtk/YazziGtk/main.c	/^	gboolean rollAll;$/;"	member	line:77	struct:s_state_button	file:
+roll	/home/jean/YazziGtk/YazziGtk/main.c	/^	gboolean roll;$/;"	member	line:78	struct:s_state_button	file:
+valid	/home/jean/YazziGtk/YazziGtk/main.c	/^	gboolean valid;$/;"	member	line:79	struct:s_state_button	file:
+nextPlayer	/home/jean/YazziGtk/YazziGtk/main.c	/^	gboolean nextPlayer;$/;"	member	line:80	struct:s_state_button	file:
+quit	/home/jean/YazziGtk/YazziGtk/main.c	/^	gboolean quit;$/;"	member	line:81	struct:s_state_button	file:
+radioButtonDice	/home/jean/YazziGtk/YazziGtk/main.c	/^	gboolean radioButtonDice;$/;"	member	line:82	struct:s_state_button	file:
+radioButtonFigure	/home/jean/YazziGtk/YazziGtk/main.c	/^	gboolean radioButtonFigure;$/;"	member	line:83	struct:s_state_button	file:
+boxImageDice	/home/jean/YazziGtk/YazziGtk/main.c	/^	gboolean boxImageDice;$/;"	member	line:84	struct:s_state_button	file:
+stateButton	/home/jean/YazziGtk/YazziGtk/main.c	/^} stateButton, *pstateButton;$/;"	typedef	line:85	typeref:struct:s_state_button	file:
+pstateButton	/home/jean/YazziGtk/YazziGtk/main.c	/^} stateButton, *pstateButton;$/;"	typedef	line:85	typeref:struct:s_state_button	file:
+pWindowMain	/home/jean/YazziGtk/YazziGtk/main.c	/^GtkWidget *pWindowMain = NULL, \/* fenetre principale *\/$/;"	variable	line:87
+pTableMain	/home/jean/YazziGtk/YazziGtk/main.c	/^	*pTableMain = NULL,$/;"	variable	line:88
+pGroupScore	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pGroupScore = NULL,$/;"	variable	line:89
+pButtonQuit	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pButtonQuit = NULL,$/;"	variable	line:90
+pButtonValid	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pButtonValid = NULL,$/;"	variable	line:91
+pButtonRollAll	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pButtonRollAll = NULL,$/;"	variable	line:92
+pButtonRoll	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pButtonRoll = NULL,$/;"	variable	line:93
+pHButtonBox	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pHButtonBox = NULL,$/;"	variable	line:94
+pLabelName	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pLabelName = NULL,$/;"	variable	line:95
+pLabelCount	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pLabelCount = NULL,$/;"	variable	line:96
+pLabelTurn	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pLabelTurn = NULL,$/;"	variable	line:97
+pRadioButtonSmallStraight	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pRadioButtonSmallStraight = NULL,$/;"	variable	line:98
+pRadioButtonLargeStraight	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pRadioButtonLargeStraight = NULL,$/;"	variable	line:99
+pRadioButtonFullHouse	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pRadioButtonFullHouse = NULL,$/;"	variable	line:100
+pRadioButtonThreeOfKind	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pRadioButtonThreeOfKind = NULL,$/;"	variable	line:101
+pRadioButtonFourOfKind	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pRadioButtonFourOfKind = NULL,$/;"	variable	line:102
+pRadioButtonYazzi	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pRadioButtonYazzi = NULL,$/;"	variable	line:103
+pRadioButtonChance	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pRadioButtonChance = NULL,$/;"	variable	line:104
+pRadioButtonYazziBonus	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pRadioButtonYazziBonus = NULL,$/;"	variable	line:105
+pButtonNextPlayer	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pButtonNextPlayer = NULL,$/;"	variable	line:106
+pHSeparator	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pHSeparator = NULL,$/;"	variable	line:107
+pVSeparator	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pVSeparator = NULL,$/;"	variable	line:108
+pValueDice	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pValueDice[6],$/;"	variable	line:109
+pDice	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pDice[DICE_NUMBER],$/;"	variable	line:110
+eventBoxImageDice	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *eventBoxImageDice[DICE_NUMBER],$/;"	variable	line:111
+pRadioButtonDice	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pRadioButtonDice[6],$/;"	variable	line:112
+pRadioButtonFigure	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pRadioButtonFigure[YAZ_NB_BOUTON_FIGURE],$/;"	variable	line:113
+pValueFigure	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pValueFigure[YAZ_NB_BOUTON_FIGURE],$/;"	variable	line:114
+pVBoxNames	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pVBoxNames = NULL,$/;"	variable	line:115
+pGridMain	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pGridMain = NULL,$/;"	variable	line:116
+pWindowAlert	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pWindowAlert = NULL,$/;"	variable	line:117
+pValue	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pValue = NULL,$/;"	variable	line:118
+pLabel	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pLabel = NULL,$/;"	variable	line:119
+pLabelAlert	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pLabelAlert = NULL,$/;"	variable	line:120
+pLabelBar	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pLabelBar = NULL,$/;"	variable	line:121
+pBar	/home/jean/YazziGtk/YazziGtk/main.c	/^		  *pBar = NULL;$/;"	variable	line:122
+pCssProvider	/home/jean/YazziGtk/YazziGtk/main.c	/^GtkCssProvider *pCssProvider = NULL;$/;"	variable	line:123
+image	/home/jean/YazziGtk/YazziGtk/main.c	/^GtkImage *image = NULL;$/;"	variable	line:124
+labelCrunching	/home/jean/YazziGtk/YazziGtk/main.c	/^static const gchar *labelCrunching[] = {N_("SubSum"), N_("Bonus"), N_("Upper"), N_("Lower"), N_("Grand Total")};$/;"	variable	line:125	file:
+pLabelCrunching	/home/jean/YazziGtk/YazziGtk/main.c	/^GtkWidget *pLabelCrunching[5] = {NULL, NULL, NULL, NULL, NULL};$/;"	variable	line:126
+eventBoxLabelAlert	/home/jean/YazziGtk/YazziGtk/main.c	/^GtkWidget *eventBoxLabelAlert = NULL;$/;"	variable	line:127
+cursorDice	/home/jean/YazziGtk/YazziGtk/main.c	/^GdkCursor *cursorDice = NULL;$/;"	variable	line:128
+cursorRowScore	/home/jean/YazziGtk/YazziGtk/main.c	/^GdkCursor *cursorRowScore = NULL;$/;"	variable	line:129
+main	/home/jean/YazziGtk/YazziGtk/main.c	/^int main(int argc, char **argv)$/;"	function	line:217	signature:(int argc, char **argv)
+_g_mediator_widget_state	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_mediator_widget_state(GtkWidget *pWidget, gpointer pState)$/;"	function	line:569	file:	signature:(GtkWidget *pWidget, gpointer pState)
+OnDestroy	/home/jean/YazziGtk/YazziGtk/main.c	/^void OnDestroy(GtkWidget *pWidget, gpointer pData)$/;"	function	line:641	signature:(GtkWidget *pWidget, gpointer pData)
+OnDelete	/home/jean/YazziGtk/YazziGtk/main.c	/^void OnDelete(GtkWidget *pWidget, gpointer pData)$/;"	function	line:655	signature:(GtkWidget *pWidget, gpointer pData)
+OnKeyPressWindowMain	/home/jean/YazziGtk/YazziGtk/main.c	/^OnKeyPressWindowMain(GtkWidget *pWidget, GdkEvent *event, gpointer pData)$/;"	function	line:673	file:	signature:(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
+_g_set_focus_dice	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_set_focus_dice(int pos)$/;"	function	line:712	file:	signature:(int pos)
+OnRollAll	/home/jean/YazziGtk/YazziGtk/main.c	/^void OnRollAll(GtkWidget *pWidget, gpointer pData)$/;"	function	line:734	signature:(GtkWidget *pWidget, gpointer pData)
+_g_chain_order_focus	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_chain_order_focus()$/;"	function	line:769	file:
+OnRoll	/home/jean/YazziGtk/YazziGtk/main.c	/^void OnRoll(GtkWidget *pWidget, gpointer pData)$/;"	function	line:801	signature:(GtkWidget *pWidget, gpointer pData)
+OnValid	/home/jean/YazziGtk/YazziGtk/main.c	/^void OnValid(GtkWidget *pWidget, gpointer pData)$/;"	function	line:854	signature:(GtkWidget *pWidget, gpointer pData)
+_g_display_alert_with_message	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_display_alert_with_message(GtkWidget *alertMessage, const char *message)$/;"	function	line:891	file:	signature:(GtkWidget *alertMessage, const char *message)
+OnCloseAlert	/home/jean/YazziGtk/YazziGtk/main.c	/^void OnCloseAlert(GtkWidget *widget, gpointer pData)$/;"	function	line:911	signature:(GtkWidget *widget, gpointer pData)
+OnNextPlayer	/home/jean/YazziGtk/YazziGtk/main.c	/^void OnNextPlayer(GtkWidget *pWidget, gpointer pData)$/;"	function	line:923	signature:(GtkWidget *pWidget, gpointer pData)
+OnClickDice	/home/jean/YazziGtk/YazziGtk/main.c	/^OnClickDice(GtkWidget *eventBoxImageDice, GdkEvent *event, gpointer pData) \/\/GdkEventButton \/\/GdkEventKey$/;"	function	line:979	file:	signature:(GtkWidget *eventBoxImageDice, GdkEvent *event, gpointer pData)
+OnKeyPressRadioButtonDice	/home/jean/YazziGtk/YazziGtk/main.c	/^OnKeyPressRadioButtonDice(GtkWidget *pWidget, GdkEvent *event, gpointer pData)$/;"	function	line:1002	file:	signature:(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
+OnKeyPressRadioButtonFigure	/home/jean/YazziGtk/YazziGtk/main.c	/^OnKeyPressRadioButtonFigure(GtkWidget *pWidget, GdkEvent *event, gpointer pData)$/;"	function	line:1022	file:	signature:(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
+OnReleaseRadioButtonDice	/home/jean/YazziGtk/YazziGtk/main.c	/^void OnReleaseRadioButtonDice(GtkWidget *pWidget, gpointer pData)$/;"	function	line:1040	signature:(GtkWidget *pWidget, gpointer pData)
+OnReleaseAfterRadioButtonDice	/home/jean/YazziGtk/YazziGtk/main.c	/^void OnReleaseAfterRadioButtonDice(GtkWidget *pWidget, gpointer pData)$/;"	function	line:1067	signature:(GtkWidget *pWidget, gpointer pData)
+OnReleaseAfterRadioButtonFigure	/home/jean/YazziGtk/YazziGtk/main.c	/^void OnReleaseAfterRadioButtonFigure(GtkWidget *pWidget, gpointer pData)$/;"	function	line:1078	signature:(GtkWidget *pWidget, gpointer pData)
+OnReleaseRadioButtonFigure	/home/jean/YazziGtk/YazziGtk/main.c	/^void OnReleaseRadioButtonFigure(GtkWidget *pWidget, gpointer pData)$/;"	function	line:1090	signature:(GtkWidget *pWidget, gpointer pData)
+OnLeaveRadioButtonDice	/home/jean/YazziGtk/YazziGtk/main.c	/^void OnLeaveRadioButtonDice(GtkWidget *pWidget, gpointer pData)$/;"	function	line:1171	signature:(GtkWidget *pWidget, gpointer pData)
+OnToggledRadioButtonDice	/home/jean/YazziGtk/YazziGtk/main.c	/^void OnToggledRadioButtonDice(GtkWidget *pWidget, gpointer pData)$/;"	function	line:1187	signature:(GtkWidget *pWidget, gpointer pData)
+OnToggledRadioButtonFigure	/home/jean/YazziGtk/YazziGtk/main.c	/^void OnToggledRadioButtonFigure(GtkWidget *pWidget, gpointer pData)$/;"	function	line:1201	signature:(GtkWidget *pWidget, gpointer pData)
+OnEnterDice	/home/jean/YazziGtk/YazziGtk/main.c	/^OnEnterDice(GtkWidget *pWidget, GdkEvent *event, gpointer pData)$/;"	function	line:1219	file:	signature:(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
+OnLeaveDice	/home/jean/YazziGtk/YazziGtk/main.c	/^OnLeaveDice(GtkWidget *pWidget, GdkEvent *event, gpointer pData)$/;"	function	line:1246	file:	signature:(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
+OnEnterRadioButtonScore	/home/jean/YazziGtk/YazziGtk/main.c	/^OnEnterRadioButtonScore(GtkWidget *pWidget, GdkEvent *event, gpointer pData)$/;"	function	line:1271	file:	signature:(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
+OnLeaveRadioButtonScore	/home/jean/YazziGtk/YazziGtk/main.c	/^OnLeaveRadioButtonScore(GtkWidget *pWidget, GdkEvent *event, gpointer pData)$/;"	function	line:1297	file:	signature:(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
+_g_display_players_value_dice_score	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_display_players_value_dice_score(const int numMark, const int value)$/;"	function	line:1321	file:	signature:(const int numMark, const int value)
+_g_display_players_value_figure_score	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_display_players_value_figure_score(const int numMark, const int value)$/;"	function	line:1333	file:	signature:(const int numMark, const int value)
+_g_display_players_set_count	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_display_players_set_count(const int count)$/;"	function	line:1345	file:	signature:(const int count)
+_g_display_players_set_name	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_display_players_set_name(const char *name)$/;"	function	line:1363	file:	signature:(const char *name)
+_g_display_players_update_score_all	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_display_players_update_score_all(Player *self)$/;"	function	line:1375	file:	signature:(Player *self)
+_g_display_players_preliminary_score_all	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_display_players_preliminary_score_all(Player *self)$/;"	function	line:1416	file:	signature:(Player *self)
+_g_display_reset_value_score_select	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_display_reset_value_score_select()$/;"	function	line:1477	file:
+_g_display_players_dices_is_enable	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_display_players_dices_is_enable(const int value, const int name, const gboolean enable)$/;"	function	line:1509	file:	signature:(const int value, const int name, const gboolean enable)
+_g_players_set_dices_is_enable	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_players_set_dices_is_enable(const int name)$/;"	function	line:1527	file:	signature:(const int name)
+_g_players_set_dices_is_unknown	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_players_set_dices_is_unknown()$/;"	function	line:1539	file:
+_g_button_set_state	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_button_set_state(stateButton *isState)$/;"	function	line:1556	file:	signature:(stateButton *isState)
+_g_display_players_widget_css	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_display_players_widget_css(GtkWidget *widget, gpointer pData)$/;"	function	line:1654	file:	signature:(GtkWidget *widget, gpointer pData)
+_g_display_players_entries_text	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_display_players_entries_text(Player *self)$/;"	function	line:1676	file:	signature:(Player *self)
+_g_radio_button_dice_num_active	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_radio_button_dice_num_active()$/;"	function	line:1694	file:
+_g_radio_button_figure_num_active	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_radio_button_figure_num_active()$/;"	function	line:1713	file:
+_g_display_winner	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_display_winner()$/;"	function	line:1731	file:
+_g_display_play_again	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_display_play_again()$/;"	function	line:1775	file:
+_g_display_confirm_quit	/home/jean/YazziGtk/YazziGtk/main.c	/^_g_display_confirm_quit()$/;"	function	line:1796	file:
+_g_display_players_set_all_names	/home/jean/YazziGtk/YazziGtk/main.c	/^void _g_display_players_set_all_names()$/;"	function	line:1815

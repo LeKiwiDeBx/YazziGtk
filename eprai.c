@@ -98,7 +98,7 @@ static void _epr_do_message_bar();
 // calcScoreYazzi,
 // calcScoreChance,
 // calcScoreYazziBonus
-// } ;
+// } ; 
 
 // static gboolean epr_get_pattern() ;
 // static int epr_get_sum_dices() ;
