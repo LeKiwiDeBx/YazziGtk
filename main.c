@@ -219,7 +219,7 @@ int main(int argc, char **argv)
 	int i = 0;
 	/* -------------------------------------------------------------------------- */
 	/*							International Le Kiwi <Int>				  		  */
-	/* 			  On internationnalise le Yazzi [Fichier .pot->.po->.mo]          */
+	/* 			  On internationalise le Yazzi [Fichier .pot->.po->.mo]          */
 	/* -------------------------------------------------------------------------- */
 	setlocale(LC_ALL, "");
 	bindtextdomain(GETTEXT_DOMAIN_NAME, GETTEXT_DIR_NAME);
@@ -243,23 +243,32 @@ int main(int argc, char **argv)
 
 	/* -------------------------------------------------------------------------- */
 	/*							Main Window									  	  */
-	/* 						crée la fenetre principale 							  */
+	/* 						crée la fenêtre principale 							  */
 	/* -------------------------------------------------------------------------- */
 
 	pWindowMain = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	/* Définition de la position */
 	gtk_window_set_position(GTK_WINDOW(pWindowMain), GTK_WIN_POS_CENTER);
 	/* Définition de la taille de la fenêtre */
-	gtk_window_set_default_size(GTK_WINDOW(pWindowMain), 450, 300);
-	gtk_widget_set_valign(pWindowMain, GTK_ALIGN_CENTER);
+	/*gtk_window_set_default_size(GTK_WINDOW(pWindowMain), 450, 300); */
+	
+	GdkGeometry pGeoWindowMain;
+	pGeoWindowMain.min_height = 300;
+	pGeoWindowMain.max_height = 600;
+	pGeoWindowMain.min_width = 450;
+	pGeoWindowMain.max_width = 750;
+	gtk_window_set_geometry_hints(GTK_WINDOW(pWindowMain),pWindowMain, &pGeoWindowMain, GDK_HINT_MAX_SIZE |  GDK_HINT_MIN_SIZE );
+	gtk_widget_set_valign(pWindowMain,GTK_ALIGN_FILL);
+	gtk_widget_set_halign(pWindowMain, GTK_ALIGN_FILL);
+	
 	/* Titre de la fenêtre */
 	gtk_window_set_title(GTK_WINDOW(pWindowMain), YAZ_WINDOW_MAIN_TITLE);
 
 	/* -------------------------------------------------------------------------- */
 	/*							Signal connect WindowMain						  */
-	/* 						Connexion des evenements sur les CallBack(evt) 		  */
+	/* 						Connexion des événements sur les CallBack(evt) 		  */
 	/* evt: "destroy" 		-> suite bouton quitter								  */
-	/*      "delete-event" 	-> suite appel fermeture fenetre principale			  */
+	/*      "delete-event" 	-> suite appel fermeture fenêtre principale			  */
 	/*		"key-press-event"-> appui sur des touches clavier (combinées ou pas)  */
 	/* -------------------------------------------------------------------------- */
 	gtk_widget_set_events(GTK_WIDGET(pWindowMain), GDK_KEY_PRESS_MASK || GDK_FOCUS_CHANGE_MASK);
@@ -268,7 +277,7 @@ int main(int argc, char **argv)
 	g_signal_connect(pWindowMain, "key-press-event", G_CALLBACK(OnKeyPressWindowMain), NULL);
 
 	/* -------------------------------------------------------------------------- */
-	/*							Table 	==> GtkGrid reecriture pour gtk3		  */
+	/*							Table 	==> GtkGrid réécriture pour gtk3		  */
 	/* 						Grid de mise en place des widgets 	  			      */
 	/* -------------------------------------------------------------------------- */
 	pGridMain = gtk_grid_new();
