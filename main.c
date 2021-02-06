@@ -84,7 +84,7 @@ typedef struct s_state_button
 	gboolean boxImageDice;
 } stateButton, *pstateButton;
 
-GtkWidget *pWindowMain = NULL, /* fenetre principale */
+GtkWidget *pWindowMain = NULL, /* fenêtre principale */
 	*pTableMain = NULL,
 		  *pGroupScore = NULL,
 		  *pButtonQuit = NULL,
@@ -305,7 +305,7 @@ int main(int argc, char **argv)
 
 	/* -------------------------------------------------------------------------- */
 	/*							Radio button with label							  */
-	/* 					Bouton radio pour selectionner les marques  			  */
+	/* 					Bouton radio pour sélectionner les marques  			  */
 	/* -------------------------------------------------------------------------- */
 	pGroupScore = gtk_radio_button_new(NULL);
 	g_signal_connect(G_OBJECT(pGroupScore), "toggled", G_CALLBACK(OnToggledRadioButtonDice), GINT_TO_POINTER(0));
@@ -484,7 +484,7 @@ int main(int argc, char **argv)
 	/* -------------------------------------------------------------------------- */
 	pWindowAlert = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_modal(GTK_WINDOW(pWindowAlert), TRUE);
-	/* Rend dependante la fenetre alerte de la principale, utile pour la rendre modale*/
+	/* Rend dependante la fenêtre alerte de la principale, utile pour la rendre modale*/
 	gtk_window_set_transient_for(GTK_WINDOW(pWindowAlert), GTK_WINDOW(pWindowMain));
 	/* Définition de la position */
 	gtk_window_set_position(GTK_WINDOW(pWindowAlert), GTK_WIN_POS_CENTER_ON_PARENT);
@@ -492,18 +492,18 @@ int main(int argc, char **argv)
 	gtk_window_set_default_size(GTK_WINDOW(pWindowAlert), 250, 100);
 	/* Titre de la fenêtre [ inutile car sans decoration] pour un autre aspect may be!*/
 	gtk_window_set_title(GTK_WINDOW(pWindowAlert), _("Message alert"));
-	/* ajoute un label null , sera remplit ulterieurement*/
+	/* ajoute un label null , sera remplit ultérieurement*/
 	pLabelAlert = gtk_label_new(NULL);
-	/* Definition pour un evenement */
+	/* Definition pour un événement */
 	eventBoxLabelAlert = gtk_event_box_new();
 	gtk_event_box_set_visible_window(GTK_EVENT_BOX(eventBoxLabelAlert), FALSE);
 	/* Ajoute le texte à la boite */
 	gtk_container_add(GTK_CONTAINER(eventBoxLabelAlert), pLabelAlert);
-	/* ajoute la boite a la fenetre */
+	/* ajoute la boite a la fenêtre */
 	gtk_container_add(GTK_CONTAINER(pWindowAlert), eventBoxLabelAlert);
 	/* enleve les decoration pour un aspect tool tips*/
 	gtk_window_set_decorated(GTK_WINDOW(pWindowAlert), FALSE);
-	/* callback de l'evenement de la boite evenement */
+	/* callback de l'événement de la boite événement */
 	g_signal_connect(eventBoxLabelAlert, "button-press-event", G_CALLBACK(OnCloseAlert), NULL);
 	g_signal_connect(eventBoxLabelAlert, "delete-event", G_CALLBACK(OnCloseAlert), NULL);
 
@@ -569,7 +569,7 @@ int main(int argc, char **argv)
 }
 
 /**
- * @brief pattern mediator pour synchroniser les etats des widgets
+ * @brief pattern mediator pour synchroniser les états des widgets
  * en fonction du jeu
  *
  *
@@ -656,7 +656,7 @@ void OnDestroy(GtkWidget *pWidget, gpointer pData)
 }
 
 /**
- * @brief Appeler par Windowmain lorsque clique barre de fenetre haut droit [X]
+ * @brief Appeler par Windowmain lorsque clique barre de fenêtre haut droit [X]
  * @param pWidget
  * @param pData
  * 
@@ -672,11 +672,11 @@ void OnDelete(GtkWidget *pWidget, gpointer pData)
 }
 
 /**
- * @brief Gestion des evenements clavier sur la fenetre principale
+ * @brief Gestion des événements clavier sur la fenêtre principale
  * 
- * @param pWidget la fenetre principale
- * @param event   evenement que l'on transtype clavier pour etre plus souple
- * @param pData   un data, peut etre NULL
+ * @param pWidget la fenêtre principale
+ * @param event   événement que l'on transtype clavier pour être plus souple
+ * @param pData   un data, peut être NULL
  */
 static gboolean
 OnKeyPressWindowMain(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
@@ -801,7 +801,7 @@ _g_chain_order_focus()
 }
 
 /**
- * @brief On lance les des selectionnes
+ * @brief On lance les des sélectionnés
  * @param pWidget
  * @param pData
  *
@@ -914,7 +914,7 @@ _g_display_alert_with_message(GtkWidget *alertMessage, const char *message)
 /**
  * @brief ferme le message d'alerte
  * 
- * @param widget la fenetre du message
+ * @param widget la fenêtre du message
  * @param pData NULL
  */
 void OnCloseAlert(GtkWidget *widget, gpointer pData)
@@ -1003,7 +1003,7 @@ OnClickDice(GtkWidget *eventBoxImageDice, GdkEvent *event, gpointer pData) //Gdk
  * @brief une touche clavier sur le radio button des dés
  * 
  * @param pWidget le widget appelant
- * @param event evenement clavier
+ * @param event événement clavier
  * @param pData la position du radio bouton
  * @return gboolean 
  */
@@ -1023,7 +1023,7 @@ OnKeyPressRadioButtonDice(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
  * @brief une touche clavier sur le radio button des figure
  * 
  * @param pWidget le widget appelant
- * @param event evenement clavier
+ * @param event événement clavier
  * @param pData la position du radio bouton
  * @return gboolean 
  */
@@ -1142,7 +1142,7 @@ void OnReleaseRadioButtonFigure(GtkWidget *pWidget, gpointer pData)
 		{
 			g_printf("yazzi selectionné\n");
 			int name = 0;
-			while (name <= DICE_5) //deselectionne les des
+			while (name <= DICE_5) //désélectionne les des
 			{
 				if (!Players->set->dices[name].enable)
 					_g_players_set_dices_is_enable(name);
@@ -1321,7 +1321,7 @@ OnLeaveRadioButtonScore(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
 }
 
 /**
- * @brief Ecrit le score des dès dans la zone de saisie
+ * @brief Écrit le score des dès dans la zone de saisie
  * 
  * @param numMark indice de la gtk_entry
  * @param value   valeur à inscrire
@@ -1333,7 +1333,7 @@ _g_display_players_value_dice_score(const int numMark, const int value)
 }
 
 /**
- * @brief Ecrit le score des figure dans la zone de saisie correspondant
+ * @brief Écrit le score des figure dans la zone de saisie correspondant
  * 
  * @param numMark indice de la gtk_entry
  * @param value  valeur a inscrire
@@ -1476,8 +1476,8 @@ _g_display_players_preliminary_score_all(Player *self)
 	g_free(display);
 }
 /**
- * @brief on remet a zero la derniere marque cliquée par l'evaluation pour les dés ou pour les figures
- * et efface la selection de la marque evaluée.
+ * @brief on remet a zero la dernière marque cliquée par l'evaluation pour les dés ou pour les figures
+ * et efface la selection de la marque évaluée.
  * @brief ne fonctionne qu'au tour 2 car au tour 3 la validation totale est obligatoire
  * appelé par Roll
  * @param none
@@ -1507,7 +1507,7 @@ _g_display_reset_value_score_select()
 }
 
 /**
- * @brief Affiche l'image du dé soit actif(selectionne) ou non
+ * @brief Affiche l'image du dé soit actif(sélectionne) ou non
  * @param value valeur du dé
  * @param name  nom du dé
  * @param enable si actif ou pas
@@ -1527,7 +1527,7 @@ _g_display_players_dices_is_enable(const int value, const int name, const gboole
 }
 
 /**
- * @brief Met l'image de la valeur du dé selectionné/deselectionne
+ * @brief Met l'image de la valeur du dé sélectionné/désélectionné
  * @param name nom du dé
  *
  *
@@ -1556,8 +1556,8 @@ _g_players_set_dices_is_unknown()
 }
 
 /**
- * @brief Fixe l'etat des boutons actif/inactif
- * @param isState pointeur sur structure de l'etat des boutons
+ * @brief Fixe l'état des boutons actif/inactif
+ * @param isState pointeur sur structure de l'état des boutons
  *
  *
  */
@@ -1583,11 +1583,11 @@ _g_button_set_state(stateButton *isState)
 	{
 		if (_sheet_score_already(Players, i + 1)) //si cellule non validée (modifiable)
 		{
-			if (isState->radioButtonDice) //acces en ecriture (active)
+			if (isState->radioButtonDice) //acces en écriture (active)
 			{
 				pStyle = g_strdup_printf("dark");
 			}
-			else //interdite en ecriture (non active)
+			else //interdite en écriture (non active)
 			{
 				pStyle = g_strdup_printf("red");
 			}
@@ -1598,11 +1598,11 @@ _g_button_set_state(stateButton *isState)
 		}
 		else //si cellule validée (non modifiable)
 		{
-			if (isState->radioButtonDice) //etat interdite en ecriture
+			if (isState->radioButtonDice) //état interdite en écriture
 			{
 				pStyle = g_strdup_printf("violet");
 			}
-			else // etat selectionné et interdite en ecriture (permet de voir la derniere validation)
+			else // état sélectionné et interdite en écriture (permet de voir la dernière validation)
 			{
 				pStyle = g_strdup_printf("yellow");
 			}
@@ -1616,11 +1616,11 @@ _g_button_set_state(stateButton *isState)
 	{
 		if (_sheet_score_already(Players, i + 7)) //si cellule non validée (modifiable)
 		{
-			if (isState->radioButtonFigure) //acces en ecriture (active)
+			if (isState->radioButtonFigure) //acces en écriture (active)
 			{
 				pStyle = g_strdup_printf("dark");
 			}
-			else //interdite en ecriture (non active)
+			else //interdite en écriture (non active)
 			{
 				pStyle = g_strdup_printf("red");
 			}
@@ -1631,11 +1631,11 @@ _g_button_set_state(stateButton *isState)
 		}
 		else //si cellule validée (non modifiable)
 		{
-			if (isState->radioButtonFigure) //etat interdite en ecriture
+			if (isState->radioButtonFigure) //état interdite en écriture
 			{
 				pStyle = g_strdup_printf("violet");
 			}
-			else // etat selectionné et interdite en ecriture (permet de voir la derniere validation)
+			else // état sélectionné et interdite en écriture (permet de voir la dernière validation)
 			{
 				pStyle = g_strdup_printf("yellow");
 			}
@@ -1654,7 +1654,7 @@ _g_button_set_state(stateButton *isState)
 }
 
 /**
- * @brief mis a jour pour un joueur du CSS refletant l'etat des radiobutton
+ * @brief mis a jour pour un joueur du CSS refletant l'état des radiobutton
  * 
  * @param widget le radiobutton concerné
  * @param pData  la classe CSS à appliquer
@@ -1732,7 +1732,7 @@ _g_radio_button_figure_num_active()
 }
 
 /**
- * @brief Affiche le... gagnant ou egal
+ * @brief Affiche le... gagnant ou égal
  *
  *
  */
@@ -1865,7 +1865,7 @@ void _g_display_players_set_all_names()
 	gtk_widget_show_all(GTK_WIDGET(pDialogSetUp));
 
 	//gtk_window_set_position (GTK_WINDOW(pDialogSetUp), GTK_WIN_POS_CENTER);
-	/* On lance la boite de dialogue et on récupére la réponse */
+	/* On lance la boite de dialogue et on récupère la réponse */
 	switch (gtk_dialog_run(GTK_DIALOG(pDialogSetUp)))
 	{
 	/* L utilisateur valide */
