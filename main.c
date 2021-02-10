@@ -846,6 +846,8 @@ void OnRoll(GtkWidget *pWidget, gpointer pData)
 	int *p = (int *)g_malloc(DICE_NUMBER * sizeof(int));
 	if (p != NULL)
 		p = _epr_factory_new(Players, TAB_SORT_ASC)[0];
+//c'est ici à faire ici l'appel _g_display_message_pattern(char *message) non implementé encore	
+// dans fonction OnRoll et OnRollAll
 	for (int i = 0; i < DICE_NUMBER; i++)
 	{
 		g_printf("dices in order : %d\n", *p);
