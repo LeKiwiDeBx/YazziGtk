@@ -201,6 +201,8 @@ static void
 _g_display_players_set_all_names();
 static void
 _g_display_alert_with_message(GtkWidget *alertMessage, const char *message);
+static void
+_g_display_pattern_with_message(const char *message);
 static gboolean
 _g_chain_order_focus();
 static gboolean
@@ -922,6 +924,15 @@ _g_display_alert_with_message(GtkWidget *alertMessage, const char *message)
 void OnCloseAlert(GtkWidget *widget, gpointer pData)
 {
 	gtk_widget_hide(pWindowAlert);
+}
+/**
+ * @brief Affiche un message de pattern possible des dés 
+ * 
+ * @param message  le texte du pattern possible
+ */
+static void
+_g_display_pattern_with_message(const char *message){
+
 }
 
 /**
