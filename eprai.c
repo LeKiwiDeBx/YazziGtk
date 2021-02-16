@@ -247,10 +247,12 @@ tabDice *_epr_factory_new(Player *self, eprTab tab)
 			_epr_delta_pattern(dataBase);
 			/* test debug*/
 			//auparavent analyse du database en chaine Delta :: ecart entre les des
+			gchar * mess ;
 			for (int op = OP_DIFFERENT; op <= OP_BIG_SUM; op++)
 			{
 				_epr_search_pattern(op);
-				_epr_do_message_bar("pattern trouvé !"); //debug uniquement doit tenir compte de la valeur de retour de _epr_search_pattern(op)
+				mess = g_strdup_printf(_("pattern: %d"), op);
+				_epr_do_message_bar(mess); //debug uniquement doit tenir compte de la valeur de retour de _epr_search_pattern(op)
 			}
 			/*fin test debug*/
 
