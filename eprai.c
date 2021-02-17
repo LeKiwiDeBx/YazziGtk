@@ -336,7 +336,12 @@ static void _epr_delta_pattern(const int *DB)
 	}
 	g_printf("%s\n", deltaDB);
 }
-
+/**
+ * @brief recherche un pattern ou un type de pattern approchant
+ * 
+ * @param op 
+ * @return eprOpenPattern 
+ */
 static eprOpenPattern _epr_search_pattern(eprOpenPattern op)
 {
 	GRegex *regex = NULL;
@@ -431,7 +436,11 @@ static eprOpenPattern _epr_search_pattern(eprOpenPattern op)
 	g_regex_unref(regex);
 	return op;
 }
-
+/**
+ * @brief ecrit un message dans la barre des messages
+ * 
+ * @param sOP 
+ */
 static void _epr_do_message_bar(const gchar *sOP)
 {
 	gtk_label_set_text(GTK_LABEL(pLabelBar), sOP);

@@ -32,5 +32,8 @@
         "define"
     ],
     "search.useGlobalIgnoreFiles": true,
-    "c-cpp-flylint.flexelint.enable": false
+    "c-cpp-flylint.flexelint.enable": false,
+    "online-help.enableDotnet": false,
+    "online-help.enableTypescript": false,
+    "online-help.enableRxjs": false
 }
