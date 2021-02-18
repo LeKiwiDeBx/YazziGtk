@@ -419,19 +419,21 @@ static eprOpenPattern _epr_search_pattern(eprOpenPattern op)
 	if (g_regex_match(regex, deltaDB, 0, &match_info))
 	{
 		g_printf("OK %s ", typeOP);
-	}
-	else
-	{
-		g_printf("NOP\n");
-		return OP_NOP;
-	}
-	while (g_match_info_matches(match_info))
+		while (g_match_info_matches(match_info))
 	{
 		gchar *pattern = g_match_info_fetch(match_info, 0);
 		g_print(" pour le Pattern: %s\n", pattern);
 		g_free(pattern);
 		g_match_info_next(match_info, NULL);
 	}
+		//memoriser le pattern 
+	}
+	else
+	{
+		//g_printf("NOP\n");
+		//return OP_NOP;
+	}
+	
 	g_match_info_free(match_info);
 	g_regex_unref(regex);
 	return op;
