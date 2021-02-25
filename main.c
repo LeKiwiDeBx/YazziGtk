@@ -37,7 +37,7 @@
 #define YAZ_TABLE_MAIN_ROWS 15
 #define YAZ_TABLE_MAIN_COLS 6
 #define YAZ_REP_IMAGE "image/"
-#define YAZ_NB_BOUTON_FIGURE 8	 //pRadioButton
+#define YAZ_NB_BOUTON_FIGURE 8	   //pRadioButton
 #define _YAZ_CONCAT(s1, s2) s1##s2 //usage: _YAZ_CONCAT(jean_,_tatareau)  --> jean__tatareau (symbole pas string!)
 #define YAZ_ENTRY_NAME_MAX_LENGTH 20
 #define YAZ_THEME_PATH "theme/"
@@ -49,6 +49,7 @@ extern int (*row_sheet_score[])(Player *);
 extern int _sheet_score_already(Player *self, int numMark);
 extern diceSet *_epr_get_set_dices(Player *self);
 extern tabDice *_epr_factory_new(Player *self, eprTab tab);
+extern char *_epr_do_message_bar(const gchar *sOP);
 int player_id;
 
 typedef enum e_yaz_state
@@ -253,16 +254,16 @@ int main(int argc, char **argv)
 	gtk_window_set_position(GTK_WINDOW(pWindowMain), GTK_WIN_POS_CENTER);
 	/* Définition de la taille de la fenêtre */
 	/*gtk_window_set_default_size(GTK_WINDOW(pWindowMain), 450, 300); */
-	
+
 	GdkGeometry pGeoWindowMain;
 	pGeoWindowMain.min_height = 300;
 	pGeoWindowMain.max_height = 600;
 	pGeoWindowMain.min_width = 450;
 	pGeoWindowMain.max_width = 750;
-	gtk_window_set_geometry_hints(GTK_WINDOW(pWindowMain),pWindowMain, &pGeoWindowMain, GDK_HINT_MAX_SIZE |  GDK_HINT_MIN_SIZE );
-	gtk_widget_set_valign(pWindowMain,GTK_ALIGN_FILL);
+	gtk_window_set_geometry_hints(GTK_WINDOW(pWindowMain), pWindowMain, &pGeoWindowMain, GDK_HINT_MAX_SIZE | GDK_HINT_MIN_SIZE);
+	gtk_widget_set_valign(pWindowMain, GTK_ALIGN_FILL);
 	gtk_widget_set_halign(pWindowMain, GTK_ALIGN_FILL);
-	
+
 	/* Titre de la fenêtre */
 	gtk_window_set_title(GTK_WINDOW(pWindowMain), YAZ_WINDOW_MAIN_TITLE);
 
@@ -768,6 +769,9 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 		g_printf("dices in order : %d\n", *p);
 		p++;
 	}
+	char mess[255] = "" ;
+	strcpy(mess,_epr_do_message_bar("") ) ;
+	_g_display_pattern_with_message(mess);
 }
 
 /**
@@ -848,8 +852,8 @@ void OnRoll(GtkWidget *pWidget, gpointer pData)
 	int *p = (int *)g_malloc(DICE_NUMBER * sizeof(int));
 	if (p != NULL)
 		p = _epr_factory_new(Players, TAB_SORT_ASC)[0];
-//c'est ici à faire ici l'appel _g_display_message_pattern(char *message) non implementé encore	
-// dans fonction OnRoll et OnRollAll
+	//c'est ici à faire ici l'appel _g_display_message_pattern(char *message) non implementé encore
+	// dans fonction OnRoll et OnRollAll
 	for (int i = 0; i < DICE_NUMBER; i++)
 	{
 		g_printf("dices in order : %d\n", *p);
@@ -931,8 +935,9 @@ void OnCloseAlert(GtkWidget *widget, gpointer pData)
  * @param message  le texte du pattern possible
  */
 static void
-_g_display_pattern_with_message(const char *message){
-
+_g_display_pattern_with_message(const char *message)
+{
+	gtk_label_set_text(GTK_LABEL(pLabelBar), message);
 }
 
 /**
@@ -1402,7 +1407,7 @@ _g_display_players_update_score_all(Player *self)
 		Bonus = 14,		   //14
 		UpperSection = 15, //15
 		LowerSection = 17, //17
-		GrandTotal = 18	//18
+		GrandTotal = 18	   //18
 	};
 	gchar *display;
 	gint minusBonus;

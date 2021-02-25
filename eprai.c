@@ -19,7 +19,7 @@
 #include <glib/gregex.h>
 #include <gtk/gtk.h>
 
-#define LEVEL_LOW 2  //nombre de face identique basse (sensibilité)
+#define LEVEL_LOW 2	 //nombre de face identique basse (sensibilité)
 #define LEVEL_HIGH 3 //nombre de face identique haute (sensibilité)
 
 extern GtkWidget *pLabelBar;
@@ -27,7 +27,7 @@ extern GtkWidget *pLabelBar;
 typedef enum e_eprOpenPattern
 {
 	OP_DIFFERENT, // les des sont tres differents
-	OP_SIMILAR,   // les des ont des double ou triple
+	OP_SIMILAR,	  // les des ont des double ou triple
 	OP_MISC,	  // divers aucun des cas
 	OP_SMALL_STRAIGHT,
 	OP_LARGE_STRAIGHT,
@@ -62,7 +62,7 @@ static void _epr_sort_set_dices();
 diceSet *_epr_get_set_dices();
 static eprOpenPattern _epr_search_pattern();
 static void _epr_delta_pattern();
-static void _epr_do_message_bar();
+char *_epr_do_message_bar();
 
 //
 // typedef struct s_eprAtom{
@@ -98,7 +98,7 @@ static void _epr_do_message_bar();
 // calcScoreYazzi,
 // calcScoreChance,
 // calcScoreYazziBonus
-// } ; 
+// } ;
 
 // static gboolean epr_get_pattern() ;
 // static int epr_get_sum_dices() ;
@@ -247,7 +247,7 @@ tabDice *_epr_factory_new(Player *self, eprTab tab)
 			_epr_delta_pattern(dataBase);
 			/* test debug*/
 			//auparavent analyse du database en chaine Delta :: ecart entre les des
-			gchar * mess ;
+			gchar *mess;
 			for (int op = OP_DIFFERENT; op <= OP_BIG_SUM; op++)
 			{
 				_epr_search_pattern(op);
@@ -257,7 +257,6 @@ tabDice *_epr_factory_new(Player *self, eprTab tab)
 			/*fin test debug*/
 
 			break;
-
 		default:
 			break;
 		}
@@ -405,9 +404,9 @@ static eprOpenPattern _epr_search_pattern(eprOpenPattern op)
 		regex = g_regex_new("0{4}", 0, 0, NULL);
 		break;
 	case OP_MISC:
+		typeOP = "misc (not good/not bad :°) )";
 		g_printf("# (H) search misc: (C)");
 		g_printf("chaine %s ", deltaDB);
-		typeOP = "misc (not good/not bad :°) )";
 		regex = g_regex_new("^(?!.*(10?1|0.*0)).*", 0, 0, NULL); //exclut tous ce qui est suite et double/triple
 		break;
 	case OP_BIG_SUM:
@@ -419,21 +418,22 @@ static eprOpenPattern _epr_search_pattern(eprOpenPattern op)
 	if (g_regex_match(regex, deltaDB, 0, &match_info))
 	{
 		g_printf("OK %s ", typeOP);
+		_epr_do_message_bar(typeOP);
 		while (g_match_info_matches(match_info))
-	{
-		gchar *pattern = g_match_info_fetch(match_info, 0);
-		g_print(" pour le Pattern: %s\n", pattern);
-		g_free(pattern);
-		g_match_info_next(match_info, NULL);
-	}
-		//memoriser le pattern 
+		{
+			gchar *pattern = g_match_info_fetch(match_info, 0);
+			g_print(" pour le Pattern: %s\n", pattern);
+			g_free(pattern);
+			g_match_info_next(match_info, NULL);
+		}
+		//memoriser le pattern
 	}
 	else
 	{
 		//g_printf("NOP\n");
 		//return OP_NOP;
 	}
-	
+
 	g_match_info_free(match_info);
 	g_regex_unref(regex);
 	return op;
@@ -443,10 +443,13 @@ static eprOpenPattern _epr_search_pattern(eprOpenPattern op)
  * 
  * @param sOP 
  */
-static void _epr_do_message_bar(const gchar *sOP)
+char *_epr_do_message_bar(const gchar *sOP)
 {
-	gtk_label_set_text(GTK_LABEL(pLabelBar), sOP);
-	g_printf("concat %s\n", sOP);
+	//gtk_label_set_text(GTK_LABEL(pLabelBar), sOP);
+	//g_printf("concat %s\n", sOP);
+	static char messageBar[255];
+	g_strlcat(messageBar, sOP, 255);
+	return messageBar;
 }
 /**
  * @brief
