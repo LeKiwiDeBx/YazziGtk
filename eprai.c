@@ -445,7 +445,6 @@ static eprOpenPattern _epr_search_pattern(eprOpenPattern op)
  */
 char *_epr_do_message_bar(const gchar *sOP)
 {
-	//gtk_label_set_text(GTK_LABEL(pLabelBar), sOP);
 	//g_printf("concat %s\n", sOP);
 	static char messageBar[255];
 	g_strlcat(messageBar, sOP, 255);
