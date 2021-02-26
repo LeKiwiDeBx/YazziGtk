@@ -49,7 +49,7 @@ extern int (*row_sheet_score[])(Player *);
 extern int _sheet_score_already(Player *self, int numMark);
 extern diceSet *_epr_get_set_dices(Player *self);
 extern tabDice *_epr_factory_new(Player *self, eprTab tab);
-extern char *_epr_do_message_bar(const gchar *sOP);
+extern char *_epr_do_message_bar(const gchar *sOP, gboolean reset);
 int player_id;
 
 typedef enum e_yaz_state
@@ -770,7 +770,7 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 		p++;
 	}
 	char mess[255] = "" ;
-	strcpy(mess,_epr_do_message_bar("") ) ;
+	strcpy(mess,_epr_do_message_bar("",FALSE ) ) ;
 	_g_display_pattern_with_message(mess);
 }
 
@@ -936,8 +936,9 @@ void OnCloseAlert(GtkWidget *widget, gpointer pData)
  */
 static void
 _g_display_pattern_with_message(const char *message)
-{
+{   gboolean reset = TRUE;
 	gtk_label_set_text(GTK_LABEL(pLabelBar), message);
+	_epr_do_message_bar("\0", reset);
 }
 
 /**
