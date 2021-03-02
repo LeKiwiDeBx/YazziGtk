@@ -477,7 +477,7 @@ int main(int argc, char **argv)
 	pBar = gtk_info_bar_new();
 	gtk_box_pack_start(GTK_BOX(pBoxBar), pBar, TRUE, TRUE, 0);
 	gtk_info_bar_set_message_type(GTK_INFO_BAR(pBar), GTK_MESSAGE_INFO);
-	pLabelBar = gtk_label_new("This is an info bar with message type GTK_MESSAGE_INFO");
+	pLabelBar = gtk_label_new(_("Welcome !"));
 	gtk_box_pack_start(GTK_BOX(gtk_info_bar_get_content_area(GTK_INFO_BAR(pBar))), pLabelBar, TRUE, TRUE, 0);
 	gtk_grid_attach(GTK_GRID(pGridMain), GTK_WIDGET(pBoxBar), 0, 14, 5, 1);
 
@@ -859,6 +859,9 @@ void OnRoll(GtkWidget *pWidget, gpointer pData)
 		g_printf("dices in order : %d\n", *p);
 		p++;
 	}
+	char mess[255] = "" ;
+	strcpy(mess,_epr_do_message_bar("",FALSE ) ) ;
+	_g_display_pattern_with_message(mess);
 }
 
 /**
@@ -937,7 +940,7 @@ void OnCloseAlert(GtkWidget *widget, gpointer pData)
 static void
 _g_display_pattern_with_message(const char *message)
 {   gboolean reset = TRUE;
-	gtk_label_set_text(GTK_LABEL(pLabelBar), message);
+    gtk_label_set_text(GTK_LABEL(pLabelBar), message);
 	_epr_do_message_bar("\0", reset);
 }
 
@@ -969,6 +972,7 @@ void OnNextPlayer(GtkWidget *pWidget, gpointer pData)
 		_g_display_players_entries_text(Players);
 		_g_display_players_update_score_all(Players);
 		_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_NEXT_PLAYER));
+		_g_display_pattern_with_message(_("Please play again"));
 	}
 	else
 	{

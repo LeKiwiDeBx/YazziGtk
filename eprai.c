@@ -188,86 +188,100 @@ static eprOpenPattern _epr_search_pattern(eprOpenPattern op)
 {
 	GRegex *regex = NULL;
 	GMatchInfo *match_info;
-	char *typeOP = "not yet implemented";
+	static const gchar *typeOP[] = {N_("Different [start Straight]"),
+									N_("Similar [start Full,Yazzi]"),
+									N_("Misc [neither good or bad]"),
+									N_("Small Straight"),
+									N_("Large Straight"),
+									N_("Full House"),
+									N_("Three of Kind"),
+									N_("Four of Kind"),
+									N_("Yazzi"),
+									N_("Yazzi Bonus"),
+									N_("Big Sum"),
+									N_("Pattern Not Found")
+	};
+	gint sum = 0;
+	//char *typeOP = "not yet implemented";
 	switch (op)
 	{
 	case OP_SIMILAR:
 		g_printf("# (H) search similar: (C)");
 		g_printf("chaine %s ", deltaDB);
-		typeOP = "similar (like start full or Yazzi)";
+		//typeOP = "similar (like start full or Yazzi)";
 		regex =
 			g_regex_new("0+.*0+", 0, 0, NULL); // au moins deux double(ou triple)
 		break;
 	case OP_DIFFERENT:
 		g_printf("# (H) search different: (C)");
 		g_printf("chaine %s ", deltaDB);
-		typeOP = "different (like start straight)";
+		//typeOP = "different (like start straight)";
 		regex =
 			g_regex_new("1+0*1+", 0, 0,
 						NULL); // au moins trois qui se succede (deux delta de 1)
 		break;
 	case OP_SMALL_STRAIGHT:
-		typeOP = "small straight ";
-		g_printf("# (H) search :%s (C)", typeOP);
+		//typeOP = "small straight ";
+		g_printf("# (H) search :%s (C)", typeOP[op]);
 		g_printf("chaine %s ", deltaDB);
 		regex = g_regex_new("^(1)?(?(1)(011|101|11)($|[^1])|[^1]111)", 0, 0,
 							NULL); // sens strict: pas grande suite
 		break;
 	case OP_LARGE_STRAIGHT:
-		typeOP = "Large straight ";
-		g_printf("# (H) search :%s (C)", typeOP);
+		//typeOP = "Large straight ";
+		g_printf("# (H) search :%s (C)", typeOP[op]);
 		g_printf("chaine %s ", deltaDB);
 		regex = g_regex_new("1{4}", 0, 0, NULL);
 		break;
 	case OP_FULL_HOUSE:
-		typeOP = "Full House ";
-		g_printf("# (H) search :%s (C)", typeOP);
+		//typeOP = "Full House ";
+		g_printf("# (H) search :%s (C)", typeOP[op]);
 		g_printf("chaine %s ", deltaDB);
 		regex = g_regex_new("^0(0[^0]|[^0]0)0$", 0, 0, NULL);
 		break;
 	case OP_THREE_OF_KIND:
-		typeOP = "Three of kind ";
-		g_printf("# (H) search :%s (C)", typeOP);
+		//typeOP = "Three of kind ";
+		g_printf("# (H) search :%s (C)", typeOP[op]);
 		g_printf("chaine %s ", deltaDB);
 		regex = g_regex_new("([^0]|^)(0{2})([^0]|$)", 0, 0,
 							NULL); // au sens strict: pas de 4 à la suite
 		break;
 	case OP_FOUR_OF_KIND:
-		typeOP = "Four of kind ";
-		g_printf("# (H) search :%s (C)", typeOP);
+		//typeOP = "Four of kind ";
+		g_printf("# (H) search :%s (C)", typeOP[op]);
 		g_printf("chaine %s ", deltaDB);
 		regex = g_regex_new("([^0]|^)(0{3})([^0]|$)", 0, 0, NULL);
 		break;
 	case OP_YAZZI:
-		typeOP = "Yazzi ";
-		g_printf("# (H) search :%s (C)", typeOP);
+		//typeOP = "Yazzi ";
+		g_printf("# (H) search :%s (C)", typeOP[op]);
 		g_printf("chaine %s ", deltaDB);
 		regex = g_regex_new("0{4}", 0, 0, NULL);
 		break;
 	case OP_YAZZI_BONUS:
-		typeOP = "Yazzi Bonus ";
-		g_printf("# (H) search :%s (C)", typeOP);
+		//typeOP = "Yazzi Bonus ";
+		g_printf("# (H) search :%s (C)", typeOP[op]);
 		g_printf("chaine %s ", deltaDB);
 		regex = g_regex_new("0{4}", 0, 0, NULL);
 		break;
 	case OP_MISC:
-		typeOP = "misc (not good/not bad :°) )";
+		//typeOP = "misc (not good/not bad :°) )";
 		g_printf("# (H) search misc: (C)");
 		g_printf("chaine %s ", deltaDB);
 		regex = g_regex_new("^(?!.*(10?1|0.*0)).*", 0, 0,
 							NULL); // exclut tous ce qui est suite et double/triple
 		break;
 	case OP_BIG_SUM:
-		typeOP = "Big Sum";
+		//typeOP = "Big Sum";
 		// test si la somme des dés est grande
-		gint sum = 0;
+		
 		for (int i = 0; i < DICE_NUMBER; i++)
 		{
 			sum += dataBase[i];
 			//g_printf("chaine val du dé %d\n", dataBase[i]);
 		}
 		if (sum > 20)
-			_epr_do_message_bar(typeOP, FALSE);
+			_epr_do_message_bar(_(typeOP[op]), FALSE);
 		return op;
 	case OP_NOP:
 		return op;
@@ -278,8 +292,8 @@ static eprOpenPattern _epr_search_pattern(eprOpenPattern op)
 
 	if (g_regex_match(regex, deltaDB, 0, &match_info))
 	{
-		g_printf("OK %s ", typeOP);
-		_epr_do_message_bar(typeOP, FALSE);
+		g_printf("OK %s ", typeOP[op]);
+		_epr_do_message_bar(_(typeOP[op]), FALSE);
 		while (g_match_info_matches(match_info))
 		{
 			gchar *pattern = g_match_info_fetch(match_info, 0);
@@ -293,19 +307,23 @@ static eprOpenPattern _epr_search_pattern(eprOpenPattern op)
 	return op;
 }
 /**
- * @brief ecrit un message dans la barre des messages
- *
- * @param sOP
+ * @brief fait une ligne des messages à afficher
+ * 
+ * @param sOP le message à concatener
+ * @param reset true/false si on efface le message
+ * @return char* le message à afficher dans le label
  */
 char *_epr_do_message_bar(const gchar *sOP, gboolean reset)
 {
 	// g_printf("concat %s\n", sOP);
-	static char messageBar[255];
+	static char messageBar[255*sizeof(char)];
 	if (reset)
 	{
 		memset(messageBar, '\0', sizeof(messageBar));
 	}
-	else
-		g_strlcat(messageBar, sOP, 255);
+	else{
+		g_strlcat(messageBar, " | ", sizeof(messageBar));
+		g_strlcat(messageBar, sOP, sizeof(messageBar));
+	}
 	return messageBar;
 }
