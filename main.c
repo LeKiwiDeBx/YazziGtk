@@ -120,7 +120,8 @@ GtkWidget *pWindowMain = NULL, /* fenêtre principale */
 		  *pLabel = NULL,
 		  *pLabelAlert = NULL,
 		  *pLabelBar = NULL,
-		  *pBar = NULL;
+		  *pBar = NULL,
+		  *pButtonMenu = NULL;
 GtkCssProvider *pCssProvider = NULL;
 GtkImage *image = NULL;
 static const gchar *labelCrunching[] = {N_("SubSum"), N_("Bonus"), N_("Upper"), N_("Lower"), N_("Grand Total")};
@@ -287,9 +288,44 @@ int main(int argc, char **argv)
 	gtk_grid_set_row_spacing(GTK_GRID(pGridMain), 0);
 	//gtk_grid_set_column_spacing(GTK_GRID(pGridMain), 0);
 	gtk_grid_set_column_homogeneous(GTK_GRID(pGridMain), TRUE);
-	gtk_grid_set_row_spacing(GTK_GRID(pGridMain), 0);
+	//gtk_grid_set_row_spacing(GTK_GRID(pGridMain), 0);
 	gtk_container_add(GTK_CONTAINER(pWindowMain), GTK_WIDGET(pGridMain));
 	gtk_container_set_border_width(GTK_CONTAINER(pWindowMain), 20);
+
+    /* -------------------------------------------------------------------------- */
+	/*							Menu		  									  */
+	/* 						Menu de l'application             	  			      */
+	/* -------------------------------------------------------------------------- */
+    pButtonMenu = gtk_menu_button_new ();
+	GtkWidget * pGridMenu = gtk_grid_new();
+    gtk_button_set_image (GTK_BUTTON (pButtonMenu), gtk_image_new_from_icon_name ("open-menu-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR));
+  	gtk_widget_set_valign (pButtonMenu, GTK_ALIGN_CENTER);
+  	gtk_widget_set_halign (pButtonMenu, GTK_ALIGN_CENTER);
+  	gtk_grid_attach(GTK_GRID(pGridMain), pButtonMenu,4,0,1,1);
+	GtkWidget * labelHelp = gtk_label_new(_("Help"));
+	GtkWidget * labelAbout = gtk_label_new(_("About"));
+	GtkWidget * menu1LabelEventBox = gtk_event_box_new ();
+	GtkWidget * menu2LabelEventBox = gtk_event_box_new ();
+	gtk_container_add (GTK_CONTAINER (menu1LabelEventBox), labelHelp);
+	gtk_container_add (GTK_CONTAINER (menu2LabelEventBox), labelAbout);
+	gtk_container_set_border_width(GTK_CONTAINER(menu1LabelEventBox), 10);
+	gtk_container_set_border_width(GTK_CONTAINER(menu2LabelEventBox), 10);
+	gtk_grid_set_column_homogeneous(GTK_GRID(pGridMenu), TRUE);
+	gtk_grid_set_row_spacing(GTK_GRID(pGridMenu), 5);
+	gtk_grid_attach(GTK_GRID (pGridMenu), menu1LabelEventBox,1,1,1,1);
+	gtk_grid_attach(GTK_GRID (pGridMenu), menu2LabelEventBox,1,2,1,1);
+	
+    
+	/* #define MENU_LABEL_ABOUT 1 */
+    g_signal_connect(GTK_WIDGET(menu1LabelEventBox), "enter-notify-event", G_CALLBACK(OnCloseAlert), GINT_TO_POINTER(0)); 
+    g_signal_connect(GTK_WIDGET(menu2LabelEventBox), "enter-notify-event", G_CALLBACK(OnCloseAlert), GINT_TO_POINTER(0)); 
+	GtkWidget *popover = gtk_popover_new (pButtonMenu);
+   // gtk_container_add (GTK_CONTAINER (popover), menu1LabelEventBox);
+    gtk_container_add (GTK_CONTAINER (popover), pGridMenu);
+   // gtk_container_add (GTK_CONTAINER (popover), menuLabelAboutEventBox);
+    gtk_menu_button_set_popover (GTK_MENU_BUTTON (pButtonMenu), popover);
+    gtk_widget_show_all (popover);
+
 
 	/* -------------------------------------------------------------------------- */
 	/*							Name of player /roll count	     	  	  		  */
