@@ -1,7 +1,7 @@
 /*
  * main.c
  * Créé le 13 avril 2016 11:47:00
- * Copyright 2016 Le KiWi <jean@antix1>
+ * Copyright 2016-2021 LeKiWiDeBx Licence GNU GPL
  *
  */
 //#define GETTEXT_PACKAGE "GTK30"
@@ -33,7 +33,7 @@
 #define YAZ_APP_NAME "YazziGtk"
 #define YAZ_WINDOW_MAIN_SIZE_H 140
 #define YAZ_WINDOW_MAIN_SIZE_V 650
-#define YAZ_WINDOW_MAIN_TITLE "Yazzi Le Kiwi :: version Beta 1.01a (GTK+3) ::"
+#define YAZ_WINDOW_MAIN_TITLE "Yazzi Le Kiwi :: version Beta 1.2 (GTK+3) ::"
 #define YAZ_TABLE_MAIN_ROWS 15
 #define YAZ_TABLE_MAIN_COLS 6
 #define YAZ_REP_IMAGE "image/"
@@ -209,7 +209,8 @@ static gboolean
 _g_chain_order_focus();
 static gboolean
 _g_set_focus_dice(int pos);
-
+static void
+_g_display_box_about();
 /**
  * @brief Cé LE MAINEUH         =|8°() <\ © the-little-monkey >
  * @param argc
@@ -292,40 +293,41 @@ int main(int argc, char **argv)
 	gtk_container_add(GTK_CONTAINER(pWindowMain), GTK_WIDGET(pGridMain));
 	gtk_container_set_border_width(GTK_CONTAINER(pWindowMain), 20);
 
-    /* -------------------------------------------------------------------------- */
+	/* -------------------------------------------------------------------------- */
 	/*							Menu		  									  */
 	/* 						Menu de l'application             	  			      */
 	/* -------------------------------------------------------------------------- */
-    pButtonMenu = gtk_menu_button_new ();
-	GtkWidget * pGridMenu = gtk_grid_new();
-    gtk_button_set_image (GTK_BUTTON (pButtonMenu), gtk_image_new_from_icon_name ("open-menu-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR));
-  	gtk_widget_set_valign (pButtonMenu, GTK_ALIGN_CENTER);
-  	gtk_widget_set_halign (pButtonMenu, GTK_ALIGN_CENTER);
-  	gtk_grid_attach(GTK_GRID(pGridMain), pButtonMenu,4,0,1,1);
-	GtkWidget * labelHelp = gtk_label_new(_("Help"));
-	GtkWidget * labelAbout = gtk_label_new(_("About"));
-	GtkWidget * menu1LabelEventBox = gtk_event_box_new ();
-	GtkWidget * menu2LabelEventBox = gtk_event_box_new ();
-	gtk_container_add (GTK_CONTAINER (menu1LabelEventBox), labelHelp);
-	gtk_container_add (GTK_CONTAINER (menu2LabelEventBox), labelAbout);
-	gtk_container_set_border_width(GTK_CONTAINER(menu1LabelEventBox), 10);
-	gtk_container_set_border_width(GTK_CONTAINER(menu2LabelEventBox), 10);
+	pButtonMenu = gtk_menu_button_new();
+	GtkWidget *pGridMenu = gtk_grid_new();
+	gtk_button_set_image(GTK_BUTTON(pButtonMenu), gtk_image_new_from_icon_name("open-menu-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR));
+	gtk_widget_set_valign(pButtonMenu, GTK_ALIGN_CENTER);
+	gtk_widget_set_halign(pButtonMenu, GTK_ALIGN_CENTER);
+	gtk_grid_attach(GTK_GRID(pGridMain), pButtonMenu, 4, 0, 1, 1);
+	GtkWidget *labelHelp = gtk_label_new(_("Help"));
+	GtkWidget *labelAbout = gtk_label_new(_("About"));
+	GtkWidget *menuHelpLabelEventBox = gtk_event_box_new();
+	GtkWidget *menuAboutLabelEventBox = gtk_event_box_new();
+	gtk_container_add(GTK_CONTAINER(menuHelpLabelEventBox), labelHelp);
+	gtk_container_add(GTK_CONTAINER(menuAboutLabelEventBox), labelAbout);
+	gtk_container_set_border_width(GTK_CONTAINER(menuHelpLabelEventBox), 10);
+	gtk_container_set_border_width(GTK_CONTAINER(menuAboutLabelEventBox), 10);
 	gtk_grid_set_column_homogeneous(GTK_GRID(pGridMenu), TRUE);
 	gtk_grid_set_row_spacing(GTK_GRID(pGridMenu), 5);
-	gtk_grid_attach(GTK_GRID (pGridMenu), menu1LabelEventBox,1,1,1,1);
-	gtk_grid_attach(GTK_GRID (pGridMenu), menu2LabelEventBox,1,2,1,1);
-	
-    
-	/* #define MENU_LABEL_ABOUT 1 */
-    g_signal_connect(GTK_WIDGET(menu1LabelEventBox), "enter-notify-event", G_CALLBACK(OnCloseAlert), GINT_TO_POINTER(0)); 
-    g_signal_connect(GTK_WIDGET(menu2LabelEventBox), "enter-notify-event", G_CALLBACK(OnCloseAlert), GINT_TO_POINTER(0)); 
-	GtkWidget *popover = gtk_popover_new (pButtonMenu);
-   // gtk_container_add (GTK_CONTAINER (popover), menu1LabelEventBox);
-    gtk_container_add (GTK_CONTAINER (popover), pGridMenu);
-   // gtk_container_add (GTK_CONTAINER (popover), menuLabelAboutEventBox);
-    gtk_menu_button_set_popover (GTK_MENU_BUTTON (pButtonMenu), popover);
-    gtk_widget_show_all (popover);
+	gtk_grid_attach(GTK_GRID(pGridMenu), menuHelpLabelEventBox, 1, 1, 1, 1);
+	gtk_grid_attach(GTK_GRID(pGridMenu), menuAboutLabelEventBox, 1, 2, 1, 1);
 
+	gtk_widget_set_events(GTK_WIDGET(labelHelp), GDK_KEY_PRESS_MASK || GDK_FOCUS_CHANGE_MASK);
+	gtk_widget_set_events(GTK_WIDGET(labelAbout), GDK_KEY_PRESS_MASK || GDK_FOCUS_CHANGE_MASK);
+
+	/* #define MENU_LABEL_ABOUT 1 */
+	g_signal_connect(GTK_WIDGET(menuHelpLabelEventBox), "button-press-event", G_CALLBACK(OnDestroy), GINT_TO_POINTER(0));
+	g_signal_connect(GTK_WIDGET(menuAboutLabelEventBox), "button-press-event", G_CALLBACK(_g_display_box_about), GINT_TO_POINTER(0));
+	GtkWidget *popover = gtk_popover_new(pButtonMenu);
+	// gtk_container_add (GTK_CONTAINER (popover), menu1LabelEventBox);
+	gtk_container_add(GTK_CONTAINER(popover), pGridMenu);
+	// gtk_container_add (GTK_CONTAINER (popover), menuLabelAboutEventBox);
+	gtk_menu_button_set_popover(GTK_MENU_BUTTON(pButtonMenu), popover);
+	gtk_widget_show_all(popover);
 
 	/* -------------------------------------------------------------------------- */
 	/*							Name of player /roll count	     	  	  		  */
@@ -805,8 +807,8 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 		g_printf("dices in order : %d\n", *p);
 		p++;
 	}
-	char mess[255] = "" ;
-	strcpy(mess,_epr_do_message_bar("",FALSE ) ) ;
+	char mess[255] = "";
+	strcpy(mess, _epr_do_message_bar("", FALSE));
 	_g_display_pattern_with_message(mess);
 }
 
@@ -895,8 +897,8 @@ void OnRoll(GtkWidget *pWidget, gpointer pData)
 		g_printf("dices in order : %d\n", *p);
 		p++;
 	}
-	char mess[255] = "" ;
-	strcpy(mess,_epr_do_message_bar("",FALSE ) ) ;
+	char mess[255] = "";
+	strcpy(mess, _epr_do_message_bar("", FALSE));
 	_g_display_pattern_with_message(mess);
 }
 
@@ -975,8 +977,9 @@ void OnCloseAlert(GtkWidget *widget, gpointer pData)
  */
 static void
 _g_display_pattern_with_message(const char *message)
-{   gboolean reset = TRUE;
-    gtk_label_set_text(GTK_LABEL(pLabelBar), message);
+{
+	gboolean reset = TRUE;
+	gtk_label_set_text(GTK_LABEL(pLabelBar), message);
 	_epr_do_message_bar("\0", reset);
 }
 
@@ -1943,4 +1946,34 @@ void _g_display_players_set_all_names()
 		break;
 	}
 	gtk_widget_destroy(pDialogSetUp);
+}
+
+static void _g_display_box_about()
+{
+	const gchar *authors[] =
+		{"LeKiWiDeBx Re8irth <LeKiwiDeBx@gmail.com>",
+		 NULL};
+	const gchar *copyright = "Copyright 2016-2021 LeKiWiDeBx [°}";
+	const gchar *website = "https://github.com/LeKiwiDeBx/YazziGtk";
+	const gchar *website_label = _("Github source code YazziGtk website");
+	const gchar *comments = _("It's fabulous dices game");
+	const gchar *title = _("About Yazzi Le Kiwi");
+	const gchar *version = "version Beta 1.2 Gtk 3.22";
+	const gchar *program_name = _("YazziGtk");
+	const gchar *logo_filename = "image/diceX-64x64.png";
+	GdkPixbuf *logo = gdk_pixbuf_new_from_file(logo_filename, NULL);
+	
+	gtk_show_about_dialog(GTK_WINDOW(pWindowMain),
+						  "program-name", program_name,
+						  "version", version,
+						  "authors", authors,
+						  "copyright", copyright,
+						  "license-type", GTK_LICENSE_GPL_2_0,
+						  "title", title,
+						  "wrap-license", FALSE,
+						  "comments", comments,
+						  "website-label", website_label,
+						  "website", website,
+						  "logo", logo,
+						   NULL);
 }
