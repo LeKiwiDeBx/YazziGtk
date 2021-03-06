@@ -1953,7 +1953,7 @@ static void _g_display_box_about()
 	const gchar *authors[] =
 		{"LeKiWiDeBx Re8irth <LeKiwiDeBx@gmail.com>",
 		 NULL};
-	const gchar *copyright = "Copyright 2016-2021 LeKiWiDeBx [°}";
+	const gchar *copyright = "Copyright 2016-2021 LeKiWiDeBx [°} Re8irth";
 	const gchar *website = "https://github.com/LeKiwiDeBx/YazziGtk";
 	const gchar *website_label = _("Github source code YazziGtk website");
 	const gchar *comments = _("It's fabulous dices game");
