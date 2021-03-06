@@ -1,5 +1,5 @@
-# YazziGTk tag
-## A Fabulous dices game tag
+# YazziGTk
+## A Fabulous dices game
 
 _Le destin met beaucoup de hasard dans son jeu._
                           Jacques Folch-Ribas
