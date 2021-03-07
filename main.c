@@ -328,6 +328,14 @@ int main(int argc, char **argv)
 	// gtk_container_add (GTK_CONTAINER (popover), menuLabelAboutEventBox);
 	gtk_menu_button_set_popover(GTK_MENU_BUTTON(pButtonMenu), popover);
 	gtk_widget_show_all(popover);
+	/*
+	 builder = gtk_builder_new_from_file ("res/menu.xml");
+  	 menu = G_MENU_MODEL (gtk_builder_get_object ("menu");
+	 button = gtk_menu_button_new ();
+     gtk_menu_button_set_use_popover (button, TRUE);
+     gtk_menu_button_set_menu_model (button, menu);
+	 
+	*/
 
 	/* -------------------------------------------------------------------------- */
 	/*							Name of player /roll count	     	  	  		  */
