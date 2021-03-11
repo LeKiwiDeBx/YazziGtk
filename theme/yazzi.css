@@ -315,4 +315,7 @@ tooltip label {
     color: @tooltip_fg_color; */
 }
 
+.labelPopover:hover {
+    background-color: red;
+}
 /*-------------------------------------------------------------------------------------------*/
