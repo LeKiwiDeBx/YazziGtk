@@ -1,11 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <menu id="menu">
-    <section>
-       <item>
-        <attribute name="label">Quit</attribute>
-        <attribute name="action">win.quit_activate</attribute>
-      </item>
-    </section> 
-  </menu>
+<object class="GtkPopoverMenu">
+  <child>
+    <object class="GtkBox">
+      <property name="visible">True</property>
+      <property name="margin">10</property>
+      <child>
+        <object class="GtkModelButton">
+          <property name="visible">True</property>
+          <property name="action-name">win.quit_activate</property>
+          <property name="text" translatable="yes">About</property>
+        </object>
+      </child>
+      <child>
+        <object class="GtkModelButton">
+          <property name="visible">True</property>
+          <property name="action-name">win.quit_activate</property>
+          <property name="text" translatable="yes">Quit</property>
+        </object>
+      </child>
+     </object>
+     <packing>
+      <property name="menu">menu</property>
+    </packing>
+  </child>
+</object>
 </interface>

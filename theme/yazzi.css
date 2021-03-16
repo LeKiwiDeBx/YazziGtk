@@ -315,7 +315,36 @@ tooltip label {
     color: @tooltip_fg_color; */
 }
 
-.labelPopover:hover {
-    background-color: red;
+/*-------------------------------------------------------------------------------------------*/
+
+/**********************************************************************************************
+*   Pour les items du menu popover
+*   
+**********************************************************************************************/
+
+.menuItem  {
+    background-color: ivory;
+    color:  @yaz_text_dark;
+    font-weight: normal ;
+    padding:  0  0;
+    margin: 0 0;
 }
+
+.menuItem>label{
+    text-decoration: none ;
+}
+
+.menuItem:hover  {
+    background-color:  #6a89cc;
+    color: whitesmoke;
+    font-weight: normal ;
+    padding:  0  0;
+    margin: 0 0;
+}
+
+.menuItem:focus {
+    border-bottom: 0;
+    margin-bottom: 0;
+}
+
 /*-------------------------------------------------------------------------------------------*/

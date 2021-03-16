@@ -303,78 +303,27 @@ int main(int argc, char **argv)
 	// Button `sandwich`
 	pButtonMenu = gtk_menu_button_new();
 	GtkWidget *pGridMenu = gtk_grid_new();
-
 	gtk_button_set_image(GTK_BUTTON(pButtonMenu), gtk_image_new_from_icon_name("open-menu-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR));
 	gtk_widget_set_valign(pButtonMenu, GTK_ALIGN_CENTER);
 	gtk_widget_set_halign(pButtonMenu, GTK_ALIGN_CENTER);
 	gtk_grid_attach(GTK_GRID(pGridMain), pButtonMenu, 4, 0, 1, 1);
-
-	// Label du menu avec eventBox
-	//GtkWidget *labelHelp = gtk_label_new(_("Help"));
-	//GtkWidget *linkLabelHelp = gtk_link_button_new_with_label("https://github.com/LeKiwiDeBx/YazziGtk","Help");
-	const gchar *text =
-	"<span  underline=\"none\" >"
-		"<a title=\"Help online https://github.com/LeKiwiDeBx/YazziGtk\" href=\"https://github.com/LeKiwiDeBx/YazziGtk\">"
-		"Help online</a>"
-		"</span>";
-	GtkWidget *linkLabelHelp = gtk_label_new(NULL);
-	gtk_label_set_markup(GTK_LABEL(linkLabelHelp), text);
-
-	GtkWidget *labelAbout = gtk_label_new(_("About"));
-	GtkWidget *labelQuit = gtk_label_new(_("Quit"));
-	GtkWidget *menuHelpLabelEventBox = gtk_event_box_new();
-	GtkWidget *menuAboutLabelEventBox = gtk_event_box_new();
-	GtkWidget *menuQuitLabelEventBox = gtk_event_box_new();
-	gtk_container_add(GTK_CONTAINER(menuHelpLabelEventBox), linkLabelHelp);
-	gtk_container_add(GTK_CONTAINER(menuAboutLabelEventBox), labelAbout);
-	gtk_container_add(GTK_CONTAINER(menuQuitLabelEventBox), labelQuit);
-	gtk_container_set_border_width(GTK_CONTAINER(menuHelpLabelEventBox), 10);
-	gtk_container_set_border_width(GTK_CONTAINER(menuAboutLabelEventBox), 10);
-	gtk_container_set_border_width(GTK_CONTAINER(menuQuitLabelEventBox), 10);
-
-	// Grille du menu
-	gtk_grid_set_column_homogeneous(GTK_GRID(pGridMenu), TRUE);
-	gtk_grid_set_row_spacing(GTK_GRID(pGridMenu), 5);
-	gtk_grid_attach(GTK_GRID(pGridMenu), menuHelpLabelEventBox, 1, 1, 1, 1);
-	gtk_grid_attach(GTK_GRID(pGridMenu), menuAboutLabelEventBox, 1, 2, 1, 1);
-	gtk_grid_attach(GTK_GRID(pGridMenu), menuQuitLabelEventBox, 1, 3, 1, 1);
-
-	// Events & CallBack
-	//gtk_widget_set_events(GTK_WIDGET(labelHelp), GDK_KEY_PRESS_MASK || GDK_FOCUS_CHANGE_MASK);
-	gtk_widget_set_events(GTK_WIDGET(labelAbout), GDK_KEY_PRESS_MASK || GDK_FOCUS_CHANGE_MASK);
-	gtk_widget_set_events(GTK_WIDGET(labelQuit), GDK_KEY_PRESS_MASK || GDK_FOCUS_CHANGE_MASK);
-	//g_signal_connect(GTK_WIDGET(menuHelpLabelEventBox), "button-press-event", G_CALLBACK(_g_display_box_about), GINT_TO_POINTER(0));
-	g_signal_connect(GTK_WIDGET(menuAboutLabelEventBox), "button-press-event", G_CALLBACK(_g_display_box_about), GINT_TO_POINTER(0));
-	g_signal_connect(GTK_WIDGET(menuQuitLabelEventBox), "button-press-event", G_CALLBACK(OnDestroy), GINT_TO_POINTER(0));
-
-	// Popover a button sandwich  A long and sad story
+	/* items du menu */
+	GtkWidget * pVButtonBoxMenu = gtk_button_box_new(GTK_ORIENTATION_VERTICAL);
+    GtkWidget * pButtonHelpMenu = gtk_link_button_new_with_label("https://github.com/LeKiwiDeBx/YazziGtk#yazzigtk",_("Help"));
+    GtkWidget * pButtonAboutMenu = gtk_button_new_with_mnemonic(_("_About")) ;
+    GtkWidget * pButtonQuitMenu = gtk_button_new_with_mnemonic(_("_Quit")) ;
+	gtk_grid_attach(GTK_GRID(pGridMenu), pVButtonBoxMenu, 1, 1, 1, 1);
+	gtk_box_pack_start(GTK_BOX(pVButtonBoxMenu), pButtonHelpMenu, TRUE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(pVButtonBoxMenu), pButtonAboutMenu, TRUE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(pVButtonBoxMenu), pButtonQuitMenu, TRUE, FALSE, 0);
+	/* signaux */
+	g_signal_connect(pButtonAboutMenu, "clicked", G_CALLBACK(_g_display_box_about),NULL);
+	g_signal_connect(pButtonQuitMenu, "clicked", G_CALLBACK(OnDestroy),NULL);
+	/* popover */
 	GtkWidget *popover = gtk_popover_new(pButtonMenu);
-	// gtk_container_add (GTK_CONTAINER (popover), menu1LabelEventBox);
 	gtk_container_add(GTK_CONTAINER(popover), pGridMenu);
-	// gtk_container_add (GTK_CONTAINER (popover), menuLabelAboutEventBox);
 	gtk_menu_button_set_popover(GTK_MENU_BUTTON(pButtonMenu), popover);
 	gtk_widget_show_all(popover);
-
-	/*		
-		GtkBuilder *builder = gtk_builder_new_from_file("res/menu.xml");
-		GMenuModel *menu = G_MENU_MODEL(gtk_builder_get_object(builder, "menu"));
-		GtkWidget *popover = gtk_popover_new(pButtonMenu);
-		gtk_popover_bind_model (GTK_POPOVER(popover), menu, "win");
-		const GActionEntry app_entries[] =
-			{
-				{"Quit", quit_activate}
-				
-			};
-		GSimpleActionGroup *group = g_simple_action_group_new();
-		g_action_map_add_action_entries(G_ACTION_MAP(group), app_entries, G_N_ELEMENTS(app_entries), NULL);
-		gtk_widget_insert_action_group(GTK_WIDGET(popover),"win", G_ACTION_GROUP(group));
-		
-		gtk_menu_button_set_popover(GTK_MENU_BUTTON(pButtonMenu), GTK_WIDGET(popover));
-		gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(pButtonMenu), menu);
-		//gtk_menu_button_set_use_popover(GTK_MENU_BUTTON(pButtonMenu), TRUE);
-	*/
-
-	//
 
 	/* -------------------------------------------------------------------------- */
 	/*							Name of player /roll count	     	  	  		  */
@@ -609,7 +558,11 @@ int main(int argc, char **argv)
 	gtk_style_context_add_class(gtk_widget_get_style_context(pLabelName), "labeltop");
 	gtk_style_context_add_class(gtk_widget_get_style_context(pLabelCount), "labeltop");
 	gtk_style_context_add_class(gtk_widget_get_style_context(pLabelTurn), "labeltop");
-	gtk_style_context_add_class(gtk_widget_get_style_context(menuAboutLabelEventBox), "popover");
+
+	gtk_style_context_add_class(gtk_widget_get_style_context(pButtonHelpMenu), "menuItem");
+	gtk_style_context_add_class(gtk_widget_get_style_context(pButtonAboutMenu), "menuItem");
+	gtk_style_context_add_class(gtk_widget_get_style_context(pButtonQuitMenu), "menuItem");
+
 	for (gint i = 0; i < DICE_NUMBER; i++)
 	{
 		gtk_style_context_add_class(gtk_widget_get_style_context(pDice[i]), "dice");
