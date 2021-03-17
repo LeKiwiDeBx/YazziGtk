@@ -306,12 +306,24 @@ int main(int argc, char **argv)
 	gtk_button_set_image(GTK_BUTTON(pButtonMenu), gtk_image_new_from_icon_name("open-menu-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR));
 	gtk_widget_set_valign(pButtonMenu, GTK_ALIGN_CENTER);
 	gtk_widget_set_halign(pButtonMenu, GTK_ALIGN_CENTER);
+	gtk_widget_set_tooltip_text(pButtonMenu, _("Open menu..."));
 	gtk_grid_attach(GTK_GRID(pGridMain), pButtonMenu, 4, 0, 1, 1);
 	/* items du menu */
 	GtkWidget * pVButtonBoxMenu = gtk_button_box_new(GTK_ORIENTATION_VERTICAL);
     GtkWidget * pButtonHelpMenu = gtk_link_button_new_with_label("https://github.com/LeKiwiDeBx/YazziGtk#yazzigtk",_("Help"));
     GtkWidget * pButtonAboutMenu = gtk_button_new_with_mnemonic(_("_About")) ;
     GtkWidget * pButtonQuitMenu = gtk_button_new_with_mnemonic(_("_Quit")) ;
+	/* 
+	GtkWidget * pImageHelp = gtk_image_new_from_icon_name("help-faq-symbolic", GTK_ICON_SIZE_MENU);
+	gtk_button_set_image(GTK_BUTTON(pButtonHelpMenu), pImageHelp);
+	gtk_button_set_image_position(GTK_BUTTON(pButtonHelpMenu), GTK_POS_LEFT); 	
+	GtkWidget * pImageAbout = gtk_image_new_from_icon_name("help-about-symbolic", GTK_ICON_SIZE_MENU);
+	gtk_button_set_image(GTK_BUTTON(pButtonAboutMenu), pImageAbout);
+	gtk_button_set_image_position(GTK_BUTTON(pButtonAboutMenu), GTK_POS_LEFT);
+	GtkWidget * pImageQuit = gtk_image_new_from_icon_name("system-shutdown-symbolic", GTK_ICON_SIZE_MENU);
+	gtk_button_set_image(GTK_BUTTON(pButtonQuitMenu), pImageQuit);
+	gtk_button_set_image_position(GTK_BUTTON(pButtonQuitMenu), GTK_POS_LEFT);
+ */
 	gtk_grid_attach(GTK_GRID(pGridMenu), pVButtonBoxMenu, 1, 1, 1, 1);
 	gtk_box_pack_start(GTK_BOX(pVButtonBoxMenu), pButtonHelpMenu, TRUE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(pVButtonBoxMenu), pButtonAboutMenu, TRUE, FALSE, 0);

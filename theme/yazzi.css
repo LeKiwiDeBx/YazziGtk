@@ -330,8 +330,9 @@ tooltip label {
     margin: 0 0;
 }
 
-.menuItem>label{
+.menuItem  label{
     text-decoration: none ;
+    margin-left: -20px;  
 }
 
 .menuItem:hover  {
