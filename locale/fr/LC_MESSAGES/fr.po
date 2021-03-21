@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YazziGtk  version Beta 1.1a\n"
-"POT-Creation-Date: 2021-03-02 14:18+0100\n"
-"PO-Revision-Date: 2021-03-02 14:20+0100\n"
+"POT-Creation-Date: 2021-03-21 20:21+0100\n"
+"PO-Revision-Date: 2021-03-21 20:22+0100\n"
 "Last-Translator: LeKiwiDeBx <LeKiwiDeBx@chezmoi.fr>\n"
 "Language-Team: LeKiwiTranslator\n"
 "Language: fr\n"
@@ -28,15 +28,15 @@ msgstr "Similaire [début Full,Yazzi]"
 msgid "Misc [neither good or bad]"
 msgstr "Divers [ni bien ni mal]"
 
-#: eprai.c:194 main.c:316
+#: eprai.c:194 main.c:362
 msgid "Small Straight"
 msgstr "Petite Suite"
 
-#: eprai.c:195 main.c:316
+#: eprai.c:195 main.c:362
 msgid "Large Straight"
 msgstr "Grande Suite"
 
-#: eprai.c:196 main.c:316
+#: eprai.c:196 main.c:362
 msgid "Full House"
 msgstr "Full House"
 
@@ -48,11 +48,11 @@ msgstr "Trois Pareils"
 msgid "Four of Kind"
 msgstr "Quatre Pareils"
 
-#: eprai.c:199 main.c:316
+#: eprai.c:199 main.c:362
 msgid "Yazzi"
 msgstr "Yazzi"
 
-#: eprai.c:200 main.c:316
+#: eprai.c:200 main.c:362
 msgid "Yazzi Bonus"
 msgstr "Bonus Yazzi"
 
@@ -64,192 +64,204 @@ msgstr "Grosse Somme"
 msgid "Pattern Not Found"
 msgstr "Motif introuvable"
 
-#: main.c:126
+#: main.c:127
 msgid "SubSum"
 msgstr "Sous-total"
 
-#: main.c:126
+#: main.c:127
 msgid "Bonus"
 msgstr "Bonus"
 
-#: main.c:126
+#: main.c:127
 msgid "Upper"
 msgstr "Superieur"
 
-#: main.c:126
+#: main.c:127
 msgid "Lower"
 msgstr "Inferieur"
 
-#: main.c:126
+#: main.c:127
 msgid "Grand Total"
 msgstr "Grand Total"
 
-#: main.c:298
+#: main.c:309
+msgid "Open menu..."
+msgstr "Ouvrir menu..."
+
+#: main.c:313
+msgid "Help"
+msgstr "Aide"
+
+#: main.c:314
+msgid "_About"
+msgstr "_A propos"
+
+#: main.c:315 main.c:495
+msgid "_Quit"
+msgstr "_Quitter"
+
+#: main.c:344
 msgid "Player : Unknown"
 msgstr "Joueur : Inconnu"
 
-#: main.c:299
+#: main.c:345
 msgid "Count : Unknown"
 msgstr "Jet : Aucun"
 
-#: main.c:300
+#: main.c:346
 msgid "Turn : 1"
 msgstr "Tour : 1"
 
-#: main.c:315
+#: main.c:361
 msgid "DICE #1"
 msgstr "DÉ #1"
 
-#: main.c:315
+#: main.c:361
 msgid "DICE #2"
 msgstr "DÉ #2"
 
-#: main.c:315
+#: main.c:361
 msgid "DICE #3"
 msgstr "DÉ #3"
 
-#: main.c:315
+#: main.c:361
 msgid "DICE #4"
 msgstr "DÉ #4"
 
-#: main.c:315
+#: main.c:361
 msgid "DICE #5"
 msgstr "DÉ #5"
 
-#: main.c:315
+#: main.c:361
 msgid "DICE #6"
 msgstr "DÉ #6"
 
-#: main.c:316
+#: main.c:362
 msgid "Three Of Kind"
 msgstr "Trois Pareils"
 
-#: main.c:316
+#: main.c:362
 msgid "Four Of Kind"
 msgstr "Quatre Pareils"
 
-#: main.c:316
+#: main.c:362
 msgid "Chance"
 msgstr "Chance"
 
-#: main.c:317
+#: main.c:363
 msgid "30 points"
 msgstr "30 points"
 
-#: main.c:317
+#: main.c:363
 msgid "40 points"
 msgstr "40 points"
 
-#: main.c:317
+#: main.c:363
 msgid "25 points"
 msgstr "25 points"
 
-#: main.c:317
+#: main.c:363
 msgid "Sum"
 msgstr "Somme"
 
-#: main.c:317
+#: main.c:363
 msgid "50 points"
 msgstr "50 points"
 
-#: main.c:323
+#: main.c:369
 #, c-format
 msgid "Sum of same dices #%d"
 msgstr "Somme de mêmes dés #%d"
 
-#: main.c:407
+#: main.c:453
 msgid "SubSum > 63 points: +35 points"
 msgstr "Sous-total > 63 points: +35 points"
 
-#: main.c:446
+#: main.c:492
 msgid "Roll all dices"
 msgstr "Lancer tous les dés"
 
-#: main.c:446
+#: main.c:492
 msgid "Roll a dice selection"
 msgstr "Lancer la sélection de dé"
 
-#: main.c:446
+#: main.c:492
 msgid "Valid a select score"
 msgstr "Valider une ligne de score"
 
-#: main.c:446
+#: main.c:492
 msgid "Go to next player"
 msgstr "Aller au joueur suivant"
 
-#: main.c:446
+#: main.c:492
 msgid "Quit the game"
 msgstr "Quitter le jeu"
 
-#: main.c:449
-msgid "_Quit"
-msgstr "_Quitter"
-
-#: main.c:451
+#: main.c:497
 msgid "_Valid"
 msgstr "_Valider"
 
-#: main.c:453
+#: main.c:499
 msgid "Roll _All"
 msgstr "_Tout Lancer"
 
-#: main.c:455
+#: main.c:501
 msgid "_Roll"
 msgstr "_Lancer"
 
-#: main.c:457
+#: main.c:503
 msgid "_Next Player"
 msgstr "_Suivant"
 
-#: main.c:480
+#: main.c:526
 msgid "Welcome !"
 msgstr "Bienvenue!"
 
-#: main.c:497
+#: main.c:543
 msgid "Message alert"
 msgstr "Message d'alerte"
 
-#: main.c:898
+#: main.c:958
 msgid "You must select a choice !"
 msgstr "Vous devez sélectionner un choix !"
 
-#: main.c:913
+#: main.c:973
 msgid "clicked to close."
 msgstr "cliquez pour fermer."
 
-#: main.c:966 main.c:995
+#: main.c:1027 main.c:1056
 #, c-format
 msgid "Turn : %d"
 msgstr "Tour : %d"
 
-#: main.c:975
+#: main.c:1036
 msgid "Please play again"
 msgstr "Jouer à nouveau"
 
-#: main.c:1180
+#: main.c:1241
 msgid "Disabled Yazzi Bonus before this!"
 msgstr "Désactivez le Bonus Yazzi avant!"
 
-#: main.c:1381
+#: main.c:1442
 #, c-format
 msgid "Count : %d"
 msgstr "Jet : %d"
 
-#: main.c:1383
+#: main.c:1444
 #, c-format
 msgid "Count : %s"
 msgstr "Jet : %s"
 
-#: main.c:1383
+#: main.c:1444
 msgid "none"
 msgstr "aucun"
 
-#: main.c:1397
+#: main.c:1458
 #, c-format
 msgid "Player : %s"
 msgstr "Joueur: %s"
 
-#: main.c:1779
+#: main.c:1840
 #, c-format
 msgid ""
 "The two players are level!\n"
@@ -260,7 +272,7 @@ msgstr ""
 "\n"
 "\t::: score   %3d points :::"
 
-#: main.c:1784
+#: main.c:1845
 #, c-format
 msgid ""
 "And the winner is %s!\n"
@@ -273,31 +285,31 @@ msgstr ""
 "#\t%-20s\tscore:\t%03d points\n"
 "#\t%-20s\tscore:\t%03d points\n"
 
-#: main.c:1815
+#: main.c:1876
 msgid "Play again ?"
 msgstr "Rejouer à nouveau ?"
 
-#: main.c:1836
+#: main.c:1897
 msgid "Confirm to quit ?"
 msgstr "Voulez-vous quitter ?"
 
-#: main.c:1857
+#: main.c:1918
 msgid ":::YaZZi setup:::"
 msgstr ":::Yazzi Réglages:::"
 
-#: main.c:1860
+#: main.c:1921
 msgid "_OK"
 msgstr "Valider"
 
-#: main.c:1861
+#: main.c:1922
 msgid "_Cancel"
 msgstr "Annuler"
 
-#: main.c:1866
+#: main.c:1927
 msgid "Enter your player name"
 msgstr "Entrez votre nom de joueur"
 
-#: main.c:1869
+#: main.c:1930
 #, c-format
 msgid ""
 "\n"
@@ -306,10 +318,26 @@ msgstr ""
 "\n"
 "Joueur_1: %s \n"
 
-#: main.c:1870
+#: main.c:1931
 #, c-format
 msgid "Player_2: %s  \n"
 msgstr "Joueur_2: %s \n"
+
+#: main.c:1980
+msgid "Github source code YazziGtk website"
+msgstr "Github code source site web YazziGtk"
+
+#: main.c:1981
+msgid "It's fabulous dices game"
+msgstr "C'est un jeu de dés extraordinaire"
+
+#: main.c:1982
+msgid "About Yazzi Le Kiwi"
+msgstr "A propos de Yazzi Le Kiwi"
+
+#: main.c:1984
+msgid "YazziGtk"
+msgstr "YazziGtk"
 
 #: player.c:174
 msgid "Anonymous"
