@@ -309,10 +309,10 @@ int main(int argc, char **argv)
 	gtk_widget_set_tooltip_text(pButtonMenu, _("Open menu..."));
 	gtk_grid_attach(GTK_GRID(pGridMain), pButtonMenu, 4, 0, 1, 1);
 	/* items du menu */
-	GtkWidget * pVButtonBoxMenu = gtk_button_box_new(GTK_ORIENTATION_VERTICAL);
-    GtkWidget * pButtonHelpMenu = gtk_link_button_new_with_label("https://github.com/LeKiwiDeBx/YazziGtk#yazzigtk",_("Help"));
-    GtkWidget * pButtonAboutMenu = gtk_button_new_with_mnemonic(_("_About")) ;
-    GtkWidget * pButtonQuitMenu = gtk_button_new_with_mnemonic(_("_Quit")) ;
+	GtkWidget *pVButtonBoxMenu = gtk_button_box_new(GTK_ORIENTATION_VERTICAL);
+	GtkWidget *pButtonHelpMenu = gtk_link_button_new_with_label("https://github.com/LeKiwiDeBx/YazziGtk#yazzigtk", _("Help"));
+	GtkWidget *pButtonAboutMenu = gtk_button_new_with_mnemonic(_("_About"));
+	GtkWidget *pButtonQuitMenu = gtk_button_new_with_mnemonic(_("_Quit"));
 	/* 
 	GtkWidget * pImageHelp = gtk_image_new_from_icon_name("help-faq-symbolic", GTK_ICON_SIZE_MENU);
 	gtk_button_set_image(GTK_BUTTON(pButtonHelpMenu), pImageHelp);
@@ -329,8 +329,8 @@ int main(int argc, char **argv)
 	gtk_box_pack_start(GTK_BOX(pVButtonBoxMenu), pButtonAboutMenu, TRUE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(pVButtonBoxMenu), pButtonQuitMenu, TRUE, FALSE, 0);
 	/* signaux */
-	g_signal_connect(pButtonAboutMenu, "clicked", G_CALLBACK(_g_display_box_about),NULL);
-	g_signal_connect(pButtonQuitMenu, "clicked", G_CALLBACK(OnDestroy),NULL);
+	g_signal_connect(pButtonAboutMenu, "clicked", G_CALLBACK(_g_display_box_about), NULL);
+	g_signal_connect(pButtonQuitMenu, "clicked", G_CALLBACK(OnDestroy), NULL);
 	/* popover */
 	GtkWidget *popover = gtk_popover_new(pButtonMenu);
 	gtk_container_add(GTK_CONTAINER(popover), pGridMenu);
