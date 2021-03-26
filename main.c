@@ -1,7 +1,7 @@
 /*
  * main.c
  * Créé le 13 avril 2016 11:47:00
- * Copyright 2016 Le KiWi <jean@antix1>
+ * Copyright 2016-2021 LeKiWiDeBx Licence GNU GPL
  *
  */
 //#define GETTEXT_PACKAGE "GTK30"
@@ -33,11 +33,11 @@
 #define YAZ_APP_NAME "YazziGtk"
 #define YAZ_WINDOW_MAIN_SIZE_H 140
 #define YAZ_WINDOW_MAIN_SIZE_V 650
-#define YAZ_WINDOW_MAIN_TITLE "Yazzi Le Kiwi :: version Beta 1.01a (GTK+3) ::"
+#define YAZ_WINDOW_MAIN_TITLE "Yazzi Le Kiwi :: version Beta 1.2 (GTK+3) ::"
 #define YAZ_TABLE_MAIN_ROWS 15
 #define YAZ_TABLE_MAIN_COLS 6
 #define YAZ_REP_IMAGE "image/"
-#define YAZ_NB_BOUTON_FIGURE 8	 //pRadioButton
+#define YAZ_NB_BOUTON_FIGURE 8	   //pRadioButton
 #define _YAZ_CONCAT(s1, s2) s1##s2 //usage: _YAZ_CONCAT(jean_,_tatareau)  --> jean__tatareau (symbole pas string!)
 #define YAZ_ENTRY_NAME_MAX_LENGTH 20
 #define YAZ_THEME_PATH "theme/"
@@ -49,6 +49,7 @@ extern int (*row_sheet_score[])(Player *);
 extern int _sheet_score_already(Player *self, int numMark);
 extern diceSet *_epr_get_set_dices(Player *self);
 extern tabDice *_epr_factory_new(Player *self, eprTab tab);
+extern char *_epr_do_message_bar(const gchar *sOP, gboolean reset);
 int player_id;
 
 typedef enum e_yaz_state
@@ -84,7 +85,7 @@ typedef struct s_state_button
 	gboolean boxImageDice;
 } stateButton, *pstateButton;
 
-GtkWidget *pWindowMain = NULL, /* fenetre principale */
+GtkWidget *pWindowMain = NULL, /* fenêtre principale */
 	*pTableMain = NULL,
 		  *pGroupScore = NULL,
 		  *pButtonQuit = NULL,
@@ -119,7 +120,8 @@ GtkWidget *pWindowMain = NULL, /* fenetre principale */
 		  *pLabel = NULL,
 		  *pLabelAlert = NULL,
 		  *pLabelBar = NULL,
-		  *pBar = NULL;
+		  *pBar = NULL,
+		  *pButtonMenu = NULL;
 GtkCssProvider *pCssProvider = NULL;
 GtkImage *image = NULL;
 static const gchar *labelCrunching[] = {N_("SubSum"), N_("Bonus"), N_("Upper"), N_("Lower"), N_("Grand Total")};
@@ -201,11 +203,16 @@ static void
 _g_display_players_set_all_names();
 static void
 _g_display_alert_with_message(GtkWidget *alertMessage, const char *message);
+static void
+_g_display_pattern_with_message(const char *message);
 static gboolean
 _g_chain_order_focus();
 static gboolean
 _g_set_focus_dice(int pos);
-
+static void
+_g_display_box_about();
+static void
+quit_activate();
 /**
  * @brief Cé LE MAINEUH         =|8°() <\ © the-little-monkey >
  * @param argc
@@ -219,7 +226,7 @@ int main(int argc, char **argv)
 	int i = 0;
 	/* -------------------------------------------------------------------------- */
 	/*							International Le Kiwi <Int>				  		  */
-	/* 			  On internationnalise le Yazzi [Fichier .pot->.po->.mo]          */
+	/* 			  On internationalise le Yazzi [Fichier .pot->.po->.mo]          */
 	/* -------------------------------------------------------------------------- */
 	setlocale(LC_ALL, "");
 	bindtextdomain(GETTEXT_DOMAIN_NAME, GETTEXT_DIR_NAME);
@@ -243,23 +250,32 @@ int main(int argc, char **argv)
 
 	/* -------------------------------------------------------------------------- */
 	/*							Main Window									  	  */
-	/* 						crée la fenetre principale 							  */
+	/* 						crée la fenêtre principale 							  */
 	/* -------------------------------------------------------------------------- */
 
 	pWindowMain = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	/* Définition de la position */
 	gtk_window_set_position(GTK_WINDOW(pWindowMain), GTK_WIN_POS_CENTER);
 	/* Définition de la taille de la fenêtre */
-	gtk_window_set_default_size(GTK_WINDOW(pWindowMain), 450, 300);
-	gtk_widget_set_valign(pWindowMain, GTK_ALIGN_CENTER);
+	/*gtk_window_set_default_size(GTK_WINDOW(pWindowMain), 450, 300); */
+
+	GdkGeometry pGeoWindowMain;
+	pGeoWindowMain.min_height = 300;
+	pGeoWindowMain.max_height = 600;
+	pGeoWindowMain.min_width = 450;
+	pGeoWindowMain.max_width = 750;
+	gtk_window_set_geometry_hints(GTK_WINDOW(pWindowMain), pWindowMain, &pGeoWindowMain, GDK_HINT_MAX_SIZE | GDK_HINT_MIN_SIZE);
+	gtk_widget_set_valign(pWindowMain, GTK_ALIGN_FILL);
+	gtk_widget_set_halign(pWindowMain, GTK_ALIGN_FILL);
+
 	/* Titre de la fenêtre */
 	gtk_window_set_title(GTK_WINDOW(pWindowMain), YAZ_WINDOW_MAIN_TITLE);
 
 	/* -------------------------------------------------------------------------- */
 	/*							Signal connect WindowMain						  */
-	/* 						Connexion des evenements sur les CallBack(evt) 		  */
+	/* 						Connexion des événements sur les CallBack(evt) 		  */
 	/* evt: "destroy" 		-> suite bouton quitter								  */
-	/*      "delete-event" 	-> suite appel fermeture fenetre principale			  */
+	/*      "delete-event" 	-> suite appel fermeture fenêtre principale			  */
 	/*		"key-press-event"-> appui sur des touches clavier (combinées ou pas)  */
 	/* -------------------------------------------------------------------------- */
 	gtk_widget_set_events(GTK_WIDGET(pWindowMain), GDK_KEY_PRESS_MASK || GDK_FOCUS_CHANGE_MASK);
@@ -268,16 +284,58 @@ int main(int argc, char **argv)
 	g_signal_connect(pWindowMain, "key-press-event", G_CALLBACK(OnKeyPressWindowMain), NULL);
 
 	/* -------------------------------------------------------------------------- */
-	/*							Table 	==> GtkGrid reecriture pour gtk3		  */
+	/*							Table 	==> GtkGrid réécriture pour gtk3		  */
 	/* 						Grid de mise en place des widgets 	  			      */
 	/* -------------------------------------------------------------------------- */
 	pGridMain = gtk_grid_new();
 	gtk_grid_set_row_spacing(GTK_GRID(pGridMain), 0);
 	//gtk_grid_set_column_spacing(GTK_GRID(pGridMain), 0);
 	gtk_grid_set_column_homogeneous(GTK_GRID(pGridMain), TRUE);
-	gtk_grid_set_row_spacing(GTK_GRID(pGridMain), 0);
+	//gtk_grid_set_row_spacing(GTK_GRID(pGridMain), 0);
 	gtk_container_add(GTK_CONTAINER(pWindowMain), GTK_WIDGET(pGridMain));
 	gtk_container_set_border_width(GTK_CONTAINER(pWindowMain), 20);
+
+	/* -------------------------------------------------------------------------- */
+	/*							Menu		  									  */
+	/* 						Menu de l'application             	  			      */
+	/* -------------------------------------------------------------------------- */
+
+	// Button `sandwich`
+	pButtonMenu = gtk_menu_button_new();
+	GtkWidget *pGridMenu = gtk_grid_new();
+	gtk_button_set_image(GTK_BUTTON(pButtonMenu), gtk_image_new_from_icon_name("open-menu-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR));
+	gtk_widget_set_valign(pButtonMenu, GTK_ALIGN_CENTER);
+	gtk_widget_set_halign(pButtonMenu, GTK_ALIGN_CENTER);
+	gtk_widget_set_tooltip_text(pButtonMenu, _("Open menu..."));
+	gtk_grid_attach(GTK_GRID(pGridMain), pButtonMenu, 4, 0, 1, 1);
+	/* items du menu */
+	GtkWidget *pVButtonBoxMenu = gtk_button_box_new(GTK_ORIENTATION_VERTICAL);
+	GtkWidget *pButtonHelpMenu = gtk_link_button_new_with_label("https://github.com/LeKiwiDeBx/YazziGtk#yazzigtk", _("Help"));
+	GtkWidget *pButtonAboutMenu = gtk_button_new_with_mnemonic(_("_About"));
+	GtkWidget *pButtonQuitMenu = gtk_button_new_with_mnemonic(_("_Quit"));
+	/* 
+	GtkWidget * pImageHelp = gtk_image_new_from_icon_name("help-faq-symbolic", GTK_ICON_SIZE_MENU);
+	gtk_button_set_image(GTK_BUTTON(pButtonHelpMenu), pImageHelp);
+	gtk_button_set_image_position(GTK_BUTTON(pButtonHelpMenu), GTK_POS_LEFT); 	
+	GtkWidget * pImageAbout = gtk_image_new_from_icon_name("help-about-symbolic", GTK_ICON_SIZE_MENU);
+	gtk_button_set_image(GTK_BUTTON(pButtonAboutMenu), pImageAbout);
+	gtk_button_set_image_position(GTK_BUTTON(pButtonAboutMenu), GTK_POS_LEFT);
+	GtkWidget * pImageQuit = gtk_image_new_from_icon_name("system-shutdown-symbolic", GTK_ICON_SIZE_MENU);
+	gtk_button_set_image(GTK_BUTTON(pButtonQuitMenu), pImageQuit);
+	gtk_button_set_image_position(GTK_BUTTON(pButtonQuitMenu), GTK_POS_LEFT);
+ */
+	gtk_grid_attach(GTK_GRID(pGridMenu), pVButtonBoxMenu, 1, 1, 1, 1);
+	gtk_box_pack_start(GTK_BOX(pVButtonBoxMenu), pButtonHelpMenu, TRUE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(pVButtonBoxMenu), pButtonAboutMenu, TRUE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(pVButtonBoxMenu), pButtonQuitMenu, TRUE, FALSE, 0);
+	/* signaux */
+	g_signal_connect(pButtonAboutMenu, "clicked", G_CALLBACK(_g_display_box_about), NULL);
+	g_signal_connect(pButtonQuitMenu, "clicked", G_CALLBACK(OnDestroy), NULL);
+	/* popover */
+	GtkWidget *popover = gtk_popover_new(pButtonMenu);
+	gtk_container_add(GTK_CONTAINER(popover), pGridMenu);
+	gtk_menu_button_set_popover(GTK_MENU_BUTTON(pButtonMenu), popover);
+	gtk_widget_show_all(popover);
 
 	/* -------------------------------------------------------------------------- */
 	/*							Name of player /roll count	     	  	  		  */
@@ -296,7 +354,7 @@ int main(int argc, char **argv)
 
 	/* -------------------------------------------------------------------------- */
 	/*							Radio button with label							  */
-	/* 					Bouton radio pour selectionner les marques  			  */
+	/* 					Bouton radio pour sélectionner les marques  			  */
 	/* -------------------------------------------------------------------------- */
 	pGroupScore = gtk_radio_button_new(NULL);
 	g_signal_connect(G_OBJECT(pGroupScore), "toggled", G_CALLBACK(OnToggledRadioButtonDice), GINT_TO_POINTER(0));
@@ -465,7 +523,7 @@ int main(int argc, char **argv)
 	pBar = gtk_info_bar_new();
 	gtk_box_pack_start(GTK_BOX(pBoxBar), pBar, TRUE, TRUE, 0);
 	gtk_info_bar_set_message_type(GTK_INFO_BAR(pBar), GTK_MESSAGE_INFO);
-	pLabelBar = gtk_label_new("This is an info bar with message type GTK_MESSAGE_INFO");
+	pLabelBar = gtk_label_new(_("Welcome !"));
 	gtk_box_pack_start(GTK_BOX(gtk_info_bar_get_content_area(GTK_INFO_BAR(pBar))), pLabelBar, TRUE, TRUE, 0);
 	gtk_grid_attach(GTK_GRID(pGridMain), GTK_WIDGET(pBoxBar), 0, 14, 5, 1);
 
@@ -475,7 +533,7 @@ int main(int argc, char **argv)
 	/* -------------------------------------------------------------------------- */
 	pWindowAlert = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_modal(GTK_WINDOW(pWindowAlert), TRUE);
-	/* Rend dependante la fenetre alerte de la principale, utile pour la rendre modale*/
+	/* Rend dependante la fenêtre alerte de la principale, utile pour la rendre modale*/
 	gtk_window_set_transient_for(GTK_WINDOW(pWindowAlert), GTK_WINDOW(pWindowMain));
 	/* Définition de la position */
 	gtk_window_set_position(GTK_WINDOW(pWindowAlert), GTK_WIN_POS_CENTER_ON_PARENT);
@@ -483,18 +541,18 @@ int main(int argc, char **argv)
 	gtk_window_set_default_size(GTK_WINDOW(pWindowAlert), 250, 100);
 	/* Titre de la fenêtre [ inutile car sans decoration] pour un autre aspect may be!*/
 	gtk_window_set_title(GTK_WINDOW(pWindowAlert), _("Message alert"));
-	/* ajoute un label null , sera remplit ulterieurement*/
+	/* ajoute un label null , sera remplit ultérieurement*/
 	pLabelAlert = gtk_label_new(NULL);
-	/* Definition pour un evenement */
+	/* Definition pour un événement */
 	eventBoxLabelAlert = gtk_event_box_new();
 	gtk_event_box_set_visible_window(GTK_EVENT_BOX(eventBoxLabelAlert), FALSE);
 	/* Ajoute le texte à la boite */
 	gtk_container_add(GTK_CONTAINER(eventBoxLabelAlert), pLabelAlert);
-	/* ajoute la boite a la fenetre */
+	/* ajoute la boite a la fenêtre */
 	gtk_container_add(GTK_CONTAINER(pWindowAlert), eventBoxLabelAlert);
 	/* enleve les decoration pour un aspect tool tips*/
 	gtk_window_set_decorated(GTK_WINDOW(pWindowAlert), FALSE);
-	/* callback de l'evenement de la boite evenement */
+	/* callback de l'événement de la boite événement */
 	g_signal_connect(eventBoxLabelAlert, "button-press-event", G_CALLBACK(OnCloseAlert), NULL);
 	g_signal_connect(eventBoxLabelAlert, "delete-event", G_CALLBACK(OnCloseAlert), NULL);
 
@@ -512,6 +570,11 @@ int main(int argc, char **argv)
 	gtk_style_context_add_class(gtk_widget_get_style_context(pLabelName), "labeltop");
 	gtk_style_context_add_class(gtk_widget_get_style_context(pLabelCount), "labeltop");
 	gtk_style_context_add_class(gtk_widget_get_style_context(pLabelTurn), "labeltop");
+
+	gtk_style_context_add_class(gtk_widget_get_style_context(pButtonHelpMenu), "menuItem");
+	gtk_style_context_add_class(gtk_widget_get_style_context(pButtonAboutMenu), "menuItem");
+	gtk_style_context_add_class(gtk_widget_get_style_context(pButtonQuitMenu), "menuItem");
+
 	for (gint i = 0; i < DICE_NUMBER; i++)
 	{
 		gtk_style_context_add_class(gtk_widget_get_style_context(pDice[i]), "dice");
@@ -559,8 +622,17 @@ int main(int argc, char **argv)
 	return 0;
 }
 
+static void
+quit_activate(GSimpleAction *action,
+			  GVariant *parameter,
+			  gpointer app)
+{
+	g_print("quit_activate\n");
+	exit(0);
+}
+
 /**
- * @brief pattern mediator pour synchroniser les etats des widgets
+ * @brief pattern mediator pour synchroniser les états des widgets
  * en fonction du jeu
  *
  *
@@ -647,7 +719,7 @@ void OnDestroy(GtkWidget *pWidget, gpointer pData)
 }
 
 /**
- * @brief Appeler par Windowmain lorsque clique barre de fenetre haut droit [X]
+ * @brief Appeler par Windowmain lorsque clique barre de fenêtre haut droit [X]
  * @param pWidget
  * @param pData
  * 
@@ -663,11 +735,11 @@ void OnDelete(GtkWidget *pWidget, gpointer pData)
 }
 
 /**
- * @brief Gestion des evenements clavier sur la fenetre principale
+ * @brief Gestion des événements clavier sur la fenêtre principale
  * 
- * @param pWidget la fenetre principale
- * @param event   evenement que l'on transtype clavier pour etre plus souple
- * @param pData   un data, peut etre NULL
+ * @param pWidget la fenêtre principale
+ * @param event   événement que l'on transtype clavier pour être plus souple
+ * @param pData   un data, peut être NULL
  */
 static gboolean
 OnKeyPressWindowMain(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
@@ -757,6 +829,9 @@ void OnRollAll(GtkWidget *pWidget, gpointer pData)
 		g_printf("dices in order : %d\n", *p);
 		p++;
 	}
+	char mess[255] = "";
+	strcpy(mess, _epr_do_message_bar("", FALSE));
+	_g_display_pattern_with_message(mess);
 }
 
 /**
@@ -792,7 +867,7 @@ _g_chain_order_focus()
 }
 
 /**
- * @brief On lance les des selectionnes
+ * @brief On lance les des sélectionnés
  * @param pWidget
  * @param pData
  *
@@ -837,11 +912,16 @@ void OnRoll(GtkWidget *pWidget, gpointer pData)
 	int *p = (int *)g_malloc(DICE_NUMBER * sizeof(int));
 	if (p != NULL)
 		p = _epr_factory_new(Players, TAB_SORT_ASC)[0];
+	//c'est ici à faire ici l'appel _g_display_message_pattern(char *message) non implementé encore
+	// dans fonction OnRoll et OnRollAll
 	for (int i = 0; i < DICE_NUMBER; i++)
 	{
 		g_printf("dices in order : %d\n", *p);
 		p++;
 	}
+	char mess[255] = "";
+	strcpy(mess, _epr_do_message_bar("", FALSE));
+	_g_display_pattern_with_message(mess);
 }
 
 /**
@@ -905,12 +985,24 @@ _g_display_alert_with_message(GtkWidget *alertMessage, const char *message)
 /**
  * @brief ferme le message d'alerte
  * 
- * @param widget la fenetre du message
+ * @param widget la fenêtre du message
  * @param pData NULL
  */
 void OnCloseAlert(GtkWidget *widget, gpointer pData)
 {
 	gtk_widget_hide(pWindowAlert);
+}
+/**
+ * @brief Affiche un message de pattern possible des dés 
+ * 
+ * @param message  le texte du pattern possible
+ */
+static void
+_g_display_pattern_with_message(const char *message)
+{
+	gboolean reset = TRUE;
+	gtk_label_set_text(GTK_LABEL(pLabelBar), message);
+	_epr_do_message_bar("\0", reset);
 }
 
 /**
@@ -941,6 +1033,7 @@ void OnNextPlayer(GtkWidget *pWidget, gpointer pData)
 		_g_display_players_entries_text(Players);
 		_g_display_players_update_score_all(Players);
 		_g_mediator_widget_state(pWidget, GINT_TO_POINTER(YAZ_STATE_NEXT_PLAYER));
+		_g_display_pattern_with_message(_("Please play again"));
 	}
 	else
 	{
@@ -994,7 +1087,7 @@ OnClickDice(GtkWidget *eventBoxImageDice, GdkEvent *event, gpointer pData) //Gdk
  * @brief une touche clavier sur le radio button des dés
  * 
  * @param pWidget le widget appelant
- * @param event evenement clavier
+ * @param event événement clavier
  * @param pData la position du radio bouton
  * @return gboolean 
  */
@@ -1014,7 +1107,7 @@ OnKeyPressRadioButtonDice(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
  * @brief une touche clavier sur le radio button des figure
  * 
  * @param pWidget le widget appelant
- * @param event evenement clavier
+ * @param event événement clavier
  * @param pData la position du radio bouton
  * @return gboolean 
  */
@@ -1133,7 +1226,7 @@ void OnReleaseRadioButtonFigure(GtkWidget *pWidget, gpointer pData)
 		{
 			g_printf("yazzi selectionné\n");
 			int name = 0;
-			while (name <= DICE_5) //deselectionne les des
+			while (name <= DICE_5) //désélectionne les des
 			{
 				if (!Players->set->dices[name].enable)
 					_g_players_set_dices_is_enable(name);
@@ -1312,7 +1405,7 @@ OnLeaveRadioButtonScore(GtkWidget *pWidget, GdkEvent *event, gpointer pData)
 }
 
 /**
- * @brief Ecrit le score des dès dans la zone de saisie
+ * @brief Écrit le score des dès dans la zone de saisie
  * 
  * @param numMark indice de la gtk_entry
  * @param value   valeur à inscrire
@@ -1324,7 +1417,7 @@ _g_display_players_value_dice_score(const int numMark, const int value)
 }
 
 /**
- * @brief Ecrit le score des figure dans la zone de saisie correspondant
+ * @brief Écrit le score des figure dans la zone de saisie correspondant
  * 
  * @param numMark indice de la gtk_entry
  * @param value  valeur a inscrire
@@ -1380,7 +1473,7 @@ _g_display_players_update_score_all(Player *self)
 		Bonus = 14,		   //14
 		UpperSection = 15, //15
 		LowerSection = 17, //17
-		GrandTotal = 18	//18
+		GrandTotal = 18	   //18
 	};
 	gchar *display;
 	gint minusBonus;
@@ -1467,8 +1560,8 @@ _g_display_players_preliminary_score_all(Player *self)
 	g_free(display);
 }
 /**
- * @brief on remet a zero la derniere marque cliquée par l'evaluation pour les dés ou pour les figures
- * et efface la selection de la marque evaluée.
+ * @brief on remet a zero la dernière marque cliquée par l'evaluation pour les dés ou pour les figures
+ * et efface la selection de la marque évaluée.
  * @brief ne fonctionne qu'au tour 2 car au tour 3 la validation totale est obligatoire
  * appelé par Roll
  * @param none
@@ -1498,7 +1591,7 @@ _g_display_reset_value_score_select()
 }
 
 /**
- * @brief Affiche l'image du dé soit actif(selectionne) ou non
+ * @brief Affiche l'image du dé soit actif(sélectionne) ou non
  * @param value valeur du dé
  * @param name  nom du dé
  * @param enable si actif ou pas
@@ -1518,7 +1611,7 @@ _g_display_players_dices_is_enable(const int value, const int name, const gboole
 }
 
 /**
- * @brief Met l'image de la valeur du dé selectionné/deselectionne
+ * @brief Met l'image de la valeur du dé sélectionné/désélectionné
  * @param name nom du dé
  *
  *
@@ -1547,8 +1640,8 @@ _g_players_set_dices_is_unknown()
 }
 
 /**
- * @brief Fixe l'etat des boutons actif/inactif
- * @param isState pointeur sur structure de l'etat des boutons
+ * @brief Fixe l'état des boutons actif/inactif
+ * @param isState pointeur sur structure de l'état des boutons
  *
  *
  */
@@ -1574,11 +1667,11 @@ _g_button_set_state(stateButton *isState)
 	{
 		if (_sheet_score_already(Players, i + 1)) //si cellule non validée (modifiable)
 		{
-			if (isState->radioButtonDice) //acces en ecriture (active)
+			if (isState->radioButtonDice) //acces en écriture (active)
 			{
 				pStyle = g_strdup_printf("dark");
 			}
-			else //interdite en ecriture (non active)
+			else //interdite en écriture (non active)
 			{
 				pStyle = g_strdup_printf("red");
 			}
@@ -1589,11 +1682,11 @@ _g_button_set_state(stateButton *isState)
 		}
 		else //si cellule validée (non modifiable)
 		{
-			if (isState->radioButtonDice) //etat interdite en ecriture
+			if (isState->radioButtonDice) //état interdite en écriture
 			{
 				pStyle = g_strdup_printf("violet");
 			}
-			else // etat selectionné et interdite en ecriture (permet de voir la derniere validation)
+			else // état sélectionné et interdite en écriture (permet de voir la dernière validation)
 			{
 				pStyle = g_strdup_printf("yellow");
 			}
@@ -1607,11 +1700,11 @@ _g_button_set_state(stateButton *isState)
 	{
 		if (_sheet_score_already(Players, i + 7)) //si cellule non validée (modifiable)
 		{
-			if (isState->radioButtonFigure) //acces en ecriture (active)
+			if (isState->radioButtonFigure) //acces en écriture (active)
 			{
 				pStyle = g_strdup_printf("dark");
 			}
-			else //interdite en ecriture (non active)
+			else //interdite en écriture (non active)
 			{
 				pStyle = g_strdup_printf("red");
 			}
@@ -1622,11 +1715,11 @@ _g_button_set_state(stateButton *isState)
 		}
 		else //si cellule validée (non modifiable)
 		{
-			if (isState->radioButtonFigure) //etat interdite en ecriture
+			if (isState->radioButtonFigure) //état interdite en écriture
 			{
 				pStyle = g_strdup_printf("violet");
 			}
-			else // etat selectionné et interdite en ecriture (permet de voir la derniere validation)
+			else // état sélectionné et interdite en écriture (permet de voir la dernière validation)
 			{
 				pStyle = g_strdup_printf("yellow");
 			}
@@ -1645,7 +1738,7 @@ _g_button_set_state(stateButton *isState)
 }
 
 /**
- * @brief mis a jour pour un joueur du CSS refletant l'etat des radiobutton
+ * @brief mis a jour pour un joueur du CSS refletant l'état des radiobutton
  * 
  * @param widget le radiobutton concerné
  * @param pData  la classe CSS à appliquer
@@ -1723,7 +1816,7 @@ _g_radio_button_figure_num_active()
 }
 
 /**
- * @brief Affiche le... gagnant ou egal
+ * @brief Affiche le... gagnant ou égal
  *
  *
  */
@@ -1856,7 +1949,7 @@ void _g_display_players_set_all_names()
 	gtk_widget_show_all(GTK_WIDGET(pDialogSetUp));
 
 	//gtk_window_set_position (GTK_WINDOW(pDialogSetUp), GTK_WIN_POS_CENTER);
-	/* On lance la boite de dialogue et on récupére la réponse */
+	/* On lance la boite de dialogue et on récupère la réponse */
 	switch (gtk_dialog_run(GTK_DIALOG(pDialogSetUp)))
 	{
 	/* L utilisateur valide */
@@ -1875,4 +1968,34 @@ void _g_display_players_set_all_names()
 		break;
 	}
 	gtk_widget_destroy(pDialogSetUp);
+}
+
+static void _g_display_box_about()
+{
+	const gchar *authors[] =
+		{"LeKiWiDeBx Re8irth <LeKiwiDeBx@gmail.com>",
+		 NULL};
+	const gchar *copyright = "Copyright 2016-2021 LeKiWiDeBx [°} Re8irth";
+	const gchar *website = "https://github.com/LeKiwiDeBx/YazziGtk";
+	const gchar *website_label = _("Github source code YazziGtk website");
+	const gchar *comments = _("It's fabulous dices game");
+	const gchar *title = _("About Yazzi Le Kiwi");
+	const gchar *version = "version Beta 1.2 Gtk 3.22";
+	const gchar *program_name = _("YazziGtk");
+	const gchar *logo_filename = "image/diceX-64x64.png";
+	GdkPixbuf *logo = gdk_pixbuf_new_from_file(logo_filename, NULL);
+
+	gtk_show_about_dialog(GTK_WINDOW(pWindowMain),
+						  "program-name", program_name,
+						  "version", version,
+						  "authors", authors,
+						  "copyright", copyright,
+						  "license-type", GTK_LICENSE_GPL_2_0,
+						  "title", title,
+						  "wrap-license", FALSE,
+						  "comments", comments,
+						  "website-label", website_label,
+						  "website", website,
+						  "logo", logo,
+						  NULL);
 }

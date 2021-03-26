@@ -1,5 +1,7 @@
 #!/bin/bash
 cd ~/YazziGtk/YazziGtk
+echo -e "Compilation YazziGtk\n"
 make
 echo $?
+echo -e "Lancement YazziGtk...\n"
 ./yazziGtk
