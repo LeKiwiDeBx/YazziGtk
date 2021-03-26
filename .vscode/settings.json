@@ -30,5 +30,6 @@
         "color",
         "define"
     ],
-    "search.useGlobalIgnoreFiles": true
+    "search.useGlobalIgnoreFiles": true,
+    "c-cpp-flylint.flexelint.enable": false
 }
