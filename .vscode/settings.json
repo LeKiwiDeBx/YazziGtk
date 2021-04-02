@@ -32,7 +32,11 @@
         "define"
     ],
     "search.useGlobalIgnoreFiles": true,
+<<<<<<< HEAD
+    "c-cpp-flylint.flexelint.enable": false
+=======
     "c-cpp-flylint.flexelint.enable": false,
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false
+>>>>>>> a1773decbfc4ebb1654b8ec92b45daf3a5fbb54d
 }
