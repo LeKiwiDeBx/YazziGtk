@@ -28,7 +28,7 @@ void scoreDB_add();
 void scoreDB_remove();
 void scoreDB_read();
 void scoreDB_sort();
-void scoreDB_write();
+void scoreDB_write(); 
 #endif // !_SCOREDB_H
 
 

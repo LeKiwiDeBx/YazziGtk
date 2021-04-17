@@ -260,7 +260,7 @@ int main(int argc, char **argv)
 	/*gtk_window_set_default_size(GTK_WINDOW(pWindowMain), 450, 300); */
 
 	GdkGeometry pGeoWindowMain;
-	pGeoWindowMain.min_height = 300;
+	pGeoWindowMain.min_height = 300; 
 	pGeoWindowMain.max_height = 600;
 	pGeoWindowMain.min_width = 450;
 	pGeoWindowMain.max_width = 750;
