@@ -34,5 +34,15 @@
     "search.useGlobalIgnoreFiles": true,
     "c-cpp-flylint.flexelint.enable": false,
     "editor.fontLigatures": true,
-    "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'"
+    "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "c-cpp-flylint.clang.standard": [],
+    "c-cpp-flylint.cppcheck.includePaths": [],
+    "c-cpp-flylint.flawfinder.enable": false,
+    "c-cpp-flylint.language": "c",
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter-notebook",
+            "filenamePattern": "*.ipynb"
+        }
+    ],
 }

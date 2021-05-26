@@ -21,7 +21,7 @@ typedef struct s_ScoreDB
     gint value_avg; /* moyenne des points de la victoire */
     gint party_number; /* nombre de partie */
 
-} ScoreDB, *ptr_ScoreDB;
+} ScoreDB, *ptr_ScoreDB; 
 
 void scoreDB_init();
 void scoreDB_add();

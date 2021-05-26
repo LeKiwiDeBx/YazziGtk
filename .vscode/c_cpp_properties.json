@@ -12,6 +12,7 @@
             "name": "LinuxGTK",
             "includePath": [
                 "${workspaceFolder}/**",
+                "/usr/include/**",
                 "/usr/include/gtk-3.0/**",
                 "/usr/include/at-spi2-atk/2.0",
                 "/usr/include/at-spi-2.0",
@@ -19,19 +20,19 @@
                 "/usr/include/glib-2.0/**",
                 "/usr/lib/x86_64-linux-gnu/dbus-1.0/include",
                 "/usr/include/gtk-3.0/gtk/a11y",
-                "/usr/lib/x86_64-linux-gnu/glib-2.0/include",
-                "/usr/include"
+                "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/x86_64-linux-gnu-gcc-8",
-            "cStandard": "c11",
-            "cppStandard": "c++17",
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "${default}",
             "browse": {
                 "path": [
-                    "${workspaceFolder}",
-                    "/usr/include"
+                    "/usr/include",
+                    "${workspaceFolder}"
                 ],
-                "limitSymbolsToIncludedHeaders": "true",
+                "limitSymbolsToIncludedHeaders": false,
                 "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
             }
         },
