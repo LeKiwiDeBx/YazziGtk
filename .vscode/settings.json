@@ -39,12 +39,9 @@
     "c-cpp-flylint.cppcheck.includePaths": [],
     "c-cpp-flylint.flawfinder.enable": false,
     "c-cpp-flylint.language": "c",
-    "workbench.editorAssociations": [
-        {
-            "viewType": "jupyter-notebook",
-            "filenamePattern": "*.ipynb"
-        }
-    ],
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
 }

@@ -9,8 +9,13 @@
 #define _SCOREDB_H_
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <gtk/gtk.h>
 
+#define YAZZI_NB_SCORE_DB 10
+#define YAZZI_FILE_DB "yazziScore.db"
+
+FILE *pScoreDB ;
 typedef struct s_ScoreDB
 {
     /* data */
