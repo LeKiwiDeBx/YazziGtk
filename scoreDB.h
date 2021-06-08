@@ -28,8 +28,8 @@ typedef struct s_ScoreDB
 
 } ScoreDB, *ptr_ScoreDB; 
 
-void scoreDB_init();
-void scoreDB_add();
+int scoreDB_init();
+int scoreDB_add();
 void scoreDB_remove();
 void scoreDB_read();
 void scoreDB_sort();
