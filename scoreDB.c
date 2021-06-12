@@ -41,6 +41,6 @@ scoreDB_add(ptr_ScoreDB pScore, int pos){
     // fseek
     // completer avec le reste jusqu'a 10 record max
     fseek(pScoreDB, sizeof(ScoreDB)*pos, SEEK_SET);
-    fprintf(pScoreDB,"",);
+    fwrite(pScore,sizeof(ScoreDB),1,pScoreDB);
 
 }
