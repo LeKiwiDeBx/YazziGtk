@@ -11,11 +11,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <gtk/gtk.h>
+#include <gmodule.h>
 
 #define YAZZI_NB_SCORE_DB 10
 #define YAZZI_FILE_DB "yazziScore.db"
 
 FILE *pScoreDB ;
+GSList *listScore = NULL; 
+
 typedef struct s_ScoreDB
 {
     /* data */
